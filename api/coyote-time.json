@@ -1,0 +1,36 @@
+{
+  "id": "coyote-time",
+  "name": "Coyote time",
+  "aliases": [
+    "jump grace time",
+    "ledge forgiveness",
+    "late jump window"
+  ],
+  "feels": [
+    "unfair",
+    "unresponsive",
+    "I pressed jump"
+  ],
+  "summary": "For a short moment after the player runs off a ledge, jump still works as if they were on the ground.",
+  "what_it_does": "Players press jump a few frames late all the time, mostly right at the edge of a platform. Without coyote time the game sees that press as \"in the air\" and ignores it, and the player falls while sure they pressed jump. With it, you track how long ago the player last stood on ground and allow a normal jump while that time is under the window.",
+  "use_when": "Any platformer with gaps or ledges.",
+  "watch_out": "Never give it after a jump has already started, or it turns into a free double jump.",
+  "starting_values": "Around 100 ms is a common starting point. Celeste's public player code uses a 0.1 second jump grace time. Try 60 to 150 ms.",
+  "default_slider_values": {
+    "coyoteMs": 100.0
+  },
+  "prompt": "Add coyote time to the player's jump.\n- Track the time since the player was last on the ground.\n- Allow a normal ground jump while that time is under 100 ms, even if the player is no longer touching the ground.\n- Only after walking off an edge. Once any jump starts, clear the timer so coyote time can't give a second jump.\n- Put the window in a named constant (COYOTE_MS = 100) and use real time (delta time), not frame counts.\n\nAcceptance checks:\n1. Walking off an edge and pressing jump 50 ms later jumps.\n2. Pressing jump 150 ms after leaving the edge does nothing.\n3. Jumping, then pressing jump again in the air, never gives a second jump.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    },
+    {
+      "title": "GDQuest glossary: coyote time",
+      "url": "https://www.gdquest.com/library/glossary/coyote_time/"
+    }
+  ],
+  "page": "e/coyote-time/index.html",
+  "json": "api/coyote-time.json",
+  "updated": "2026-10-21"
+}

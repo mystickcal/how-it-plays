@@ -1,0 +1,30 @@
+{
+  "id": "i-frames",
+  "name": "Invincibility frames with flicker",
+  "aliases": [
+    "i-frames",
+    "mercy invincibility",
+    "invincible after a hit",
+    "damage cooldown",
+    "hurt flicker"
+  ],
+  "feels": [
+    "unfair",
+    "lost all my health at once",
+    "cheap hits"
+  ],
+  "summary": "After taking a hit, the player can't be hurt again for a short time, and the sprite flickers so they know.",
+  "what_it_does": "Without i-frames, touching a hazard deals damage every frame you overlap it, so one mistake empties the health bar. With them, a hit starts a timer and further damage is ignored until it runs out. Flickering the sprite shows the state without any extra UI.",
+  "use_when": "Anything with health and contact damage.",
+  "watch_out": "One-hit-death games, where the hit ends the attempt anyway.",
+  "starting_values": "0.5 to 1.5 seconds for platformers. Flicker every 60 to 100 ms.",
+  "default_slider_values": {
+    "iframeMs": 1000.0,
+    "flickerMs": 80.0
+  },
+  "prompt": "Add invincibility frames after the player takes damage.\n- On damage, set invulnerableUntil = now + 1000 ms. Ignore damage while now < invulnerableUntil.\n- While invulnerable, draw the sprite only when Math.floor(now / 80) % 2 === 0.\n- Movement, input and hitboxes keep working during the flicker.\n- Use time, not frame counts.\n\nAcceptance checks:\n1. Standing inside a hazard takes one hit per 1000 ms, not one per frame.\n2. The sprite is fully visible again when the window ends.\n3. Flicker speed is the same at 30 and 144 fps.",
+  "sources": [],
+  "page": "e/i-frames/index.html",
+  "json": "api/i-frames.json",
+  "updated": "2026-10-21"
+}

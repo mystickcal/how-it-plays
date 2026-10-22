@@ -1,0 +1,33 @@
+{
+  "id": "variable-jump-height",
+  "name": "Variable jump height",
+  "aliases": [
+    "jump cut",
+    "short hop",
+    "hold to jump higher"
+  ],
+  "feels": [
+    "floaty",
+    "no control in the air",
+    "every jump is the same"
+  ],
+  "summary": "Tap jump for a short hop, hold it for a full jump. When the player lets go while still rising, cut the upward speed.",
+  "what_it_does": "With one fixed jump, small hops are impossible and the player spends a long time in the air for every tiny step, which reads as floaty. The common fix: when jump is released and the character is still moving up, multiply the vertical speed by a number under 1. Gravity then ends the jump sooner.",
+  "use_when": "Platformers where the player needs both small and big jumps.",
+  "watch_out": "Games where every jump should be identical on purpose, like some puzzle or rhythm games.",
+  "starting_values": "A cut of 0.4 to 0.5 is a common start. Celeste does it differently: it keeps the jump speed for up to 0.2 seconds while the button is held. Both work.",
+  "default_slider_values": {
+    "jumpCut": 0.45,
+    "jumpVel": 480.0
+  },
+  "prompt": "Add variable jump height.\n- Jump starts with an upward speed of 480 px/s.\n- When the jump button is released while the player is still moving up, multiply vertical speed by 0.45.\n- Apply the cut only once per jump and only while rising.\n\nAcceptance checks:\n1. A quick tap peaks clearly lower than a full hold. Log both peak heights.\n2. Releasing the button while falling changes nothing.\n3. A full hold reaches the same height as before this change.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/variable-jump-height/index.html",
+  "json": "api/variable-jump-height.json",
+  "updated": "2026-10-21"
+}

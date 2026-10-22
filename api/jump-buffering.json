@@ -1,0 +1,32 @@
+{
+  "id": "jump-buffering",
+  "name": "Jump buffering",
+  "aliases": [
+    "jump buffer",
+    "early jump press",
+    "buffered jump input"
+  ],
+  "feels": [
+    "unresponsive",
+    "it ate my input",
+    "stiff"
+  ],
+  "summary": "If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground.",
+  "what_it_does": "When players chain jumps they often press a little early, while still falling. Without a buffer that press is thrown away because they weren't on the ground yet, and the game feels like it ignored them. With a buffer you store when jump was pressed, and on each frame you jump if the player is grounded and the press is recent enough.",
+  "use_when": "Any game with repeated jumps, and the same idea works for dashes and other moves.",
+  "watch_out": "Keep the window short. A long buffer makes the character jump when the player has already changed their mind.",
+  "starting_values": "100 to 150 ms is a common start. Celeste's player code reads jump from a buffered input and consumes the buffer when a jump starts.",
+  "default_slider_values": {
+    "bufferMs": 120.0
+  },
+  "prompt": "Add jump buffering.\n- When jump is pressed, store the time of the press.\n- Every frame, if the player is grounded and a jump press happened in the last 120 ms, jump and clear the stored press.\n- Only new presses count. Holding the button must not auto-repeat jumps.\n- Use real time (delta time) for the window. JUMP_BUFFER_MS = 120.\n\nAcceptance checks:\n1. Pressing jump 60 ms before landing jumps on the frame the player lands.\n2. Pressing jump 170 ms before landing does nothing.\n3. Holding jump through a landing does not trigger a second jump.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/jump-buffering/index.html",
+  "json": "api/jump-buffering.json",
+  "updated": "2026-10-21"
+}

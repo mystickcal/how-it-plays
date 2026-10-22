@@ -1,0 +1,36 @@
+{
+  "id": "acceleration-curves",
+  "name": "Acceleration and deceleration",
+  "aliases": [
+    "run acceleration",
+    "friction",
+    "ground friction",
+    "momentum"
+  ],
+  "feels": [
+    "stiff",
+    "robotic",
+    "slippery",
+    "like ice",
+    "floaty"
+  ],
+  "summary": "Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery.",
+  "what_it_does": "Instant velocity (full speed on the first frame, zero the frame you let go) feels robotic. Low deceleration feels like ice. Most platformers reach top speed in a fraction of a second and stop a little faster or slower depending on the feel they want. Use a separate, usually smaller, multiplier in the air.",
+  "use_when": "Almost any character controller.",
+  "watch_out": "Grid-based or tile-step movement, where position snaps on purpose.",
+  "starting_values": "Celeste's public player code uses a max run of 90 and run acceleration of 1000 (pixels per second at 320 by 180), so it reaches full speed in under a tenth of a second. This demo is twice that resolution: max 200 px/s, acceleration 2000, deceleration 1600.",
+  "default_slider_values": {
+    "accel": 2000.0,
+    "decel": 1600.0
+  },
+  "prompt": "Replace instant horizontal movement with acceleration and deceleration.\n- Max speed 200 px/s.\n- While input is held in the direction of motion, move velocity toward max speed by 2000 px/s\u00b2 * dt.\n- With no input, or input against the motion, move velocity toward 0 (or toward the new direction) by 1600 px/s\u00b2 * dt.\n- In the air, multiply both by 0.7.\n- Use a move-toward function so velocity never overshoots the target.\n\nAcceptance checks:\n1. From standing, full speed takes about 100 ms.\n2. Releasing at full speed stops the character within a short, consistent distance.\n3. Turning around never flips speed instantly.\n4. Behavior is the same at 30 and 144 fps.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/acceleration-curves/index.html",
+  "json": "api/acceleration-curves.json",
+  "updated": "2026-10-21"
+}

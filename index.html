@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How It Plays: a playable game feel dictionary</title>
+<meta name="description" content="Playable demos of game feel techniques with on/off switches, sliders and copy-paste prompts for AI coding agents.">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="index.html">How It Plays</a></header>
+<main id="main">
+
+<section class="hero">
+  <h1>Game feel you can play. Learn the name, feel it on and off, copy the prompt.</h1>
+  <p class="lead">For people building browser games with AI. Each entry has a small playable demo with an on/off switch and sliders, starting values, and a prompt for your coding agent.</p>
+  <form class="search" role="search" onsubmit="return false">
+    <label for="q" class="vh">Search techniques</label>
+    <input id="q" type="search" placeholder="Search, or describe how it feels: floaty, unfair, weak hits" autocomplete="off" spellcheck="false">
+  </form>
+  <div class="feels" role="group" aria-label="It feels..."><span>It feels:</span> <button type="button" class="feel" data-q="floaty" data-ids="variable-jump-height acceleration-curves" aria-pressed="false">floaty</button> <button type="button" class="feel" data-q="stiff or robotic" data-ids="acceleration-curves jump-buffering" aria-pressed="false">stiff or robotic</button> <button type="button" class="feel" data-q="slippery" data-ids="acceleration-curves" aria-pressed="false">slippery</button> <button type="button" class="feel" data-q="unfair" data-ids="coyote-time i-frames jump-buffering" aria-pressed="false">unfair</button> <button type="button" class="feel" data-q="unresponsive" data-ids="jump-buffering attack-input-buffer coyote-time" aria-pressed="false">unresponsive</button> <button type="button" class="feel" data-q="weak hits" data-ids="hitstop screen-shake knockback" aria-pressed="false">weak hits</button> <button type="button" class="feel" data-q="can&#x27;t see ahead" data-ids="camera-lookahead" aria-pressed="false">can&#x27;t see ahead</button></div>
+</section>
+<section aria-labelledby="results-h">
+  <h2 id="results-h" class="vh">Techniques</h2>
+  <p class="count" id="count" aria-live="polite">10 techniques</p>
+  <ol class="results" id="results">
+<li><a href="e/coyote-time/index.html"><span class="r-name">Coyote time</span><span class="r-need">For a short moment after the player runs off a ledge, jump still works as if they were on the ground.</span></a></li>
+<li><a href="e/jump-buffering/index.html"><span class="r-name">Jump buffering</span><span class="r-need">If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground.</span></a></li>
+<li><a href="e/variable-jump-height/index.html"><span class="r-name">Variable jump height</span><span class="r-need">Tap jump for a short hop, hold it for a full jump. When the player lets go while still rising, cut the upward speed.</span></a></li>
+<li><a href="e/camera-lookahead/index.html"><span class="r-name">Camera lookahead and smoothing</span><span class="r-need">The camera aims a bit ahead of where the player is facing and eases toward that point instead of being glued to the player.</span></a></li>
+<li><a href="e/attack-input-buffer/index.html"><span class="r-name">Input buffering for attacks</span><span class="r-need">A press made during an attack&#x27;s recovery is saved and fires the moment the attack ends, instead of being thrown away.</span></a></li>
+<li><a href="e/i-frames/index.html"><span class="r-name">Invincibility frames with flicker</span><span class="r-need">After taking a hit, the player can&#x27;t be hurt again for a short time, and the sprite flickers so they know.</span></a></li>
+<li><a href="e/hitstop/index.html"><span class="r-name">Hitstop</span><span class="r-need">Freeze the action for a few frames when a hit lands so the impact registers.</span></a></li>
+<li><a href="e/screen-shake/index.html"><span class="r-name">Screen shake with falloff</span><span class="r-need">Shake the camera on impact, with the strength fading over time instead of a constant jitter.</span></a></li>
+<li><a href="e/acceleration-curves/index.html"><span class="r-name">Acceleration and deceleration</span><span class="r-need">Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery.</span></a></li>
+<li><a href="e/knockback/index.html"><span class="r-name">Knockback</span><span class="r-need">A hit pushes the target away from the attacker with a small upward pop, then friction slows it down.</span></a></li>
+  </ol>
+  <p class="none" id="none" hidden>No match. Try a feel word like &ldquo;floaty&rdquo; or &ldquo;unfair&rdquo;.</p>
+</section>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="llms.txt">llms.txt</a> &middot; <a href="entries.json">entries.json</a></p>
+</footer>
+<script src="site.js" defer></script>
+</body>
+</html>

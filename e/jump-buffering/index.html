@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jump buffering: How It Plays</title>
+<meta name="description" content="If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Jump buffering</h1>
+  <p class="aka">Also called: jump buffer, early jump press, buffered jump input</p>
+  <p class="lead">If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of jump buffering. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Jump buffering: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Jump, then press jump again a moment before you land. With the buffer off, early presses do nothing.</p>
+  </section>
+  <section><h2>What it does</h2><p>When players chain jumps they often press a little early, while still falling. Without a buffer that press is thrown away because they weren&#x27;t on the ground yet, and the game feels like it ignored them. With a buffer you store when jump was pressed, and on each frame you jump if the player is grounded and the press is recent enough.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Any game with repeated jumps, and the same idea works for dashes and other moves.</p></section>
+    <section><h2>Watch out</h2><p>Keep the window short. A long buffer makes the character jump when the player has already changed their mind.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>100 to 150 ms is a common start. Celeste&#x27;s player code reads jump from a buffered input and consumes the buffer when a jump starts.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add jump buffering.
+- When jump is pressed, store the time of the press.
+- Every frame, if the player is grounded and a jump press happened in the last {bufferMs} ms, jump and clear the stored press.
+- Only new presses count. Holding the button must not auto-repeat jumps.
+- Use real time (delta time) for the window. JUMP_BUFFER_MS = {bufferMs}.
+
+Acceptance checks:
+1. Pressing jump {bufferMs:half} ms before landing jumps on the frame the player lands.
+2. Pressing jump {bufferMs:plus} ms before landing does nothing.
+3. Holding jump through a landing does not trigger a second jump.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add jump buffering.
+- When jump is pressed, store the time of the press.
+- Every frame, if the player is grounded and a jump press happened in the last 120 ms, jump and clear the stored press.
+- Only new presses count. Holding the button must not auto-repeat jumps.
+- Use real time (delta time) for the window. JUMP_BUFFER_MS = 120.
+
+Acceptance checks:
+1. Pressing jump 60 ms before landing jumps on the frame the player lands.
+2. Pressing jump 170 ms before landing does nothing.
+3. Holding jump through a landing does not trigger a second jump.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/jump-buffering.json">api/jump-buffering.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../coyote-time/index.html">&larr; Coyote time</a><a href="../variable-jump-height/index.html">Variable jump height &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("jump-buffering");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

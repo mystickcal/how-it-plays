@@ -1,0 +1,34 @@
+{
+  "id": "knockback",
+  "name": "Knockback",
+  "aliases": [
+    "hit push",
+    "pushback",
+    "launch",
+    "hit reaction"
+  ],
+  "feels": [
+    "weak hits",
+    "enemies feel weightless",
+    "hits don't connect"
+  ],
+  "summary": "A hit pushes the target away from the attacker with a small upward pop, then friction slows it down.",
+  "what_it_does": "If a target doesn't react to being hit, it reads as if the attack missed. Knockback sets the target's velocity away from the attacker on the hit frame and lets friction bring it to a stop. It pairs well with hitstop: freeze first, then launch.",
+  "use_when": "Melee and projectile hits, explosions, and also the player getting hit.",
+  "watch_out": "Puzzle games where position must stay exact, or near walls and pits unless you want that to be part of the game.",
+  "starting_values": "Force 250 to 400 px/s with an upward pop around 40 to 50 percent of that, friction 1000 to 2000 px/s\u00b2.",
+  "default_slider_values": {
+    "knockForce": 340.0,
+    "knockFriction": 1400.0
+  },
+  "prompt": "Add knockback when an attack hits an enemy.\n- On hit: enemy.vx = attackerFacing * 340 px/s, enemy.vy = -340 * 0.45.\n- While the enemy is on the ground, move vx toward 0 by 1400 px/s\u00b2 * dt.\n- The enemy can't act until it stops sliding (hitstun).\n- If hitstop is in the game, apply knockback after the freeze ends.\n\nAcceptance checks:\n1. A hit always pushes the enemy away from the attacker, from both sides.\n2. The slide distance is the same at 30 and 144 fps.\n3. Knockback into a wall stops cleanly with no clipping into it.",
+  "sources": [
+    {
+      "title": "Juice it or lose it (Jonasson and Purho talk)",
+      "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+    }
+  ],
+  "page": "e/knockback/index.html",
+  "json": "api/knockback.json",
+  "updated": "2026-10-21"
+}

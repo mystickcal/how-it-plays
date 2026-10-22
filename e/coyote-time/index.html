@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coyote time: How It Plays</title>
+<meta name="description" content="For a short moment after the player runs off a ledge, jump still works as if they were on the ground.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Coyote time</h1>
+  <p class="aka">Also called: jump grace time, ledge forgiveness, late jump window</p>
+  <p class="lead">For a short moment after the player runs off a ledge, jump still works as if they were on the ground.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of coyote time. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Coyote time: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Run right and press jump just after you leave each edge. Turn it off and try the same thing.</p>
+  </section>
+  <section><h2>What it does</h2><p>Players press jump a few frames late all the time, mostly right at the edge of a platform. Without coyote time the game sees that press as &quot;in the air&quot; and ignores it, and the player falls while sure they pressed jump. With it, you track how long ago the player last stood on ground and allow a normal jump while that time is under the window.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Any platformer with gaps or ledges.</p></section>
+    <section><h2>Watch out</h2><p>Never give it after a jump has already started, or it turns into a free double jump.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Around 100 ms is a common starting point. Celeste&#x27;s public player code uses a 0.1 second jump grace time. Try 60 to 150 ms.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add coyote time to the player's jump.
+- Track the time since the player was last on the ground.
+- Allow a normal ground jump while that time is under {coyoteMs} ms, even if the player is no longer touching the ground.
+- Only after walking off an edge. Once any jump starts, clear the timer so coyote time can't give a second jump.
+- Put the window in a named constant (COYOTE_MS = {coyoteMs}) and use real time (delta time), not frame counts.
+
+Acceptance checks:
+1. Walking off an edge and pressing jump {coyoteMs:half} ms later jumps.
+2. Pressing jump {coyoteMs:plus} ms after leaving the edge does nothing.
+3. Jumping, then pressing jump again in the air, never gives a second jump.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add coyote time to the player&#x27;s jump.
+- Track the time since the player was last on the ground.
+- Allow a normal ground jump while that time is under 100 ms, even if the player is no longer touching the ground.
+- Only after walking off an edge. Once any jump starts, clear the timer so coyote time can&#x27;t give a second jump.
+- Put the window in a named constant (COYOTE_MS = 100) and use real time (delta time), not frame counts.
+
+Acceptance checks:
+1. Walking off an edge and pressing jump 50 ms later jumps.
+2. Pressing jump 150 ms after leaving the edge does nothing.
+3. Jumping, then pressing jump again in the air, never gives a second jump.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li><li><a href="https://www.gdquest.com/library/glossary/coyote_time/">GDQuest glossary: coyote time</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/coyote-time.json">api/coyote-time.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../knockback/index.html">&larr; Knockback</a><a href="../jump-buffering/index.html">Jump buffering &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("coyote-time");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

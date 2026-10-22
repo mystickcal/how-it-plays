@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knockback: How It Plays</title>
+<meta name="description" content="A hit pushes the target away from the attacker with a small upward pop, then friction slows it down.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Knockback</h1>
+  <p class="aka">Also called: hit push, pushback, launch, hit reaction</p>
+  <p class="lead">A hit pushes the target away from the attacker with a small upward pop, then friction slows it down.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of knockback. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Knockback: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Hit the dummy with X. Change the force and friction and see how far it slides.</p>
+  </section>
+  <section><h2>What it does</h2><p>If a target doesn&#x27;t react to being hit, it reads as if the attack missed. Knockback sets the target&#x27;s velocity away from the attacker on the hit frame and lets friction bring it to a stop. It pairs well with hitstop: freeze first, then launch.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Melee and projectile hits, explosions, and also the player getting hit.</p></section>
+    <section><h2>Watch out</h2><p>Puzzle games where position must stay exact, or near walls and pits unless you want that to be part of the game.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Force 250 to 400 px/s with an upward pop around 40 to 50 percent of that, friction 1000 to 2000 px/s².</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add knockback when an attack hits an enemy.
+- On hit: enemy.vx = attackerFacing * {knockForce} px/s, enemy.vy = -{knockForce} * 0.45.
+- While the enemy is on the ground, move vx toward 0 by {knockFriction} px/s² * dt.
+- The enemy can't act until it stops sliding (hitstun).
+- If hitstop is in the game, apply knockback after the freeze ends.
+
+Acceptance checks:
+1. A hit always pushes the enemy away from the attacker, from both sides.
+2. The slide distance is the same at 30 and 144 fps.
+3. Knockback into a wall stops cleanly with no clipping into it.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add knockback when an attack hits an enemy.
+- On hit: enemy.vx = attackerFacing * 340 px/s, enemy.vy = -340 * 0.45.
+- While the enemy is on the ground, move vx toward 0 by 1400 px/s² * dt.
+- The enemy can&#x27;t act until it stops sliding (hitstun).
+- If hitstop is in the game, apply knockback after the freeze ends.
+
+Acceptance checks:
+1. A hit always pushes the enemy away from the attacker, from both sides.
+2. The slide distance is the same at 30 and 144 fps.
+3. Knockback into a wall stops cleanly with no clipping into it.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://www.youtube.com/watch?v=Fy0aCDmgnxg">Juice it or lose it (Jonasson and Purho talk)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/knockback.json">api/knockback.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../acceleration-curves/index.html">&larr; Acceleration and deceleration</a><a href="../coyote-time/index.html">Coyote time &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("knockback");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

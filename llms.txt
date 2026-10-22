@@ -1,0 +1,30 @@
+# How It Plays
+
+> A playable game feel dictionary for people building browser games with AI. Each technique has a demo with an on/off switch and sliders, starting values, and a copy-paste prompt for a coding agent.
+
+Agents: fetch /entries.json for all techniques (search the name, aliases and feels fields), or /api/<id>.json for one. The prompt field uses the demo's default values.
+
+## Techniques
+
+- [Coyote time](e/coyote-time/index.html): For a short moment after the player runs off a ledge, jump still works as if they were on the ground. Feels it fixes: unfair, unresponsive, I pressed jump. JSON: api/coyote-time.json
+- [Jump buffering](e/jump-buffering/index.html): If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground. Feels it fixes: unresponsive, it ate my input, stiff. JSON: api/jump-buffering.json
+- [Variable jump height](e/variable-jump-height/index.html): Tap jump for a short hop, hold it for a full jump. When the player lets go while still rising, cut the upward speed. Feels it fixes: floaty, no control in the air, every jump is the same. JSON: api/variable-jump-height.json
+- [Camera lookahead and smoothing](e/camera-lookahead/index.html): The camera aims a bit ahead of where the player is facing and eases toward that point instead of being glued to the player. Feels it fixes: can't see what's coming, cramped, jittery camera. JSON: api/camera-lookahead.json
+- [Input buffering for attacks](e/attack-input-buffer/index.html): A press made during an attack's recovery is saved and fires the moment the attack ends, instead of being thrown away. Feels it fixes: unresponsive, dropped inputs, mashing doesn't work. JSON: api/attack-input-buffer.json
+- [Invincibility frames with flicker](e/i-frames/index.html): After taking a hit, the player can't be hurt again for a short time, and the sprite flickers so they know. Feels it fixes: unfair, lost all my health at once, cheap hits. JSON: api/i-frames.json
+- [Hitstop](e/hitstop/index.html): Freeze the action for a few frames when a hit lands so the impact registers. Feels it fixes: weak hits, attacks pass through, mushy. JSON: api/hitstop.json
+- [Screen shake with falloff](e/screen-shake/index.html): Shake the camera on impact, with the strength fading over time instead of a constant jitter. Feels it fixes: weak hits, flat, too much shake. JSON: api/screen-shake.json
+- [Acceleration and deceleration](e/acceleration-curves/index.html): Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery. Feels it fixes: stiff, robotic, slippery, like ice, floaty. JSON: api/acceleration-curves.json
+- [Knockback](e/knockback/index.html): A hit pushes the target away from the attacker with a small upward pop, then friction slows it down. Feels it fixes: weak hits, enemies feel weightless, hits don't connect. JSON: api/knockback.json
+
+## Feel lookup
+
+- floaty: variable-jump-height, acceleration-curves
+- stiff or robotic: acceleration-curves, jump-buffering
+- slippery: acceleration-curves
+- unfair: coyote-time, i-frames, jump-buffering
+- unresponsive: jump-buffering, attack-input-buffer, coyote-time
+- weak hits: hitstop, screen-shake, knockback
+- can't see ahead: camera-lookahead
+
+Updated 2026-10-21. Built by Derek Salyers (https://x.com/omgitsderek).

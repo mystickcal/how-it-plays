@@ -1,0 +1,396 @@
+{
+  "name": "How It Plays",
+  "updated": "2026-10-21",
+  "count": 10,
+  "feels": [
+    {
+      "feel": "floaty",
+      "ids": [
+        "variable-jump-height",
+        "acceleration-curves"
+      ]
+    },
+    {
+      "feel": "stiff or robotic",
+      "ids": [
+        "acceleration-curves",
+        "jump-buffering"
+      ]
+    },
+    {
+      "feel": "slippery",
+      "ids": [
+        "acceleration-curves"
+      ]
+    },
+    {
+      "feel": "unfair",
+      "ids": [
+        "coyote-time",
+        "i-frames",
+        "jump-buffering"
+      ]
+    },
+    {
+      "feel": "unresponsive",
+      "ids": [
+        "jump-buffering",
+        "attack-input-buffer",
+        "coyote-time"
+      ]
+    },
+    {
+      "feel": "weak hits",
+      "ids": [
+        "hitstop",
+        "screen-shake",
+        "knockback"
+      ]
+    },
+    {
+      "feel": "can't see ahead",
+      "ids": [
+        "camera-lookahead"
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "id": "coyote-time",
+      "name": "Coyote time",
+      "aliases": [
+        "jump grace time",
+        "ledge forgiveness",
+        "late jump window"
+      ],
+      "feels": [
+        "unfair",
+        "unresponsive",
+        "I pressed jump"
+      ],
+      "summary": "For a short moment after the player runs off a ledge, jump still works as if they were on the ground.",
+      "what_it_does": "Players press jump a few frames late all the time, mostly right at the edge of a platform. Without coyote time the game sees that press as \"in the air\" and ignores it, and the player falls while sure they pressed jump. With it, you track how long ago the player last stood on ground and allow a normal jump while that time is under the window.",
+      "use_when": "Any platformer with gaps or ledges.",
+      "watch_out": "Never give it after a jump has already started, or it turns into a free double jump.",
+      "starting_values": "Around 100 ms is a common starting point. Celeste's public player code uses a 0.1 second jump grace time. Try 60 to 150 ms.",
+      "default_slider_values": {
+        "coyoteMs": 100.0
+      },
+      "prompt": "Add coyote time to the player's jump.\n- Track the time since the player was last on the ground.\n- Allow a normal ground jump while that time is under 100 ms, even if the player is no longer touching the ground.\n- Only after walking off an edge. Once any jump starts, clear the timer so coyote time can't give a second jump.\n- Put the window in a named constant (COYOTE_MS = 100) and use real time (delta time), not frame counts.\n\nAcceptance checks:\n1. Walking off an edge and pressing jump 50 ms later jumps.\n2. Pressing jump 150 ms after leaving the edge does nothing.\n3. Jumping, then pressing jump again in the air, never gives a second jump.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        },
+        {
+          "title": "GDQuest glossary: coyote time",
+          "url": "https://www.gdquest.com/library/glossary/coyote_time/"
+        }
+      ],
+      "page": "e/coyote-time/index.html",
+      "json": "api/coyote-time.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "jump-buffering",
+      "name": "Jump buffering",
+      "aliases": [
+        "jump buffer",
+        "early jump press",
+        "buffered jump input"
+      ],
+      "feels": [
+        "unresponsive",
+        "it ate my input",
+        "stiff"
+      ],
+      "summary": "If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground.",
+      "what_it_does": "When players chain jumps they often press a little early, while still falling. Without a buffer that press is thrown away because they weren't on the ground yet, and the game feels like it ignored them. With a buffer you store when jump was pressed, and on each frame you jump if the player is grounded and the press is recent enough.",
+      "use_when": "Any game with repeated jumps, and the same idea works for dashes and other moves.",
+      "watch_out": "Keep the window short. A long buffer makes the character jump when the player has already changed their mind.",
+      "starting_values": "100 to 150 ms is a common start. Celeste's player code reads jump from a buffered input and consumes the buffer when a jump starts.",
+      "default_slider_values": {
+        "bufferMs": 120.0
+      },
+      "prompt": "Add jump buffering.\n- When jump is pressed, store the time of the press.\n- Every frame, if the player is grounded and a jump press happened in the last 120 ms, jump and clear the stored press.\n- Only new presses count. Holding the button must not auto-repeat jumps.\n- Use real time (delta time) for the window. JUMP_BUFFER_MS = 120.\n\nAcceptance checks:\n1. Pressing jump 60 ms before landing jumps on the frame the player lands.\n2. Pressing jump 170 ms before landing does nothing.\n3. Holding jump through a landing does not trigger a second jump.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/jump-buffering/index.html",
+      "json": "api/jump-buffering.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "variable-jump-height",
+      "name": "Variable jump height",
+      "aliases": [
+        "jump cut",
+        "short hop",
+        "hold to jump higher"
+      ],
+      "feels": [
+        "floaty",
+        "no control in the air",
+        "every jump is the same"
+      ],
+      "summary": "Tap jump for a short hop, hold it for a full jump. When the player lets go while still rising, cut the upward speed.",
+      "what_it_does": "With one fixed jump, small hops are impossible and the player spends a long time in the air for every tiny step, which reads as floaty. The common fix: when jump is released and the character is still moving up, multiply the vertical speed by a number under 1. Gravity then ends the jump sooner.",
+      "use_when": "Platformers where the player needs both small and big jumps.",
+      "watch_out": "Games where every jump should be identical on purpose, like some puzzle or rhythm games.",
+      "starting_values": "A cut of 0.4 to 0.5 is a common start. Celeste does it differently: it keeps the jump speed for up to 0.2 seconds while the button is held. Both work.",
+      "default_slider_values": {
+        "jumpCut": 0.45,
+        "jumpVel": 480.0
+      },
+      "prompt": "Add variable jump height.\n- Jump starts with an upward speed of 480 px/s.\n- When the jump button is released while the player is still moving up, multiply vertical speed by 0.45.\n- Apply the cut only once per jump and only while rising.\n\nAcceptance checks:\n1. A quick tap peaks clearly lower than a full hold. Log both peak heights.\n2. Releasing the button while falling changes nothing.\n3. A full hold reaches the same height as before this change.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/variable-jump-height/index.html",
+      "json": "api/variable-jump-height.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "camera-lookahead",
+      "name": "Camera lookahead and smoothing",
+      "aliases": [
+        "camera lead",
+        "camera lerp",
+        "damped camera follow",
+        "camera offset"
+      ],
+      "feels": [
+        "can't see what's coming",
+        "cramped",
+        "jittery camera"
+      ],
+      "summary": "The camera aims a bit ahead of where the player is facing and eases toward that point instead of being glued to the player.",
+      "what_it_does": "A camera locked to the player's center shows as much level behind them as ahead. Lookahead shifts the target in the facing direction so the player sees what's coming. Smoothing moves the camera part of the way toward its target each frame, so turns and stops don't snap. Using 1 - exp(-speed * dt) keeps the smoothing the same at any frame rate.",
+      "use_when": "Side-scrollers and top-down games where the level is bigger than the screen.",
+      "watch_out": "Single-screen games. Too much smoothing on a fast character feels laggy.",
+      "starting_values": "Lookahead around 15 percent of the view width (about 90 px here). Smoothing speed 4 to 8 with exponential damping.",
+      "default_slider_values": {
+        "camLook": 90.0,
+        "camSmooth": 6.0
+      },
+      "prompt": "Make the camera follow with lookahead and smoothing.\n- Keep a facing offset that eases toward facing * 90 px, so turning around pans instead of snapping.\n- Camera target x = player center x + facing offset.\n- Each frame: camera.x += (target - camera.x) * (1 - Math.exp(-6 * dt)), with dt in seconds.\n- Clamp the camera to the level bounds.\n- Shake and UI are separate layers. Lookahead only moves the world camera.\n\nAcceptance checks:\n1. Running right shows more level to the right of the player than to the left.\n2. Turning around pans smoothly over roughly half a second, with no snap.\n3. The camera does not jitter while the player stands still.\n4. Locking the game to 30 fps and to 144 fps gives the same camera motion.",
+      "sources": [
+        {
+          "title": "Juicing Your Cameras With Math (Squirrel Eiserloh, GDC)",
+          "url": "https://www.youtube.com/watch?v=tu-Qe66AvtY"
+        }
+      ],
+      "page": "e/camera-lookahead/index.html",
+      "json": "api/camera-lookahead.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "attack-input-buffer",
+      "name": "Input buffering for attacks",
+      "aliases": [
+        "attack buffer",
+        "combo buffer",
+        "queued input"
+      ],
+      "feels": [
+        "unresponsive",
+        "dropped inputs",
+        "mashing doesn't work"
+      ],
+      "summary": "A press made during an attack's recovery is saved and fires the moment the attack ends, instead of being thrown away.",
+      "what_it_does": "Players press the next attack before the current one finishes. If the game only accepts input when the character is idle, those presses vanish and combat feels sticky. A buffer keeps one press made near the end of recovery and starts the next attack on the first frame it's allowed.",
+      "use_when": "Melee combat, combos, fighting games, any move with recovery time.",
+      "watch_out": "Keep it to one queued press. Queueing every press makes the character keep swinging after the player stopped.",
+      "starting_values": "A buffer of 100 to 200 ms before recovery ends. Recovery itself of 150 to 300 ms for a light attack.",
+      "default_slider_values": {
+        "attackBufferMs": 150.0,
+        "recoveryMs": 220.0
+      },
+      "prompt": "Add an input buffer for attacks.\n- Each attack has an active phase and a recovery phase (220 ms).\n- If attack is pressed while an attack is running and less than 150 ms of it remain, queue one press.\n- When recovery ends and a press is queued, start the next attack on that frame.\n- Earlier presses are ignored. Only one press can be queued.\n- Show a debug counter of dropped presses.\n\nAcceptance checks:\n1. Pressing attack again 75 ms before recovery ends chains into a second attack with no idle frame.\n2. Pressing attack at the very start of an attack does not queue anything.\n3. Holding the button does not auto-attack.",
+      "sources": [],
+      "page": "e/attack-input-buffer/index.html",
+      "json": "api/attack-input-buffer.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "i-frames",
+      "name": "Invincibility frames with flicker",
+      "aliases": [
+        "i-frames",
+        "mercy invincibility",
+        "invincible after a hit",
+        "damage cooldown",
+        "hurt flicker"
+      ],
+      "feels": [
+        "unfair",
+        "lost all my health at once",
+        "cheap hits"
+      ],
+      "summary": "After taking a hit, the player can't be hurt again for a short time, and the sprite flickers so they know.",
+      "what_it_does": "Without i-frames, touching a hazard deals damage every frame you overlap it, so one mistake empties the health bar. With them, a hit starts a timer and further damage is ignored until it runs out. Flickering the sprite shows the state without any extra UI.",
+      "use_when": "Anything with health and contact damage.",
+      "watch_out": "One-hit-death games, where the hit ends the attempt anyway.",
+      "starting_values": "0.5 to 1.5 seconds for platformers. Flicker every 60 to 100 ms.",
+      "default_slider_values": {
+        "iframeMs": 1000.0,
+        "flickerMs": 80.0
+      },
+      "prompt": "Add invincibility frames after the player takes damage.\n- On damage, set invulnerableUntil = now + 1000 ms. Ignore damage while now < invulnerableUntil.\n- While invulnerable, draw the sprite only when Math.floor(now / 80) % 2 === 0.\n- Movement, input and hitboxes keep working during the flicker.\n- Use time, not frame counts.\n\nAcceptance checks:\n1. Standing inside a hazard takes one hit per 1000 ms, not one per frame.\n2. The sprite is fully visible again when the window ends.\n3. Flicker speed is the same at 30 and 144 fps.",
+      "sources": [],
+      "page": "e/i-frames/index.html",
+      "json": "api/i-frames.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "hitstop",
+      "name": "Hitstop",
+      "aliases": [
+        "hit pause",
+        "freeze frames",
+        "hit lag",
+        "impact freeze"
+      ],
+      "feels": [
+        "weak hits",
+        "attacks pass through",
+        "mushy"
+      ],
+      "summary": "Freeze the action for a few frames when a hit lands so the impact registers.",
+      "what_it_does": "When a hit connects and everything keeps moving, the eye barely registers contact. A short freeze on the hit frame gives it weight. Too long and the game feels like it's stuttering.",
+      "use_when": "Melee hits, heavy impacts, parries, the last hit of a combo.",
+      "watch_out": "Rapid-fire weapons that hit many times a second, where freezes would stack into lag.",
+      "starting_values": "50 to 100 ms (3 to 6 frames at 60 fps) for normal hits, longer for heavy ones. Celeste's player code freezes the game for 0.05 seconds on some actions.",
+      "default_slider_values": {
+        "hitstopMs": 80.0
+      },
+      "prompt": "Add hitstop when an attack connects.\n- On hit, set hitstopRemaining = max(hitstopRemaining, 80 ms). Don't add freezes together.\n- While hitstopRemaining > 0, skip gameplay updates (movement, physics, animation timers) but keep reading input and keep audio playing.\n- Count down in real time.\n- Presses made during the freeze still take effect after it.\n\nAcceptance checks:\n1. One hit freezes the action for about 80 ms.\n2. Ten quick hits never produce one long freeze.\n3. A jump pressed during the freeze happens right after it.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        },
+        {
+          "title": "Juice it or lose it (Jonasson and Purho talk)",
+          "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+        }
+      ],
+      "page": "e/hitstop/index.html",
+      "json": "api/hitstop.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "screen-shake",
+      "name": "Screen shake with falloff",
+      "aliases": [
+        "camera shake",
+        "trauma shake",
+        "impact shake"
+      ],
+      "feels": [
+        "weak hits",
+        "flat",
+        "too much shake"
+      ],
+      "summary": "Shake the camera on impact, with the strength fading over time instead of a constant jitter.",
+      "what_it_does": "Each impact adds trauma, a number from 0 to 1. Shake strength is trauma squared, so small hits barely move the view and big ones hit hard, and trauma falls back to 0 at a steady rate. That approach comes from Squirrel Eiserloh's GDC talk. Use smooth noise rather than a new random offset each frame, shake only the world camera and never the UI, and give players a way to turn it off.",
+      "use_when": "Explosions, heavy hits, landing from a big fall.",
+      "watch_out": "Every small event. Constant shake is tiring, and some players get motion sick.",
+      "starting_values": "Max offset 15 to 25 px at this 640 px view (one hit at 0.5 trauma moves about a quarter of that), falloff 1.5 to 2.5 trauma per second.",
+      "default_slider_values": {
+        "shakeMax": 20.0,
+        "shakeDecay": 1.8
+      },
+      "prompt": "Add screen shake with falloff using a trauma value.\n- trauma is 0 to 1. Each hit adds 0.5 (clamped to 1). trauma decreases by 1.8 per second.\n- Each frame: shake = 20 px * trauma * trauma. Offset the world camera by shake times smooth noise (sum of two sine waves or Perlin noise), not a new random number per frame.\n- Apply it only to the world camera. HUD and menus never shake.\n- Add a settings toggle to turn shake off, and default it to off when prefers-reduced-motion is set.\n\nAcceptance checks:\n1. One hit gives a visible shake that settles within about 0.3 second(s).\n2. Several quick hits shake harder but never past 20 px.\n3. HUD text stays still while the world shakes.\n4. With the setting off, nothing moves.",
+      "sources": [
+        {
+          "title": "Juicing Your Cameras With Math (Squirrel Eiserloh, GDC)",
+          "url": "https://www.youtube.com/watch?v=tu-Qe66AvtY"
+        },
+        {
+          "title": "Juice it or lose it (Jonasson and Purho talk)",
+          "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+        }
+      ],
+      "page": "e/screen-shake/index.html",
+      "json": "api/screen-shake.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "acceleration-curves",
+      "name": "Acceleration and deceleration",
+      "aliases": [
+        "run acceleration",
+        "friction",
+        "ground friction",
+        "momentum"
+      ],
+      "feels": [
+        "stiff",
+        "robotic",
+        "slippery",
+        "like ice",
+        "floaty"
+      ],
+      "summary": "Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery.",
+      "what_it_does": "Instant velocity (full speed on the first frame, zero the frame you let go) feels robotic. Low deceleration feels like ice. Most platformers reach top speed in a fraction of a second and stop a little faster or slower depending on the feel they want. Use a separate, usually smaller, multiplier in the air.",
+      "use_when": "Almost any character controller.",
+      "watch_out": "Grid-based or tile-step movement, where position snaps on purpose.",
+      "starting_values": "Celeste's public player code uses a max run of 90 and run acceleration of 1000 (pixels per second at 320 by 180), so it reaches full speed in under a tenth of a second. This demo is twice that resolution: max 200 px/s, acceleration 2000, deceleration 1600.",
+      "default_slider_values": {
+        "accel": 2000.0,
+        "decel": 1600.0
+      },
+      "prompt": "Replace instant horizontal movement with acceleration and deceleration.\n- Max speed 200 px/s.\n- While input is held in the direction of motion, move velocity toward max speed by 2000 px/s\u00b2 * dt.\n- With no input, or input against the motion, move velocity toward 0 (or toward the new direction) by 1600 px/s\u00b2 * dt.\n- In the air, multiply both by 0.7.\n- Use a move-toward function so velocity never overshoots the target.\n\nAcceptance checks:\n1. From standing, full speed takes about 100 ms.\n2. Releasing at full speed stops the character within a short, consistent distance.\n3. Turning around never flips speed instantly.\n4. Behavior is the same at 30 and 144 fps.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/acceleration-curves/index.html",
+      "json": "api/acceleration-curves.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "knockback",
+      "name": "Knockback",
+      "aliases": [
+        "hit push",
+        "pushback",
+        "launch",
+        "hit reaction"
+      ],
+      "feels": [
+        "weak hits",
+        "enemies feel weightless",
+        "hits don't connect"
+      ],
+      "summary": "A hit pushes the target away from the attacker with a small upward pop, then friction slows it down.",
+      "what_it_does": "If a target doesn't react to being hit, it reads as if the attack missed. Knockback sets the target's velocity away from the attacker on the hit frame and lets friction bring it to a stop. It pairs well with hitstop: freeze first, then launch.",
+      "use_when": "Melee and projectile hits, explosions, and also the player getting hit.",
+      "watch_out": "Puzzle games where position must stay exact, or near walls and pits unless you want that to be part of the game.",
+      "starting_values": "Force 250 to 400 px/s with an upward pop around 40 to 50 percent of that, friction 1000 to 2000 px/s\u00b2.",
+      "default_slider_values": {
+        "knockForce": 340.0,
+        "knockFriction": 1400.0
+      },
+      "prompt": "Add knockback when an attack hits an enemy.\n- On hit: enemy.vx = attackerFacing * 340 px/s, enemy.vy = -340 * 0.45.\n- While the enemy is on the ground, move vx toward 0 by 1400 px/s\u00b2 * dt.\n- The enemy can't act until it stops sliding (hitstun).\n- If hitstop is in the game, apply knockback after the freeze ends.\n\nAcceptance checks:\n1. A hit always pushes the enemy away from the attacker, from both sides.\n2. The slide distance is the same at 30 and 144 fps.\n3. Knockback into a wall stops cleanly with no clipping into it.",
+      "sources": [
+        {
+          "title": "Juice it or lose it (Jonasson and Purho talk)",
+          "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+        }
+      ],
+      "page": "e/knockback/index.html",
+      "json": "api/knockback.json",
+      "updated": "2026-10-21"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "hitstop",
+  "name": "Hitstop",
+  "aliases": [
+    "hit pause",
+    "freeze frames",
+    "hit lag",
+    "impact freeze"
+  ],
+  "feels": [
+    "weak hits",
+    "attacks pass through",
+    "mushy"
+  ],
+  "summary": "Freeze the action for a few frames when a hit lands so the impact registers.",
+  "what_it_does": "When a hit connects and everything keeps moving, the eye barely registers contact. A short freeze on the hit frame gives it weight. Too long and the game feels like it's stuttering.",
+  "use_when": "Melee hits, heavy impacts, parries, the last hit of a combo.",
+  "watch_out": "Rapid-fire weapons that hit many times a second, where freezes would stack into lag.",
+  "starting_values": "50 to 100 ms (3 to 6 frames at 60 fps) for normal hits, longer for heavy ones. Celeste's player code freezes the game for 0.05 seconds on some actions.",
+  "default_slider_values": {
+    "hitstopMs": 80.0
+  },
+  "prompt": "Add hitstop when an attack connects.\n- On hit, set hitstopRemaining = max(hitstopRemaining, 80 ms). Don't add freezes together.\n- While hitstopRemaining > 0, skip gameplay updates (movement, physics, animation timers) but keep reading input and keep audio playing.\n- Count down in real time.\n- Presses made during the freeze still take effect after it.\n\nAcceptance checks:\n1. One hit freezes the action for about 80 ms.\n2. Ten quick hits never produce one long freeze.\n3. A jump pressed during the freeze happens right after it.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    },
+    {
+      "title": "Juice it or lose it (Jonasson and Purho talk)",
+      "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+    }
+  ],
+  "page": "e/hitstop/index.html",
+  "json": "api/hitstop.json",
+  "updated": "2026-10-21"
+}

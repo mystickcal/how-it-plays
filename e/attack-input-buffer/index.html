@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Input buffering for attacks: How It Plays</title>
+<meta name="description" content="A press made during an attack&#x27;s recovery is saved and fires the moment the attack ends, instead of being thrown away.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Input buffering for attacks</h1>
+  <p class="aka">Also called: attack buffer, combo buffer, queued input</p>
+  <p class="lead">A press made during an attack&#x27;s recovery is saved and fires the moment the attack ends, instead of being thrown away.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of input buffering for attacks. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Input buffering for attacks: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Stand next to the dummy and press X twice quickly. Watch the dropped presses count. A green mark above the player means a press is queued.</p>
+  </section>
+  <section><h2>What it does</h2><p>Players press the next attack before the current one finishes. If the game only accepts input when the character is idle, those presses vanish and combat feels sticky. A buffer keeps one press made near the end of recovery and starts the next attack on the first frame it&#x27;s allowed.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Melee combat, combos, fighting games, any move with recovery time.</p></section>
+    <section><h2>Watch out</h2><p>Keep it to one queued press. Queueing every press makes the character keep swinging after the player stopped.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>A buffer of 100 to 200 ms before recovery ends. Recovery itself of 150 to 300 ms for a light attack.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add an input buffer for attacks.
+- Each attack has an active phase and a recovery phase ({recoveryMs} ms).
+- If attack is pressed while an attack is running and less than {attackBufferMs} ms of it remain, queue one press.
+- When recovery ends and a press is queued, start the next attack on that frame.
+- Earlier presses are ignored. Only one press can be queued.
+- Show a debug counter of dropped presses.
+
+Acceptance checks:
+1. Pressing attack again {attackBufferMs:half} ms before recovery ends chains into a second attack with no idle frame.
+2. Pressing attack at the very start of an attack does not queue anything.
+3. Holding the button does not auto-attack.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add an input buffer for attacks.
+- Each attack has an active phase and a recovery phase (220 ms).
+- If attack is pressed while an attack is running and less than 150 ms of it remain, queue one press.
+- When recovery ends and a press is queued, start the next attack on that frame.
+- Earlier presses are ignored. Only one press can be queued.
+- Show a debug counter of dropped presses.
+
+Acceptance checks:
+1. Pressing attack again 75 ms before recovery ends chains into a second attack with no idle frame.
+2. Pressing attack at the very start of an attack does not queue anything.
+3. Holding the button does not auto-attack.</pre>
+  </section>
+  
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/attack-input-buffer.json">api/attack-input-buffer.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../camera-lookahead/index.html">&larr; Camera lookahead and smoothing</a><a href="../i-frames/index.html">Invincibility frames with flicker &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("attack-input-buffer");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

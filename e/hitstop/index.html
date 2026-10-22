@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hitstop: How It Plays</title>
+<meta name="description" content="Freeze the action for a few frames when a hit lands so the impact registers.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Hitstop</h1>
+  <p class="aka">Also called: hit pause, freeze frames, hit lag, impact freeze</p>
+  <p class="lead">Freeze the action for a few frames when a hit lands so the impact registers.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of hitstop. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Hitstop: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Hit the dummy with X at 0 ms, then 80 ms, then 200 ms.</p>
+  </section>
+  <section><h2>What it does</h2><p>When a hit connects and everything keeps moving, the eye barely registers contact. A short freeze on the hit frame gives it weight. Too long and the game feels like it&#x27;s stuttering.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Melee hits, heavy impacts, parries, the last hit of a combo.</p></section>
+    <section><h2>Watch out</h2><p>Rapid-fire weapons that hit many times a second, where freezes would stack into lag.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>50 to 100 ms (3 to 6 frames at 60 fps) for normal hits, longer for heavy ones. Celeste&#x27;s player code freezes the game for 0.05 seconds on some actions.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add hitstop when an attack connects.
+- On hit, set hitstopRemaining = max(hitstopRemaining, {hitstopMs} ms). Don't add freezes together.
+- While hitstopRemaining > 0, skip gameplay updates (movement, physics, animation timers) but keep reading input and keep audio playing.
+- Count down in real time.
+- Presses made during the freeze still take effect after it.
+
+Acceptance checks:
+1. One hit freezes the action for about {hitstopMs} ms.
+2. Ten quick hits never produce one long freeze.
+3. A jump pressed during the freeze happens right after it.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add hitstop when an attack connects.
+- On hit, set hitstopRemaining = max(hitstopRemaining, 80 ms). Don&#x27;t add freezes together.
+- While hitstopRemaining &gt; 0, skip gameplay updates (movement, physics, animation timers) but keep reading input and keep audio playing.
+- Count down in real time.
+- Presses made during the freeze still take effect after it.
+
+Acceptance checks:
+1. One hit freezes the action for about 80 ms.
+2. Ten quick hits never produce one long freeze.
+3. A jump pressed during the freeze happens right after it.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li><li><a href="https://www.youtube.com/watch?v=Fy0aCDmgnxg">Juice it or lose it (Jonasson and Purho talk)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/hitstop.json">api/hitstop.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../i-frames/index.html">&larr; Invincibility frames with flicker</a><a href="../screen-shake/index.html">Screen shake with falloff &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("hitstop");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

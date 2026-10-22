@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acceleration and deceleration: How It Plays</title>
+<meta name="description" content="Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Acceleration and deceleration</h1>
+  <p class="aka">Also called: run acceleration, friction, ground friction, momentum</p>
+  <p class="lead">Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of acceleration and deceleration. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Acceleration and deceleration: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Tap left and right, and stop at the edge of a block. Then turn the curves off.</p>
+  </section>
+  <section><h2>What it does</h2><p>Instant velocity (full speed on the first frame, zero the frame you let go) feels robotic. Low deceleration feels like ice. Most platformers reach top speed in a fraction of a second and stop a little faster or slower depending on the feel they want. Use a separate, usually smaller, multiplier in the air.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Almost any character controller.</p></section>
+    <section><h2>Watch out</h2><p>Grid-based or tile-step movement, where position snaps on purpose.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Celeste&#x27;s public player code uses a max run of 90 and run acceleration of 1000 (pixels per second at 320 by 180), so it reaches full speed in under a tenth of a second. This demo is twice that resolution: max 200 px/s, acceleration 2000, deceleration 1600.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Replace instant horizontal movement with acceleration and deceleration.
+- Max speed 200 px/s.
+- While input is held in the direction of motion, move velocity toward max speed by {accel} px/s² * dt.
+- With no input, or input against the motion, move velocity toward 0 (or toward the new direction) by {decel} px/s² * dt.
+- In the air, multiply both by 0.7.
+- Use a move-toward function so velocity never overshoots the target.
+
+Acceptance checks:
+1. From standing, full speed takes about {accel:ramp} ms.
+2. Releasing at full speed stops the character within a short, consistent distance.
+3. Turning around never flips speed instantly.
+4. Behavior is the same at 30 and 144 fps.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Replace instant horizontal movement with acceleration and deceleration.
+- Max speed 200 px/s.
+- While input is held in the direction of motion, move velocity toward max speed by 2000 px/s² * dt.
+- With no input, or input against the motion, move velocity toward 0 (or toward the new direction) by 1600 px/s² * dt.
+- In the air, multiply both by 0.7.
+- Use a move-toward function so velocity never overshoots the target.
+
+Acceptance checks:
+1. From standing, full speed takes about 100 ms.
+2. Releasing at full speed stops the character within a short, consistent distance.
+3. Turning around never flips speed instantly.
+4. Behavior is the same at 30 and 144 fps.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/acceleration-curves.json">api/acceleration-curves.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../screen-shake/index.html">&larr; Screen shake with falloff</a><a href="../knockback/index.html">Knockback &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("acceleration-curves");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

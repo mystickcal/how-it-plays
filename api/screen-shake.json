@@ -1,0 +1,37 @@
+{
+  "id": "screen-shake",
+  "name": "Screen shake with falloff",
+  "aliases": [
+    "camera shake",
+    "trauma shake",
+    "impact shake"
+  ],
+  "feels": [
+    "weak hits",
+    "flat",
+    "too much shake"
+  ],
+  "summary": "Shake the camera on impact, with the strength fading over time instead of a constant jitter.",
+  "what_it_does": "Each impact adds trauma, a number from 0 to 1. Shake strength is trauma squared, so small hits barely move the view and big ones hit hard, and trauma falls back to 0 at a steady rate. That approach comes from Squirrel Eiserloh's GDC talk. Use smooth noise rather than a new random offset each frame, shake only the world camera and never the UI, and give players a way to turn it off.",
+  "use_when": "Explosions, heavy hits, landing from a big fall.",
+  "watch_out": "Every small event. Constant shake is tiring, and some players get motion sick.",
+  "starting_values": "Max offset 15 to 25 px at this 640 px view (one hit at 0.5 trauma moves about a quarter of that), falloff 1.5 to 2.5 trauma per second.",
+  "default_slider_values": {
+    "shakeMax": 20.0,
+    "shakeDecay": 1.8
+  },
+  "prompt": "Add screen shake with falloff using a trauma value.\n- trauma is 0 to 1. Each hit adds 0.5 (clamped to 1). trauma decreases by 1.8 per second.\n- Each frame: shake = 20 px * trauma * trauma. Offset the world camera by shake times smooth noise (sum of two sine waves or Perlin noise), not a new random number per frame.\n- Apply it only to the world camera. HUD and menus never shake.\n- Add a settings toggle to turn shake off, and default it to off when prefers-reduced-motion is set.\n\nAcceptance checks:\n1. One hit gives a visible shake that settles within about 0.3 second(s).\n2. Several quick hits shake harder but never past 20 px.\n3. HUD text stays still while the world shakes.\n4. With the setting off, nothing moves.",
+  "sources": [
+    {
+      "title": "Juicing Your Cameras With Math (Squirrel Eiserloh, GDC)",
+      "url": "https://www.youtube.com/watch?v=tu-Qe66AvtY"
+    },
+    {
+      "title": "Juice it or lose it (Jonasson and Purho talk)",
+      "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+    }
+  ],
+  "page": "e/screen-shake/index.html",
+  "json": "api/screen-shake.json",
+  "updated": "2026-10-21"
+}

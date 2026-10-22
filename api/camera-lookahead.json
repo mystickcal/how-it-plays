@@ -1,0 +1,34 @@
+{
+  "id": "camera-lookahead",
+  "name": "Camera lookahead and smoothing",
+  "aliases": [
+    "camera lead",
+    "camera lerp",
+    "damped camera follow",
+    "camera offset"
+  ],
+  "feels": [
+    "can't see what's coming",
+    "cramped",
+    "jittery camera"
+  ],
+  "summary": "The camera aims a bit ahead of where the player is facing and eases toward that point instead of being glued to the player.",
+  "what_it_does": "A camera locked to the player's center shows as much level behind them as ahead. Lookahead shifts the target in the facing direction so the player sees what's coming. Smoothing moves the camera part of the way toward its target each frame, so turns and stops don't snap. Using 1 - exp(-speed * dt) keeps the smoothing the same at any frame rate.",
+  "use_when": "Side-scrollers and top-down games where the level is bigger than the screen.",
+  "watch_out": "Single-screen games. Too much smoothing on a fast character feels laggy.",
+  "starting_values": "Lookahead around 15 percent of the view width (about 90 px here). Smoothing speed 4 to 8 with exponential damping.",
+  "default_slider_values": {
+    "camLook": 90.0,
+    "camSmooth": 6.0
+  },
+  "prompt": "Make the camera follow with lookahead and smoothing.\n- Keep a facing offset that eases toward facing * 90 px, so turning around pans instead of snapping.\n- Camera target x = player center x + facing offset.\n- Each frame: camera.x += (target - camera.x) * (1 - Math.exp(-6 * dt)), with dt in seconds.\n- Clamp the camera to the level bounds.\n- Shake and UI are separate layers. Lookahead only moves the world camera.\n\nAcceptance checks:\n1. Running right shows more level to the right of the player than to the left.\n2. Turning around pans smoothly over roughly half a second, with no snap.\n3. The camera does not jitter while the player stands still.\n4. Locking the game to 30 fps and to 144 fps gives the same camera motion.",
+  "sources": [
+    {
+      "title": "Juicing Your Cameras With Math (Squirrel Eiserloh, GDC)",
+      "url": "https://www.youtube.com/watch?v=tu-Qe66AvtY"
+    }
+  ],
+  "page": "e/camera-lookahead/index.html",
+  "json": "api/camera-lookahead.json",
+  "updated": "2026-10-21"
+}

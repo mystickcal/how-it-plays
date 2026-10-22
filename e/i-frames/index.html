@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invincibility frames with flicker: How It Plays</title>
+<meta name="description" content="After taking a hit, the player can&#x27;t be hurt again for a short time, and the sprite flickers so they know.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a></p>
+  <h1>Invincibility frames with flicker</h1>
+  <p class="aka">Also called: i-frames, mercy invincibility, invincible after a hit, damage cooldown, hurt flicker</p>
+  <p class="lead">After taking a hit, the player can&#x27;t be hurt again for a short time, and the sprite flickers so they know.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of invincibility frames with flicker. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Invincibility frames with flicker: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Walk into the red ball. Then turn i-frames off and do it again.</p>
+  </section>
+  <section><h2>What it does</h2><p>Without i-frames, touching a hazard deals damage every frame you overlap it, so one mistake empties the health bar. With them, a hit starts a timer and further damage is ignored until it runs out. Flickering the sprite shows the state without any extra UI.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Anything with health and contact damage.</p></section>
+    <section><h2>Watch out</h2><p>One-hit-death games, where the hit ends the attempt anyway.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>0.5 to 1.5 seconds for platformers. Flicker every 60 to 100 ms.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add invincibility frames after the player takes damage.
+- On damage, set invulnerableUntil = now + {iframeMs} ms. Ignore damage while now < invulnerableUntil.
+- While invulnerable, draw the sprite only when Math.floor(now / {flickerMs}) % 2 === 0.
+- Movement, input and hitboxes keep working during the flicker.
+- Use time, not frame counts.
+
+Acceptance checks:
+1. Standing inside a hazard takes one hit per {iframeMs} ms, not one per frame.
+2. The sprite is fully visible again when the window ends.
+3. Flicker speed is the same at 30 and 144 fps.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add invincibility frames after the player takes damage.
+- On damage, set invulnerableUntil = now + 1000 ms. Ignore damage while now &lt; invulnerableUntil.
+- While invulnerable, draw the sprite only when Math.floor(now / 80) % 2 === 0.
+- Movement, input and hitboxes keep working during the flicker.
+- Use time, not frame counts.
+
+Acceptance checks:
+1. Standing inside a hazard takes one hit per 1000 ms, not one per frame.
+2. The sprite is fully visible again when the window ends.
+3. Flicker speed is the same at 30 and 144 fps.</pre>
+  </section>
+  
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/i-frames.json">api/i-frames.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../attack-input-buffer/index.html">&larr; Input buffering for attacks</a><a href="../hitstop/index.html">Hitstop &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("i-frames");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" novalidate>
+    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+    <label for="signup-email">One technique a week, by email</label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <button type="submit">Sign up</button>
+    </div>
+    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

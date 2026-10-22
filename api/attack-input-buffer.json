@@ -1,0 +1,28 @@
+{
+  "id": "attack-input-buffer",
+  "name": "Input buffering for attacks",
+  "aliases": [
+    "attack buffer",
+    "combo buffer",
+    "queued input"
+  ],
+  "feels": [
+    "unresponsive",
+    "dropped inputs",
+    "mashing doesn't work"
+  ],
+  "summary": "A press made during an attack's recovery is saved and fires the moment the attack ends, instead of being thrown away.",
+  "what_it_does": "Players press the next attack before the current one finishes. If the game only accepts input when the character is idle, those presses vanish and combat feels sticky. A buffer keeps one press made near the end of recovery and starts the next attack on the first frame it's allowed.",
+  "use_when": "Melee combat, combos, fighting games, any move with recovery time.",
+  "watch_out": "Keep it to one queued press. Queueing every press makes the character keep swinging after the player stopped.",
+  "starting_values": "A buffer of 100 to 200 ms before recovery ends. Recovery itself of 150 to 300 ms for a light attack.",
+  "default_slider_values": {
+    "attackBufferMs": 150.0,
+    "recoveryMs": 220.0
+  },
+  "prompt": "Add an input buffer for attacks.\n- Each attack has an active phase and a recovery phase (220 ms).\n- If attack is pressed while an attack is running and less than 150 ms of it remain, queue one press.\n- When recovery ends and a press is queued, start the next attack on that frame.\n- Earlier presses are ignored. Only one press can be queued.\n- Show a debug counter of dropped presses.\n\nAcceptance checks:\n1. Pressing attack again 75 ms before recovery ends chains into a second attack with no idle frame.\n2. Pressing attack at the very start of an attack does not queue anything.\n3. Holding the button does not auto-attack.",
+  "sources": [],
+  "page": "e/attack-input-buffer/index.html",
+  "json": "api/attack-input-buffer.json",
+  "updated": "2026-10-21"
+}
