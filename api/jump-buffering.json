@@ -1,6 +1,7 @@
 {
   "id": "jump-buffering",
   "name": "Jump buffering",
+  "category": "jumping",
   "aliases": [
     "jump buffer",
     "early jump press",

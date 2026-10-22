@@ -1,0 +1,35 @@
+{
+  "id": "projectile-leading",
+  "name": "Projectile leading",
+  "category": "combat",
+  "aliases": [
+    "predictive aim",
+    "lead the target",
+    "intercept aim",
+    "target prediction"
+  ],
+  "feels": [
+    "enemies are dumb",
+    "too easy to dodge",
+    "just keep running"
+  ],
+  "summary": "Enemies aim where the player will be when the shot arrives, not where they are now, so running in a straight line stops working.",
+  "what_it_does": "A turret that fires at the player's current position misses anyone who keeps moving. Leading estimates the travel time (distance divided by shot speed), predicts where the player will be after that time, recomputes the time to that point, and repeats a few times. Kain Shin's article walks through this iteration. A lead amount under 1 makes enemies less exact, which is often fairer.",
+  "use_when": "Turrets, bosses, and enemies with slow projectiles that should punish predictable movement.",
+  "watch_out": "Perfect leading against a player who can't change speed quickly is unfair. Lower the lead amount or the fire rate, and telegraph the shots.",
+  "starting_values": "No checked source gives a fire rate or a lead amount. A few iterations are enough for straight shots, and a lead amount of 0.5 to 1 is a starting range.",
+  "default_slider_values": {
+    "shotSpeed": 320.0,
+    "leadAmt": 1.0
+  },
+  "prompt": "Make the turret lead its shots.\n- Shot speed 320 px/s.\n- t = distance(turret, player) / shot speed. Repeat 4 times: predicted = player position + player velocity * t * 1; t = distance(turret, predicted) / shot speed.\n- Fire toward the final predicted position.\n- Use the player's current velocity only. Never read their input.\n\nAcceptance checks:\n1. Running in a straight line at constant speed gets hit.\n2. Reversing right after a shot is fired dodges it.\n3. A player standing still is hit the same as without leading.",
+  "sources": [
+    {
+      "title": "Predictive Aim Mathematics for AI Targeting (Kain Shin)",
+      "url": "https://www.gamedeveloper.com/programming/predictive-aim-mathematics-for-ai-targeting"
+    }
+  ],
+  "page": "e/projectile-leading/index.html",
+  "json": "api/projectile-leading.json",
+  "updated": "2026-10-21"
+}

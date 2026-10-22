@@ -1,0 +1,38 @@
+{
+  "id": "cancel-windows",
+  "name": "Cancel windows",
+  "category": "combat",
+  "aliases": [
+    "combo window",
+    "attack cancel",
+    "hit confirm cancel",
+    "chain window"
+  ],
+  "feels": [
+    "sluggish combat",
+    "combos don't flow",
+    "stiff"
+  ],
+  "summary": "After an attack connects, a short window lets the next attack start right away, skipping the rest of the recovery.",
+  "what_it_does": "Long recovery makes a missed attack risky, which is good, but it also makes landed hits slow to follow up. A cancel window opens only when the attack hit something: a press inside it starts the next attack at once. Misses keep the full recovery, so landing hits is rewarded and swinging at nothing is not.",
+  "use_when": "Combo-based combat, fighting games, character action games.",
+  "watch_out": "Too wide a window lets mashing do everything. Keep it to the moment right after a hit.",
+  "starting_values": "Infil's fighting game glossary defines a cancel as removing an attack's recovery to go straight into another move, usually after it hits. This demo uses a 150 ms window inside 300 ms of recovery as a starting point.",
+  "default_slider_values": {
+    "cancelMs": 150.0
+  },
+  "prompt": "Add cancel windows to attacks.\n- When an attack hits, open a cancel window for the first 150 ms of its recovery.\n- Pressing attack inside the window starts the next attack immediately.\n- If the attack missed, there is no window and the full recovery plays.\n- Track a combo counter that resets after 600 ms without a hit.\n\nAcceptance checks:\n1. Hit, then press attack within 150 ms: the next attack starts on that frame.\n2. A missed attack can't be cancelled.\n3. A press outside the window does nothing until recovery ends.",
+  "sources": [
+    {
+      "title": "Infil's Fighting Game Glossary: Cancel",
+      "url": "https://glossary.infil.net/?t=Cancel"
+    },
+    {
+      "title": "Infil's Fighting Game Glossary: Hit Confirm",
+      "url": "https://glossary.infil.net/?t=Hit%20Confirm"
+    }
+  ],
+  "page": "e/cancel-windows/index.html",
+  "json": "api/cancel-windows.json",
+  "updated": "2026-10-21"
+}

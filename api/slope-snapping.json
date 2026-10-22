@@ -1,0 +1,34 @@
+{
+  "id": "slope-snapping",
+  "name": "Slope snapping",
+  "category": "movement",
+  "aliases": [
+    "ground snapping",
+    "stick to slopes",
+    "slope handling",
+    "snap to ground"
+  ],
+  "feels": [
+    "bumpy slopes",
+    "bounces down hills",
+    "can't jump on slopes"
+  ],
+  "summary": "When running downhill, keep the character on the slope instead of letting them skip down it in small hops.",
+  "what_it_does": "Running down a slope moves the character sideways faster than gravity pulls them down, so they leave the ground for a few frames, land, and leave again. They bounce, and jump presses fail while they are airborne. Slope snapping checks, after moving, whether the character was grounded last frame and the slope is only a few pixels below their feet. If so, it moves them down onto it.",
+  "use_when": "Any game with slopes or uneven ground.",
+  "watch_out": "Never snap right after a jump or over a real drop. Limit it to a few pixels, and only when the player was grounded last frame.",
+  "starting_values": "Rodrigo Monteiro's platformer guide explains the bouncing and two fixes: make gravity's minimum step match the slope, or keep the distance to the floor the same before and after moving. A snap distance of 8 to 16 px here is a starting point.",
+  "default_slider_values": {
+    "slopeSnap": 12.0
+  },
+  "prompt": "Keep the player attached to slopes when moving downhill.\n- After movement: if the player was on the ground last frame, is not moving up, and the floor under their feet is between 0 and 12 px below them, move them down onto the floor and keep them grounded.\n- Don't snap after a jump starts or when the gap is bigger than 12 px.\n\nAcceptance checks:\n1. Running down the slope at full speed keeps the player grounded every frame. Log airborne frames.\n2. Jumping works at any point on the slope.\n3. Running off a real ledge still falls normally.",
+  "sources": [
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    }
+  ],
+  "page": "e/slope-snapping/index.html",
+  "json": "api/slope-snapping.json",
+  "updated": "2026-10-21"
+}

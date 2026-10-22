@@ -1,0 +1,35 @@
+{
+  "id": "apex-hang",
+  "name": "Apex hang",
+  "category": "jumping",
+  "aliases": [
+    "half gravity at apex",
+    "jump hang time",
+    "peak float",
+    "apex modifier"
+  ],
+  "feels": [
+    "stiff",
+    "hard to line up landings",
+    "jumps feel rushed"
+  ],
+  "summary": "Near the top of a jump, while jump is held, gravity is cut so the player hangs for a moment and can line up the landing.",
+  "what_it_does": "A plain jump spends very little time near its peak, and that is exactly where players aim. Apex hang checks how fast the character is moving vertically. When that speed is small (the character is near the top) and the jump button is still held, gravity is multiplied by a number under 1. The jump gets a short float at the top while the rise and the fall stay the same.",
+  "use_when": "Platformers with precise landings, especially on small platforms.",
+  "watch_out": "Too low a multiplier or too wide a band makes every jump float. Only apply it while the button is held, so a tap still drops fast.",
+  "starting_values": "Celeste's public player code halves gravity (0.5) when vertical speed is under 40 and jump is held. That is 40 px/s at Celeste's 320 by 180, about 80 px/s at this demo's 640 by 360.",
+  "default_slider_values": {
+    "apexThresh": 80.0,
+    "apexMul": 0.5
+  },
+  "prompt": "Add apex hang to the jump.\n- While the player is in the air, jump is held, and the absolute vertical speed is under 80 px/s, multiply gravity by 0.5.\n- Everywhere else, gravity is normal.\n- Keep the takeoff speed and the max fall speed unchanged.\n\nAcceptance checks:\n1. A held jump stays in the air longer than before. Log the air time both ways.\n2. A tapped jump (released early) gets no float.\n3. Outside the top band, the rise and the fall match the old jump.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/apex-hang/index.html",
+  "json": "api/apex-hang.json",
+  "updated": "2026-10-21"
+}

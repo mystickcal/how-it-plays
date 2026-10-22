@@ -1,0 +1,34 @@
+{
+  "id": "fall-gravity",
+  "name": "Heavier fall",
+  "category": "jumping",
+  "aliases": [
+    "gravity multiplier on descent",
+    "fall multiplier",
+    "fast fall",
+    "fall gravity"
+  ],
+  "feels": [
+    "floaty",
+    "moon jump",
+    "slow to land"
+  ],
+  "summary": "Gravity gets stronger once the character starts falling, so jumps rise smoothly and come down fast.",
+  "what_it_does": "A real projectile arc is symmetric: the fall takes as long as the rise. In a game that often reads as floaty. Switching to a heavier gravity after the peak, when vertical speed turns downward, makes the fall quicker while the rise stays the same. The jump keeps its height but spends less time in the air. Kyle Pittman's GDC talk on jump math describes switching gravity at the peak.",
+  "use_when": "Any jump that feels floaty or slow to come down.",
+  "watch_out": "Raise the max fall speed with it, or the fall hits the cap quickly and the multiplier stops mattering. Very high values make drops hard to steer.",
+  "starting_values": "No checked source gives one number. 1.5 to 2.5 times normal gravity is a sensible starting range to tune.",
+  "default_slider_values": {
+    "fallMul": 1.8
+  },
+  "prompt": "Make the jump fall faster than it rises.\n- Keep normal gravity while vertical speed is upward.\n- Once vertical speed is downward (after the peak), multiply gravity by 1.8.\n- Keep the takeoff speed, so the peak height does not change.\n- Keep the max fall speed high enough that the multiplier still matters.\n\nAcceptance checks:\n1. The peak height is the same as before.\n2. Total air time is shorter than before. Log both.\n3. Gravity on the way up is unchanged.",
+  "sources": [
+    {
+      "title": "Math for Game Programmers: Building a Better Jump (Kyle Pittman, GDC)",
+      "url": "https://www.youtube.com/watch?v=hG9SzQxaCm8"
+    }
+  ],
+  "page": "e/fall-gravity/index.html",
+  "json": "api/fall-gravity.json",
+  "updated": "2026-10-21"
+}

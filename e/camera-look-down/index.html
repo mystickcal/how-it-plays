@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camera look-down: How It Plays</title>
+<meta name="description" content="Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Camera look-down: How It Plays">
+<meta property="og:description" content="Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/camera-look-down/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Camera look-down: How It Plays">
+<meta name="twitter:description" content="Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-camera">Camera</a></p>
+  <h1>Camera look-down</h1>
+  <p class="aka">Also called: look down, peek camera, crouch to look, manual camera offset</p>
+  <p class="lead">Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of camera look-down. Arrow keys or A and D to move, Space, W, Up or Z to jump, Down or S for down."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Camera look-down: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button><button type="button" data-touch="down">&darr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>&darr;</kbd> or <kbd>S</kbd> down</p>
+    <p class="try"><strong>Try this:</strong> Stand at the edge of the top ledge and hold down. Let go and it pans back.</p>
+  </section>
+  <section><h2>What it does</h2><p>Players hate jumping into a pit they can&#x27;t see. Letting them hold down to peek uses an input they already have. A short delay keeps a quick tap of down from moving the camera. Itay Keren&#x27;s camera talk points to Spelunky, where crouching or looking up shifts the camera, as a good use of controls already in the game.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Levels with drops that go below the screen.</p></section>
+    <section><h2>Watch out</h2><p>Don&#x27;t pan while the player is moving, or it fights the normal follow.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>No checked source gives numbers. 100 to 150 px of pan after holding for about 300 ms is a starting point.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add a look-down camera.
+- While the player is on the ground, nearly still, and has held down for at least {lookDelayMs} ms, ease a camera offset to {lookPx} px downward.
+- Otherwise ease it back to 0.
+- Ease with offset += (target - offset) * (1 - Math.exp(-6 * dt)).
+- Clamp the camera to the level bounds.
+
+Acceptance checks:
+1. Holding down for {lookDelayMs} ms pans the view down by {lookPx} px.
+2. A quick tap of down doesn't move the camera.
+3. Walking cancels the pan.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add a look-down camera.
+- While the player is on the ground, nearly still, and has held down for at least 300 ms, ease a camera offset to 120 px downward.
+- Otherwise ease it back to 0.
+- Ease with offset += (target - offset) * (1 - Math.exp(-6 * dt)).
+- Clamp the camera to the level bounds.
+
+Acceptance checks:
+1. Holding down for 300 ms pans the view down by 120 px.
+2. A quick tap of down doesn&#x27;t move the camera.
+3. Walking cancels the pan.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers">Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/camera-look-down.json">api/camera-look-down.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../camera-platform-snap/index.html">&larr; Camera platform snapping</a><a href="../hitstop/index.html">Hitstop &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("camera-look-down");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

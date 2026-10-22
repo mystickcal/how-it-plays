@@ -1,0 +1,34 @@
+{
+  "id": "hit-flash",
+  "name": "Hit flash",
+  "category": "feedback",
+  "aliases": [
+    "white flash",
+    "damage flash",
+    "flash on hit",
+    "impact flash"
+  ],
+  "feels": [
+    "weak hits",
+    "did that hit",
+    "no feedback"
+  ],
+  "summary": "Turn the target fully white for a few frames when it gets hit, so the player sees the hit land.",
+  "what_it_does": "In a busy scene it's hard to tell whether an attack connected. A short, solid white flash on the target is one of the clearest signals there is, and it reads even out of the corner of the eye. In the Juice it or lose it talk, the ball turns white every time it hits something.",
+  "use_when": "Any damage to enemies, and often to the player.",
+  "watch_out": "Long or repeated flashes can be a problem for photosensitive players. Keep them short and never flash the whole screen.",
+  "starting_values": "No checked source gives a duration. 1 to 6 frames (about 17 to 100 ms) is a common starting range.",
+  "default_slider_values": {
+    "flashMs": 70.0
+  },
+  "prompt": "Add a hit flash.\n- When an enemy takes damage, draw it solid white (a fill or a white shader, not a tint) for 70 ms (about 4 frames).\n- Restart the timer on each new hit.\n- Use real time.\n\nAcceptance checks:\n1. Each hit shows a solid white target.\n2. The flash lasts about 70 ms at 30 and 144 fps.\n3. Only the hit target flashes, never the full screen.",
+  "sources": [
+    {
+      "title": "Juice it or lose it (Jonasson and Purho talk)",
+      "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+    }
+  ],
+  "page": "e/hit-flash/index.html",
+  "json": "api/hit-flash.json",
+  "updated": "2026-10-21"
+}

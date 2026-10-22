@@ -1,6 +1,7 @@
 {
   "id": "camera-lookahead",
   "name": "Camera lookahead and smoothing",
+  "category": "camera",
   "aliases": [
     "camera lead",
     "camera lerp",

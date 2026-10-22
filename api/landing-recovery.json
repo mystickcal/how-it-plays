@@ -1,0 +1,35 @@
+{
+  "id": "landing-recovery",
+  "name": "Landing recovery",
+  "category": "jumping",
+  "aliases": [
+    "landing lag",
+    "hard landing",
+    "heavy landing",
+    "landing stun"
+  ],
+  "feels": [
+    "weightless",
+    "no impact on landing",
+    "too spammy"
+  ],
+  "summary": "After a hard landing, the character can't act for a few frames, which gives falls weight.",
+  "what_it_does": "A character who can run at full speed the instant they hit the ground after a long fall feels weightless. Landing recovery locks movement and jumping for a short time after any landing faster than a threshold. Small hops stay free, so normal play is not slowed down. A squash on the landing frame shows the player why they are stuck.",
+  "use_when": "Games that want weight: brawlers, fighting games, heavy characters.",
+  "watch_out": "Precise platformers, where any lost control feels unfair. Keep it short and only on hard landings.",
+  "starting_values": "SmashWiki's landing lag page lists light landings at 2 frames and heavy landings from 2 to 6 frames in later Smash games, about 33 to 100 ms at 60 fps.",
+  "default_slider_values": {
+    "landLagMs": 100.0,
+    "landLagVy": 600.0
+  },
+  "prompt": "Add landing recovery after hard landings.\n- On the frame the player lands, if their downward speed was at least 600 px/s, block movement and jumping for 100 ms (6 frames at 60 fps).\n- Lighter landings get no recovery.\n- Squash the sprite on the landing frame so the player sees why.\n\nAcceptance checks:\n1. Dropping from a high ledge stops the player for about 100 ms.\n2. A normal hop on flat ground never triggers it.\n3. The timing is the same at 30 and 144 fps.",
+  "sources": [
+    {
+      "title": "SmashWiki: Landing lag",
+      "url": "https://www.ssbwiki.com/Landing_lag"
+    }
+  ],
+  "page": "e/landing-recovery/index.html",
+  "json": "api/landing-recovery.json",
+  "updated": "2026-10-21"
+}

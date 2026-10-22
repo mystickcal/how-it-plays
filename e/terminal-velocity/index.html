@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal velocity: How It Plays</title>
+<meta name="description" content="Cap how fast the character can fall, so long drops stay readable and steerable.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Terminal velocity: How It Plays">
+<meta property="og:description" content="Cap how fast the character can fall, so long drops stay readable and steerable.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/terminal-velocity/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Terminal velocity: How It Plays">
+<meta name="twitter:description" content="Cap how fast the character can fall, so long drops stay readable and steerable.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-jumping">Jumping</a></p>
+  <h1>Terminal velocity</h1>
+  <p class="aka">Also called: max fall speed, fall speed cap, fall cap</p>
+  <p class="lead">Cap how fast the character can fall, so long drops stay readable and steerable.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of terminal velocity. Arrow keys or A and D to move, Space, W, Up or Z to jump."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Terminal velocity: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump</p>
+    <p class="try"><strong>Try this:</strong> Walk off the ledge into the shaft (it loops) and steer around the red balls. Turn the cap off and watch the fall speed climb.</p>
+  </section>
+  <section><h2>What it does</h2><p>Gravity adds speed every frame. Without a cap, a long fall gets faster and faster until the player can&#x27;t react to anything on the way down, and fast bodies can skip through thin obstacles. A max fall speed clamps vertical speed after gravity is added. Some games also let the player hold down to fall faster, up to a second, higher cap.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Any game with gravity and falls longer than one jump.</p></section>
+    <section><h2>Watch out</h2><p>A cap that is too low makes falling feel like gliding. Check collisions at the capped speed so nothing tunnels.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Celeste&#x27;s public player code caps falling at 160, or 240 while holding down, in pixels per second at 320 by 180. That is 320 and 480 px/s at this demo&#x27;s size.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Cap the player's fall speed.
+- After adding gravity each frame, clamp vertical speed to at most {maxFall} px/s downward.
+- Optional: while down is held, raise the cap gradually to about 1.5 times that.
+- Upward speed is not capped by this.
+
+Acceptance checks:
+1. A long fall never goes faster than {maxFall} px/s. Log the speed.
+2. Short jumps feel the same as before.
+3. At the capped speed the player never passes through a thin platform.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Cap the player&#x27;s fall speed.
+- After adding gravity each frame, clamp vertical speed to at most 320 px/s downward.
+- Optional: while down is held, raise the cap gradually to about 1.5 times that.
+- Upward speed is not capped by this.
+
+Acceptance checks:
+1. A long fall never goes faster than 320 px/s. Log the speed.
+2. Short jumps feel the same as before.
+3. At the capped speed the player never passes through a thin platform.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li><li><a href="http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/">The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/terminal-velocity.json">api/terminal-velocity.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../fall-gravity/index.html">&larr; Heavier fall</a><a href="../corner-correction/index.html">Corner correction &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("terminal-velocity");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

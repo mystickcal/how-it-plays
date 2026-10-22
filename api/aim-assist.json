@@ -1,0 +1,43 @@
+{
+  "id": "aim-assist",
+  "name": "Aim assist",
+  "category": "combat",
+  "aliases": [
+    "auto-aim",
+    "bullet magnetism",
+    "aim correction",
+    "target snap"
+  ],
+  "feels": [
+    "can't aim",
+    "shots always miss",
+    "aiming is fiddly"
+  ],
+  "summary": "When the player fires roughly toward a target, send the shot at it if it is inside a small cone and in range.",
+  "what_it_does": "Aiming precisely with keys, a stick or a touch screen is hard, so many games quietly correct the shot. At fire time, look for targets inside a cone around the aim direction and within range, pick the one closest by angle, and fire at it. Halo calls this auto-aim or bullet magnetism. Doom's public source aims bullets this way: it looks for a target straight ahead, then a few degrees to each side, and sets the shot's vertical angle to hit it.",
+  "use_when": "Shooters with gamepad or touch input, and any game where the player can't aim freely, like this one, which only shoots left or right.",
+  "watch_out": "Too wide a cone feels like the game plays itself and can pick the wrong target when several are close. Competitive players notice it.",
+  "starting_values": "Doom checks about 5.6 degrees to each side (1<<26 in its angle units) before giving up. A cone of 5 to 15 degrees is a sensible starting range.",
+  "default_slider_values": {
+    "assistDeg": 10.0,
+    "assistRange": 420.0
+  },
+  "prompt": "Add aim assist to shooting.\n- When the player fires, find targets within 420 px whose direction is within 10 degrees of the aim direction.\n- If there are any, fire at the one with the smallest angle difference. Otherwise fire straight.\n- Only change the new shot's direction. Never move the player's aim or the camera.\n- Make the cone and range settings, with a way to turn it off.\n\nAcceptance checks:\n1. Firing at a target slightly above or below the aim line hits it.\n2. A target more than 10 degrees off is not hit unless aimed at.\n3. With assist off, shots go exactly where aimed.",
+  "sources": [
+    {
+      "title": "DOOM source code, p_pspr.c (P_BulletSlope), id Software on GitHub",
+      "url": "https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_pspr.c"
+    },
+    {
+      "title": "Halopedia: Aim assist",
+      "url": "https://www.halopedia.org/Aim_assist"
+    },
+    {
+      "title": "Using Aim Assistance to Balance First Person Shooters (Vicencio-Moreira, Mandryk, Gutwin, Bateman)",
+      "url": "https://rodrigov.ca/wp-content/uploads/2016/03/AimAssist_RNote_V7.pdf"
+    }
+  ],
+  "page": "e/aim-assist/index.html",
+  "json": "api/aim-assist.json",
+  "updated": "2026-10-21"
+}

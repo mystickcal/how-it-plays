@@ -1,6 +1,7 @@
 {
   "id": "attack-input-buffer",
   "name": "Input buffering for attacks",
+  "category": "combat",
   "aliases": [
     "attack buffer",
     "combo buffer",

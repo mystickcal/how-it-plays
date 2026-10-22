@@ -1,0 +1,35 @@
+{
+  "id": "camera-look-down",
+  "name": "Camera look-down",
+  "category": "camera",
+  "aliases": [
+    "look down",
+    "peek camera",
+    "crouch to look",
+    "manual camera offset"
+  ],
+  "feels": [
+    "can't see below",
+    "blind drops",
+    "leap of faith"
+  ],
+  "summary": "Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it.",
+  "what_it_does": "Players hate jumping into a pit they can't see. Letting them hold down to peek uses an input they already have. A short delay keeps a quick tap of down from moving the camera. Itay Keren's camera talk points to Spelunky, where crouching or looking up shifts the camera, as a good use of controls already in the game.",
+  "use_when": "Levels with drops that go below the screen.",
+  "watch_out": "Don't pan while the player is moving, or it fights the normal follow.",
+  "starting_values": "No checked source gives numbers. 100 to 150 px of pan after holding for about 300 ms is a starting point.",
+  "default_slider_values": {
+    "lookPx": 120.0,
+    "lookDelayMs": 300.0
+  },
+  "prompt": "Add a look-down camera.\n- While the player is on the ground, nearly still, and has held down for at least 300 ms, ease a camera offset to 120 px downward.\n- Otherwise ease it back to 0.\n- Ease with offset += (target - offset) * (1 - Math.exp(-6 * dt)).\n- Clamp the camera to the level bounds.\n\nAcceptance checks:\n1. Holding down for 300 ms pans the view down by 120 px.\n2. A quick tap of down doesn't move the camera.\n3. Walking cancels the pan.",
+  "sources": [
+    {
+      "title": "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)",
+      "url": "https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers"
+    }
+  ],
+  "page": "e/camera-look-down/index.html",
+  "json": "api/camera-look-down.json",
+  "updated": "2026-10-21"
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corner correction: How It Plays</title>
+<meta name="description" content="When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Corner correction: How It Plays">
+<meta property="og:description" content="When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/corner-correction/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Corner correction: How It Plays">
+<meta name="twitter:description" content="When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-jumping">Jumping</a></p>
+  <h1>Corner correction</h1>
+  <p class="aka">Also called: ledge nudge, head bonk forgiveness, corner forgiveness, corner slide</p>
+  <p class="lead">When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of corner correction. Arrow keys or A and D to move, Space, W, Up or Z to jump."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Corner correction: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump</p>
+    <p class="try"><strong>Try this:</strong> Jump up through the gaps in the ceiling. Stand a little off center and try with correction on and off.</p>
+  </section>
+  <section><h2>What it does</h2><p>Players often jump up through a gap and catch its edge with the side of their head. Without help the jump stops dead and they fall. Corner correction checks, at the moment of the bump, whether moving the player a few pixels left or right would clear the ceiling. If it would, it moves them there and the jump continues.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Platformers with narrow gaps, doorways or low ceilings.</p></section>
+    <section><h2>Watch out</h2><p>Keep it to a few pixels. A large nudge visibly teleports the player and can carry them past walls you meant to block.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Celeste&#x27;s public player code checks up to 4 pixels each way when moving up (at 320 by 180), about 8 px at this demo&#x27;s size. Game Maker&#x27;s Toolkit&#x27;s Celeste video mentions the same kind of corner forgiveness for dashes.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add corner correction for upward movement.
+- When the player is moving up and hits a ceiling, test shifting them sideways by 1 to {cornerPx} px.
+- If a shifted position is free of solids, move the player there and keep the upward speed. Test toward the direction of horizontal movement, or both sides when not moving sideways.
+- If no shift clears it, stop the jump as usual.
+
+Acceptance checks:
+1. Jumping into a gap while clipping its edge by {cornerPx:half} px passes through.
+2. Jumping squarely into a ceiling still stops the jump.
+3. The nudge never moves the player into a wall.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add corner correction for upward movement.
+- When the player is moving up and hits a ceiling, test shifting them sideways by 1 to 8 px.
+- If a shifted position is free of solids, move the player there and keep the upward speed. Test toward the direction of horizontal movement, or both sides when not moving sideways.
+- If no shift clears it, stop the jump as usual.
+
+Acceptance checks:
+1. Jumping into a gap while clipping its edge by 4 px passes through.
+2. Jumping squarely into a ceiling still stops the jump.
+3. The nudge never moves the player into a wall.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li><li><a href="https://www.youtube.com/watch?v=yorTG9at90g">Why Does Celeste Feel So Good to Play? (Game Maker&#x27;s Toolkit)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/corner-correction.json">api/corner-correction.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../terminal-velocity/index.html">&larr; Terminal velocity</a><a href="../double-jump/index.html">Double jump &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("corner-correction");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

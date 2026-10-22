@@ -1,0 +1,35 @@
+{
+  "id": "dash-cooldown",
+  "name": "Dash with cooldown",
+  "category": "movement",
+  "aliases": [
+    "dash",
+    "air dash",
+    "dash timer",
+    "burst move"
+  ],
+  "feels": [
+    "spammy",
+    "dash feels cheap",
+    "too fast to control"
+  ],
+  "summary": "A short burst of fixed speed in the facing direction, with a cooldown so it can't be chained into flying.",
+  "what_it_does": "A dash sets speed to a fixed value for a short time and ignores gravity. Without a limit, players chain dashes and skip the level. A cooldown blocks the next dash for a moment. Celeste also allows only one air dash until you land, which is a separate rule you can add on top.",
+  "use_when": "Action games that want a burst of speed or an escape move.",
+  "watch_out": "Show the cooldown with a meter or a color change, or players will think the game dropped their input.",
+  "starting_values": "Celeste's public player code dashes at 240 (480 px/s at this demo's size) for 0.15 seconds, with a 0.2 second cooldown that starts when the dash begins. It also freezes the game for 0.05 seconds as a dash starts. This demo starts its cooldown when the dash ends.",
+  "default_slider_values": {
+    "dashCooldownMs": 200.0,
+    "dashSpeed": 480.0
+  },
+  "prompt": "Add a dash with a cooldown.\n- On the dash button, if the dash is ready: set horizontal speed to facing * 480 px/s and vertical speed to 0 for 150 ms, with no gravity.\n- When the dash ends, set horizontal speed to the normal max speed in the same direction.\n- The next dash is allowed 200 ms after the previous one ends.\n- Show readiness with a small meter or a color change.\n\nAcceptance checks:\n1. Mashing dash gives at most one dash per 150 + 200 ms.\n2. A press during the cooldown does nothing, and the meter shows why.\n3. Dash distance is the same at 30 and 144 fps.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/dash-cooldown/index.html",
+  "json": "api/dash-cooldown.json",
+  "updated": "2026-10-21"
+}

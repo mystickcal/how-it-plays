@@ -1,6 +1,7 @@
 {
   "id": "i-frames",
   "name": "Invincibility frames with flicker",
+  "category": "combat",
   "aliases": [
     "i-frames",
     "mercy invincibility",

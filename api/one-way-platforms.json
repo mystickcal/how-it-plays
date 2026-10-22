@@ -1,0 +1,38 @@
+{
+  "id": "one-way-platforms",
+  "name": "One-way platforms with drop-through",
+  "category": "jumping",
+  "aliases": [
+    "jump-through platforms",
+    "pass-through platforms",
+    "semisolid platforms",
+    "drop through"
+  ],
+  "feels": [
+    "bonked my head",
+    "stuck under platforms",
+    "can't get down"
+  ],
+  "summary": "Platforms you can jump up through from below and land on from above, with down plus jump to drop back through.",
+  "what_it_does": "Solid platforms stop the player's head on the way up, so a stack of them becomes a maze. A one-way platform only blocks a body that was fully above its top edge before this frame's move and is moving down. Checking the previous position matters: a player who jumps halfway into the platform and falls back should drop through, not snap onto it. Dropping through ignores one-way platforms for a moment.",
+  "use_when": "Stacked platforms, multi-level arenas, anything the player should reach from below.",
+  "watch_out": "Keep the drop input distinct so it never fires by accident, for example down plus jump rather than down alone.",
+  "starting_values": "Rodrigo Monteiro's platformer guide gives the rule: the platform counts only if the player's bottom was above its top before the move. Ignoring one-way platforms for about 200 ms on a drop is a starting point to tune. Celeste's code has its own version, called JumpThru.",
+  "default_slider_values": {
+    "dropMs": 200.0
+  },
+  "prompt": "Add one-way platforms.\n- They never block horizontal movement.\n- They block vertical movement only when the player's bottom edge was at or above the platform's top before this frame's move, and the player is moving down.\n- Drop-through: when the player stands on a one-way platform and presses down and jump together, ignore one-way platforms for 200 ms and do not jump.\n\nAcceptance checks:\n1. Jumping from below passes through and lands on top.\n2. A jump that only reaches halfway through falls back down through it.\n3. Down plus jump on a one-way platform drops through. On solid ground it does a normal jump.",
+  "sources": [
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    },
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/one-way-platforms/index.html",
+  "json": "api/one-way-platforms.json",
+  "updated": "2026-10-21"
+}

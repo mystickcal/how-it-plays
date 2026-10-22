@@ -1,0 +1,38 @@
+{
+  "id": "corner-correction",
+  "name": "Corner correction",
+  "category": "jumping",
+  "aliases": [
+    "ledge nudge",
+    "head bonk forgiveness",
+    "corner forgiveness",
+    "corner slide"
+  ],
+  "feels": [
+    "bonked my head",
+    "sticky corners",
+    "unfair"
+  ],
+  "summary": "When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump.",
+  "what_it_does": "Players often jump up through a gap and catch its edge with the side of their head. Without help the jump stops dead and they fall. Corner correction checks, at the moment of the bump, whether moving the player a few pixels left or right would clear the ceiling. If it would, it moves them there and the jump continues.",
+  "use_when": "Platformers with narrow gaps, doorways or low ceilings.",
+  "watch_out": "Keep it to a few pixels. A large nudge visibly teleports the player and can carry them past walls you meant to block.",
+  "starting_values": "Celeste's public player code checks up to 4 pixels each way when moving up (at 320 by 180), about 8 px at this demo's size. Game Maker's Toolkit's Celeste video mentions the same kind of corner forgiveness for dashes.",
+  "default_slider_values": {
+    "cornerPx": 8.0
+  },
+  "prompt": "Add corner correction for upward movement.\n- When the player is moving up and hits a ceiling, test shifting them sideways by 1 to 8 px.\n- If a shifted position is free of solids, move the player there and keep the upward speed. Test toward the direction of horizontal movement, or both sides when not moving sideways.\n- If no shift clears it, stop the jump as usual.\n\nAcceptance checks:\n1. Jumping into a gap while clipping its edge by 4 px passes through.\n2. Jumping squarely into a ceiling still stops the jump.\n3. The nudge never moves the player into a wall.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    },
+    {
+      "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+      "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+    }
+  ],
+  "page": "e/corner-correction/index.html",
+  "json": "api/corner-correction.json",
+  "updated": "2026-10-21"
+}

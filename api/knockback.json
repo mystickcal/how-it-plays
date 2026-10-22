@@ -1,6 +1,7 @@
 {
   "id": "knockback",
   "name": "Knockback",
+  "category": "combat",
   "aliases": [
     "hit push",
     "pushback",

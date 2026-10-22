@@ -1,0 +1,30 @@
+{
+  "id": "delayed-health-bar",
+  "name": "Delayed damage bar",
+  "category": "feedback",
+  "aliases": [
+    "ghost health bar",
+    "trailing health bar",
+    "damage chip bar",
+    "health bar lag"
+  ],
+  "feels": [
+    "how much did that hurt",
+    "can't tell damage",
+    "lost track of health"
+  ],
+  "summary": "When health drops, a pale bar stays where the health was for a moment and then drains, showing how big the hit was.",
+  "what_it_does": "An instant drop in a health bar is easy to miss, and it doesn't show how much one hit took. Keeping a second, lighter bar at the old value for a short time and then draining it makes the size of the loss visible after the fact.",
+  "use_when": "Health bars, boss bars, shields.",
+  "watch_out": "Game logic and low-health warnings should read the real value, never the pale one.",
+  "starting_values": "No checked source gives timings. Hold for 300 to 700 ms, then drain over a similar time, as a starting point.",
+  "default_slider_values": {
+    "ghostDelayMs": 500.0,
+    "ghostRate": 2.0
+  },
+  "prompt": "Add a delayed damage bar behind the health bar.\n- Keep ghostHealth. When health drops, leave ghostHealth where it was.\n- 500 ms after the last hit, move ghostHealth toward health at 2 health points per second.\n- When health goes up, set ghostHealth to it right away.\n- Draw ghostHealth as a pale bar behind the real one.\n\nAcceptance checks:\n1. After a hit, the pale part shows the size of the loss for 500 ms.\n2. Several quick hits extend the pale part instead of resetting it.\n3. Healing never shows a pale part.",
+  "sources": [],
+  "page": "e/delayed-health-bar/index.html",
+  "json": "api/delayed-health-bar.json",
+  "updated": "2026-10-21"
+}

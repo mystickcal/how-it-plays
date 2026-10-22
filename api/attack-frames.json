@@ -1,0 +1,44 @@
+{
+  "id": "attack-frames",
+  "name": "Attack startup, active and recovery",
+  "category": "combat",
+  "aliases": [
+    "frame data",
+    "startup frames",
+    "wind-up frames",
+    "recovery frames",
+    "attack phases"
+  ],
+  "feels": [
+    "attacks feel weightless",
+    "spammy attacks",
+    "no commitment"
+  ],
+  "summary": "Split each attack into a wind-up, a short window where it can hit, and a follow-through where the attacker is open.",
+  "what_it_does": "An attack that hits on the frame you press it and can be repeated at once has no weight and no risk. Fighting games split every move into startup (before it can hit), active (when the hitbox is out) and recovery (after, when the attacker can't act). Startup makes timing matter and recovery makes a miss costly. The active part is usually very short.",
+  "use_when": "Melee combat where timing and commitment should matter.",
+  "watch_out": "Long startup on a basic attack feels unresponsive. Keep light attacks quick, and buffer presses made during recovery.",
+  "starting_values": "Infil's fighting game glossary notes most moves have only about 1 to 4 active frames. This demo starts at 100 ms of startup (6 frames), 50 ms active (3 frames) and 250 ms of recovery (15 frames) as starting points to tune.",
+  "default_slider_values": {
+    "startupMs": 100.0,
+    "recoveryMs": 250.0
+  },
+  "prompt": "Give each attack three phases.\n- Startup: 100 ms (6 frames) after the press, with no hitbox. Show a wind-up.\n- Active: about 50 ms (3 frames) with the hitbox out. Each attack can hit a target once.\n- Recovery: 250 ms (15 frames) with no hitbox, and the attacker can't start another attack.\n- Store the phase timings per attack as data.\n\nAcceptance checks:\n1. A hit lands 6 frames after the press, not on the press.\n2. Pressing attack during recovery does not start a new attack, unless a buffer or cancel rule allows it.\n3. Phase lengths are the same at 30 and 144 fps.",
+  "sources": [
+    {
+      "title": "Infil's Fighting Game Glossary: Startup",
+      "url": "https://glossary.infil.net/?t=Startup"
+    },
+    {
+      "title": "Infil's Fighting Game Glossary: Active",
+      "url": "https://glossary.infil.net/?t=Active"
+    },
+    {
+      "title": "Infil's Fighting Game Glossary: Recovery",
+      "url": "https://glossary.infil.net/?t=Recovery"
+    }
+  ],
+  "page": "e/attack-frames/index.html",
+  "json": "api/attack-frames.json",
+  "updated": "2026-10-21"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "terminal-velocity",
+  "name": "Terminal velocity",
+  "category": "jumping",
+  "aliases": [
+    "max fall speed",
+    "fall speed cap",
+    "fall cap"
+  ],
+  "feels": [
+    "out of control",
+    "falls too fast",
+    "can't react when falling"
+  ],
+  "summary": "Cap how fast the character can fall, so long drops stay readable and steerable.",
+  "what_it_does": "Gravity adds speed every frame. Without a cap, a long fall gets faster and faster until the player can't react to anything on the way down, and fast bodies can skip through thin obstacles. A max fall speed clamps vertical speed after gravity is added. Some games also let the player hold down to fall faster, up to a second, higher cap.",
+  "use_when": "Any game with gravity and falls longer than one jump.",
+  "watch_out": "A cap that is too low makes falling feel like gliding. Check collisions at the capped speed so nothing tunnels.",
+  "starting_values": "Celeste's public player code caps falling at 160, or 240 while holding down, in pixels per second at 320 by 180. That is 320 and 480 px/s at this demo's size.",
+  "default_slider_values": {
+    "maxFall": 320.0
+  },
+  "prompt": "Cap the player's fall speed.\n- After adding gravity each frame, clamp vertical speed to at most 320 px/s downward.\n- Optional: while down is held, raise the cap gradually to about 1.5 times that.\n- Upward speed is not capped by this.\n\nAcceptance checks:\n1. A long fall never goes faster than 320 px/s. Log the speed.\n2. Short jumps feel the same as before.\n3. At the capped speed the player never passes through a thin platform.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    },
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    }
+  ],
+  "page": "e/terminal-velocity/index.html",
+  "json": "api/terminal-velocity.json",
+  "updated": "2026-10-21"
+}

@@ -2,29 +2,83 @@
 
 > A playable game feel dictionary for people building browser games with AI. Each technique has a demo with an on/off switch and sliders, starting values, and a copy-paste prompt for a coding agent.
 
-Agents: fetch /entries.json for all techniques (search the name, aliases and feels fields), or /api/<id>.json for one. The prompt field uses the demo's default values.
+Agents: fetch /entries.json for all techniques (search the name, aliases and feels fields; each entry has a category), or /api/<id>.json for one. The prompt field uses the demo's default values.
 
 ## Techniques
+
+### Movement
+
+- [Acceleration and deceleration](e/acceleration-curves/index.html): Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery. Feels it fixes: stiff, robotic, slippery, like ice, floaty. JSON: api/acceleration-curves.json
+- [Air control](e/air-control/index.html): Let the player steer left and right during a jump, usually with weaker acceleration than on the ground. Feels it fixes: no control in the air, committed jumps, stiff. JSON: api/air-control.json
+- [Turn-around speed](e/turn-around-speed/index.html): Give turning around its own, stronger acceleration so reversing is quick even when stopping is gentle. Feels it fixes: slippery, slow to turn, skids. JSON: api/turn-around-speed.json
+- [Wall slide](e/wall-slide/index.html): Falling while pushing into a wall slows the fall, giving the player time to line up a wall jump. Feels it fixes: sticky walls, falls off walls, can't line up a wall jump. JSON: api/wall-slide.json
+- [Wall jump input lockout](e/wall-jump-lockout/index.html): Right after a wall jump, ignore the direction input for a moment so the jump actually carries the player away from the wall. Feels it fixes: climbs one wall forever, wall jumps too easy, sticky walls. JSON: api/wall-jump-lockout.json
+- [Dash with cooldown](e/dash-cooldown/index.html): A short burst of fixed speed in the facing direction, with a cooldown so it can't be chained into flying. Feels it fixes: spammy, dash feels cheap, too fast to control. JSON: api/dash-cooldown.json
+- [Ledge grab](e/ledge-grab/index.html): When a jump ends with the player's head level with a ledge they are pushing into, they catch it and hang, then jump to climb up. Feels it fixes: can't reach the ledge, just missed it, unfair. JSON: api/ledge-grab.json
+- [Slope snapping](e/slope-snapping/index.html): When running downhill, keep the character on the slope instead of letting them skip down it in small hops. Feels it fixes: bumpy slopes, bounces down hills, can't jump on slopes. JSON: api/slope-snapping.json
+- [Moving platforms that carry the player](e/moving-platforms/index.html): A player standing on a moving platform moves with it, and a jump off it keeps the platform's speed. Feels it fixes: slides off platforms, platforms leave me behind, jumps lose momentum. JSON: api/moving-platforms.json
+- [Analog stick dead zone](e/analog-deadzone/index.html): Ignore tiny stick readings near the center, then rescale the rest so movement still starts smoothly from zero. Feels it fixes: character drifts, moves on its own, twitchy stick. JSON: api/analog-deadzone.json
+
+### Jumping
 
 - [Coyote time](e/coyote-time/index.html): For a short moment after the player runs off a ledge, jump still works as if they were on the ground. Feels it fixes: unfair, unresponsive, I pressed jump. JSON: api/coyote-time.json
 - [Jump buffering](e/jump-buffering/index.html): If the player presses jump just before landing, remember the press for a short time and jump the moment they touch the ground. Feels it fixes: unresponsive, it ate my input, stiff. JSON: api/jump-buffering.json
 - [Variable jump height](e/variable-jump-height/index.html): Tap jump for a short hop, hold it for a full jump. When the player lets go while still rising, cut the upward speed. Feels it fixes: floaty, no control in the air, every jump is the same. JSON: api/variable-jump-height.json
-- [Camera lookahead and smoothing](e/camera-lookahead/index.html): The camera aims a bit ahead of where the player is facing and eases toward that point instead of being glued to the player. Feels it fixes: can't see what's coming, cramped, jittery camera. JSON: api/camera-lookahead.json
+- [Apex hang](e/apex-hang/index.html): Near the top of a jump, while jump is held, gravity is cut so the player hangs for a moment and can line up the landing. Feels it fixes: stiff, hard to line up landings, jumps feel rushed. JSON: api/apex-hang.json
+- [Heavier fall](e/fall-gravity/index.html): Gravity gets stronger once the character starts falling, so jumps rise smoothly and come down fast. Feels it fixes: floaty, moon jump, slow to land. JSON: api/fall-gravity.json
+- [Terminal velocity](e/terminal-velocity/index.html): Cap how fast the character can fall, so long drops stay readable and steerable. Feels it fixes: out of control, falls too fast, can't react when falling. JSON: api/terminal-velocity.json
+- [Corner correction](e/corner-correction/index.html): When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump. Feels it fixes: bonked my head, sticky corners, unfair. JSON: api/corner-correction.json
+- [Double jump](e/double-jump/index.html): Allow one extra jump in the air, refilled when the player lands. Feels it fixes: can't reach the ledge, no control in the air, jumps feel limited. JSON: api/double-jump.json
+- [Landing recovery](e/landing-recovery/index.html): After a hard landing, the character can't act for a few frames, which gives falls weight. Feels it fixes: weightless, no impact on landing, too spammy. JSON: api/landing-recovery.json
+- [One-way platforms with drop-through](e/one-way-platforms/index.html): Platforms you can jump up through from below and land on from above, with down plus jump to drop back through. Feels it fixes: bonked my head, stuck under platforms, can't get down. JSON: api/one-way-platforms.json
+
+### Combat
+
 - [Input buffering for attacks](e/attack-input-buffer/index.html): A press made during an attack's recovery is saved and fires the moment the attack ends, instead of being thrown away. Feels it fixes: unresponsive, dropped inputs, mashing doesn't work. JSON: api/attack-input-buffer.json
 - [Invincibility frames with flicker](e/i-frames/index.html): After taking a hit, the player can't be hurt again for a short time, and the sprite flickers so they know. Feels it fixes: unfair, lost all my health at once, cheap hits. JSON: api/i-frames.json
+- [Knockback](e/knockback/index.html): A hit pushes the target away from the attacker with a small upward pop, then friction slows it down. Feels it fixes: weak hits, enemies feel weightless, hits don't connect. JSON: api/knockback.json
+- [Attack startup, active and recovery](e/attack-frames/index.html): Split each attack into a wind-up, a short window where it can hit, and a follow-through where the attacker is open. Feels it fixes: attacks feel weightless, spammy attacks, no commitment. JSON: api/attack-frames.json
+- [Cancel windows](e/cancel-windows/index.html): After an attack connects, a short window lets the next attack start right away, skipping the rest of the recovery. Feels it fixes: sluggish combat, combos don't flow, stiff. JSON: api/cancel-windows.json
+- [Dodge roll](e/dodge-roll/index.html): A quick roll that can't be hurt for its length, so a well-timed roll passes straight through an attack. Feels it fixes: can't escape, cheap hits, trapped. JSON: api/dodge-roll.json
+- [Aim assist](e/aim-assist/index.html): When the player fires roughly toward a target, send the shot at it if it is inside a small cone and in range. Feels it fixes: can't aim, shots always miss, aiming is fiddly. JSON: api/aim-assist.json
+- [Projectile leading](e/projectile-leading/index.html): Enemies aim where the player will be when the shot arrives, not where they are now, so running in a straight line stops working. Feels it fixes: enemies are dumb, too easy to dodge, just keep running. JSON: api/projectile-leading.json
+- [Attack telegraph](e/attack-telegraph/index.html): Enemies show a clear wind-up before an attack becomes dangerous, so the player can react. Feels it fixes: unfair, cheap hits, came out of nowhere. JSON: api/attack-telegraph.json
+- [Forgiving hitboxes](e/forgiving-hitboxes/index.html): Make hazard hitboxes a little smaller than their art, so grazing a spike tip doesn't count. Feels it fixes: unfair, I didn't touch it, cheap deaths. JSON: api/forgiving-hitboxes.json
+
+### Camera
+
+- [Camera lookahead and smoothing](e/camera-lookahead/index.html): The camera aims a bit ahead of where the player is facing and eases toward that point instead of being glued to the player. Feels it fixes: can't see what's coming, cramped, jittery camera. JSON: api/camera-lookahead.json
+- [Camera deadzone](e/camera-deadzone/index.html): The camera stays still while the player moves inside a window in the middle of the screen, and only scrolls when they push past its edge. Feels it fixes: jittery camera, seasick, camera moves too much. JSON: api/camera-deadzone.json
+- [Camera platform snapping](e/camera-platform-snap/index.html): The camera's height follows the player only when they land, so ordinary jumps don't bob the whole screen. Feels it fixes: camera bobs when jumping, seasick, jittery camera. JSON: api/camera-platform-snap.json
+- [Camera look-down](e/camera-look-down/index.html): Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it. Feels it fixes: can't see below, blind drops, leap of faith. JSON: api/camera-look-down.json
+
+### Feedback
+
 - [Hitstop](e/hitstop/index.html): Freeze the action for a few frames when a hit lands so the impact registers. Feels it fixes: weak hits, attacks pass through, mushy. JSON: api/hitstop.json
 - [Screen shake with falloff](e/screen-shake/index.html): Shake the camera on impact, with the strength fading over time instead of a constant jitter. Feels it fixes: weak hits, flat, too much shake. JSON: api/screen-shake.json
-- [Acceleration and deceleration](e/acceleration-curves/index.html): Speed ramps up to max and back down to zero over a short time instead of snapping. The balance between the two decides whether movement feels tight or slippery. Feels it fixes: stiff, robotic, slippery, like ice, floaty. JSON: api/acceleration-curves.json
-- [Knockback](e/knockback/index.html): A hit pushes the target away from the attacker with a small upward pop, then friction slows it down. Feels it fixes: weak hits, enemies feel weightless, hits don't connect. JSON: api/knockback.json
+- [Hit flash](e/hit-flash/index.html): Turn the target fully white for a few frames when it gets hit, so the player sees the hit land. Feels it fixes: weak hits, did that hit, no feedback. JSON: api/hit-flash.json
+- [Damage numbers](e/damage-numbers/index.html): Pop a number above the target on each hit showing the damage, then float it up and fade it out. Feels it fixes: did that hit, can't tell damage, no feedback. JSON: api/damage-numbers.json
+- [Jump squash and stretch](e/squash-stretch/index.html): Stretch the character tall on takeoff and squash them wide on landing, scaled by how hard they land, then ease back. Feels it fixes: stiff, lifeless, robotic. JSON: api/squash-stretch.json
+- [Delayed damage bar](e/delayed-health-bar/index.html): When health drops, a pale bar stays where the health was for a moment and then drains, showing how big the hit was. Feels it fixes: how much did that hurt, can't tell damage, lost track of health. JSON: api/delayed-health-bar.json
+
 
 ## Feel lookup
 
-- floaty: variable-jump-height, acceleration-curves
-- stiff or robotic: acceleration-curves, jump-buffering
-- slippery: acceleration-curves
-- unfair: coyote-time, i-frames, jump-buffering
-- unresponsive: jump-buffering, attack-input-buffer, coyote-time
-- weak hits: hitstop, screen-shake, knockback
-- can't see ahead: camera-lookahead
+- floaty: variable-jump-height, fall-gravity, acceleration-curves, terminal-velocity
+- stiff or robotic: acceleration-curves, jump-buffering, squash-stretch, air-control
+- slippery: acceleration-curves, turn-around-speed
+- unfair: coyote-time, i-frames, jump-buffering, forgiving-hitboxes, attack-telegraph, corner-correction
+- unresponsive: jump-buffering, attack-input-buffer, coyote-time, cancel-windows
+- weak hits: hitstop, screen-shake, knockback, hit-flash, damage-numbers
+- can't see ahead: camera-lookahead, camera-look-down
+- jittery camera: camera-deadzone, camera-platform-snap, camera-lookahead
+- bonked my head: corner-correction, one-way-platforms
+- can't reach the ledge: ledge-grab, double-jump, coyote-time, apex-hang
+- no control in the air: air-control, double-jump, variable-jump-height
+- sticky walls: wall-slide, wall-jump-lockout
+- drifts on its own: analog-deadzone
+- sluggish combat: cancel-windows, attack-input-buffer, attack-frames
+- can't aim: aim-assist
+- weightless: landing-recovery, squash-stretch, fall-gravity
 
 Updated 2026-10-21. Built by Derek Salyers (https://x.com/omgitsderek).

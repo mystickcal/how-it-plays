@@ -1,6 +1,7 @@
 {
   "id": "acceleration-curves",
   "name": "Acceleration and deceleration",
+  "category": "movement",
   "aliases": [
     "run acceleration",
     "friction",

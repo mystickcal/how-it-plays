@@ -1,0 +1,33 @@
+{
+  "id": "double-jump",
+  "name": "Double jump",
+  "category": "jumping",
+  "aliases": [
+    "air jump",
+    "extra jump",
+    "multi-jump"
+  ],
+  "feels": [
+    "can't reach the ledge",
+    "no control in the air",
+    "jumps feel limited"
+  ],
+  "summary": "Allow one extra jump in the air, refilled when the player lands.",
+  "what_it_does": "A second jump lets players fix a jump that went wrong and reach higher places. Keep a counter of air jumps left, refill it on landing, and spend one when jump is pressed in the air. A coyote jump off a ledge should count as the ground jump, not use up the air jump.",
+  "use_when": "Games about exploration or recovery, where reaching higher spots is the reward.",
+  "watch_out": "Every gap and ledge now has to account for the extra height, which makes levels harder to design. Precise platformers often leave it out.",
+  "starting_values": "Rodrigo Monteiro's platformer guide describes the counter approach and notes that the second jump is sometimes shorter. 0.8 to 1.0 times the first jump's speed is a sensible starting range.",
+  "default_slider_values": {
+    "airJumpMul": 0.85
+  },
+  "prompt": "Add a double jump.\n- Keep airJumpsLeft. Set it to 1 whenever the player is on the ground.\n- When jump is pressed in the air, a normal or coyote jump is not allowed, and airJumpsLeft > 0: set vertical speed to 0.85 times the normal jump speed (upward) and decrease airJumpsLeft.\n- Each press can do only one jump.\n\nAcceptance checks:\n1. Jump, then jump again in the air: the second jump works.\n2. A third press in the air does nothing.\n3. Landing refills the extra jump.",
+  "sources": [
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    }
+  ],
+  "page": "e/double-jump/index.html",
+  "json": "api/double-jump.json",
+  "updated": "2026-10-21"
+}

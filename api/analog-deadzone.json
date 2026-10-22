@@ -1,0 +1,34 @@
+{
+  "id": "analog-deadzone",
+  "name": "Analog stick dead zone",
+  "category": "movement",
+  "aliases": [
+    "thumbstick dead zone",
+    "stick drift fix",
+    "scaled radial dead zone",
+    "input dead zone"
+  ],
+  "feels": [
+    "character drifts",
+    "moves on its own",
+    "twitchy stick"
+  ],
+  "summary": "Ignore tiny stick readings near the center, then rescale the rest so movement still starts smoothly from zero.",
+  "what_it_does": "Analog sticks rarely rest at exactly zero. Worn or loose sticks report a small value when nobody touches them, and the character creeps. A dead zone treats readings under a threshold as zero. Rescaling the rest of the range back to 0 to 1 avoids a jump in speed at the edge of the dead zone. This demo simulates a drifting stick with the keyboard: the arrow keys push a virtual stick that has some drift built in.",
+  "use_when": "Any game that reads analog sticks or triggers.",
+  "watch_out": "Too large a dead zone makes small, precise moves impossible. Test with a real controller.",
+  "starting_values": "Josh Sutphin's article on dead zones puts the usual threshold between 0.1 and 0.2 and recommends a scaled radial dead zone for 2D stick input.",
+  "default_slider_values": {
+    "deadzone": 0.2
+  },
+  "prompt": "Add a dead zone to analog stick input.\n- Read the stick as a 2D vector. If its length is under 0.2, treat it as zero.\n- Otherwise rescale: direction * (length - 0.2) / (1 - 0.2), so output starts at 0 at the dead zone edge and reaches 1 at full tilt.\n- Apply it to the vector, not to each axis separately, so diagonals stay smooth.\n- Make the threshold a setting.\n\nAcceptance checks:\n1. A resting stick with drift under the threshold moves nothing.\n2. Pushing just past the dead zone gives a small speed, not a jump.\n3. Full tilt still reaches full speed.",
+  "sources": [
+    {
+      "title": "Doing Thumbstick Dead Zones Right (Josh Sutphin, archived copy)",
+      "url": "https://web.archive.org/web/20191231001437/http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html"
+    }
+  ],
+  "page": "e/analog-deadzone/index.html",
+  "json": "api/analog-deadzone.json",
+  "updated": "2026-10-21"
+}

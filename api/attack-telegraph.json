@@ -1,0 +1,29 @@
+{
+  "id": "attack-telegraph",
+  "name": "Attack telegraph",
+  "category": "combat",
+  "aliases": [
+    "wind-up tell",
+    "attack warning",
+    "anticipation",
+    "tell"
+  ],
+  "feels": [
+    "unfair",
+    "cheap hits",
+    "came out of nowhere"
+  ],
+  "summary": "Enemies show a clear wind-up before an attack becomes dangerous, so the player can react.",
+  "what_it_does": "An attack that is dangerous on the frame it starts can't be avoided by reacting, only by luck. A telegraph adds a visible wind-up (a pose, a color change, a marked danger zone) for a fixed time before the attack turns on. The wind-up has to be longer than reaction time plus the time the dodge needs.",
+  "use_when": "Every enemy attack the player is meant to dodge or block.",
+  "watch_out": "Keep tells consistent: the same wind-up always means the same attack. Very long tells make fights slow.",
+  "starting_values": "No checked source gives one number. 300 to 600 ms of wind-up is a starting range; it has to cover reaction time plus the dodge.",
+  "default_slider_values": {
+    "teleMs": 450.0
+  },
+  "prompt": "Add telegraphs to enemy attacks.\n- Before an attack becomes active, play a 450 ms wind-up: change the enemy's color or pose and mark the danger area.\n- The attack can't deal damage during the wind-up.\n- Use the same tell every time for the same attack.\n- Randomize when attacks start, not how long the tell lasts.\n\nAcceptance checks:\n1. Every attack comes after a visible 450 ms wind-up.\n2. A player who reacts to the tell can always avoid the attack.\n3. No damage happens during the wind-up.",
+  "sources": [],
+  "page": "e/attack-telegraph/index.html",
+  "json": "api/attack-telegraph.json",
+  "updated": "2026-10-21"
+}

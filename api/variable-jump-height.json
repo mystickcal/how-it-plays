@@ -1,6 +1,7 @@
 {
   "id": "variable-jump-height",
   "name": "Variable jump height",
+  "category": "jumping",
   "aliases": [
     "jump cut",
     "short hop",

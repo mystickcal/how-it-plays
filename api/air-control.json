@@ -1,0 +1,42 @@
+{
+  "id": "air-control",
+  "name": "Air control",
+  "category": "movement",
+  "aliases": [
+    "aerial acceleration",
+    "air steering",
+    "air strafing",
+    "mid-air control"
+  ],
+  "feels": [
+    "no control in the air",
+    "committed jumps",
+    "stiff"
+  ],
+  "summary": "Let the player steer left and right during a jump, usually with weaker acceleration than on the ground.",
+  "what_it_does": "With no air control, the direction at takeoff decides the whole jump, which feels stiff and rules out small corrections. With air control, horizontal input keeps working in the air, using the ground acceleration times a multiplier. That multiplier sets how much the player can correct a jump once it has started.",
+  "use_when": "Nearly every platformer.",
+  "watch_out": "Games where committing to a jump is the point, like some cinematic platformers.",
+  "starting_values": "Celeste's public player code multiplies run acceleration by 0.65 in the air. Game Maker's Toolkit points out that Madeline has so much air friction that she falls almost straight down when you let go of the stick.",
+  "default_slider_values": {
+    "airMul": 0.65
+  },
+  "prompt": "Give the player air control.\n- In the air, use the ground horizontal acceleration and deceleration multiplied by 0.65.\n- Keep the same max speed in the air.\n- Use delta time.\n\nAcceptance checks:\n1. Reversing direction in mid-air visibly bends the jump.\n2. Letting go in the air slows horizontal speed at 0.65 times the ground rate.\n3. Ground movement is unchanged.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    },
+    {
+      "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+      "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+    },
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    }
+  ],
+  "page": "e/air-control/index.html",
+  "json": "api/air-control.json",
+  "updated": "2026-10-21"
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hit flash: How It Plays</title>
+<meta name="description" content="Turn the target fully white for a few frames when it gets hit, so the player sees the hit land.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Hit flash: How It Plays">
+<meta property="og:description" content="Turn the target fully white for a few frames when it gets hit, so the player sees the hit land.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/hit-flash/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hit flash: How It Plays">
+<meta name="twitter:description" content="Turn the target fully white for a few frames when it gets hit, so the player sees the hit land.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-feedback">Feedback</a></p>
+  <h1>Hit flash</h1>
+  <p class="aka">Also called: white flash, damage flash, flash on hit, impact flash</p>
+  <p class="lead">Turn the target fully white for a few frames when it gets hit, so the player sees the hit land.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of hit flash. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Hit flash: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 64px 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Hit the dummy with X with the flash on and off. Try 20 ms, then 70 ms.</p>
+  </section>
+  <section><h2>What it does</h2><p>In a busy scene it&#x27;s hard to tell whether an attack connected. A short, solid white flash on the target is one of the clearest signals there is, and it reads even out of the corner of the eye. In the Juice it or lose it talk, the ball turns white every time it hits something.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Any damage to enemies, and often to the player.</p></section>
+    <section><h2>Watch out</h2><p>Long or repeated flashes can be a problem for photosensitive players. Keep them short and never flash the whole screen.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>No checked source gives a duration. 1 to 6 frames (about 17 to 100 ms) is a common starting range.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add a hit flash.
+- When an enemy takes damage, draw it solid white (a fill or a white shader, not a tint) for {flashMs} ms (about {flashMs:frames} frames).
+- Restart the timer on each new hit.
+- Use real time.
+
+Acceptance checks:
+1. Each hit shows a solid white target.
+2. The flash lasts about {flashMs} ms at 30 and 144 fps.
+3. Only the hit target flashes, never the full screen.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add a hit flash.
+- When an enemy takes damage, draw it solid white (a fill or a white shader, not a tint) for 70 ms (about 4 frames).
+- Restart the timer on each new hit.
+- Use real time.
+
+Acceptance checks:
+1. Each hit shows a solid white target.
+2. The flash lasts about 70 ms at 30 and 144 fps.
+3. Only the hit target flashes, never the full screen.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://www.youtube.com/watch?v=Fy0aCDmgnxg">Juice it or lose it (Jonasson and Purho talk)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/hit-flash.json">api/hit-flash.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../screen-shake/index.html">&larr; Screen shake with falloff</a><a href="../damage-numbers/index.html">Damage numbers &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("hit-flash");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

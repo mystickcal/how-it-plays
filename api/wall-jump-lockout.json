@@ -1,0 +1,35 @@
+{
+  "id": "wall-jump-lockout",
+  "name": "Wall jump input lockout",
+  "category": "movement",
+  "aliases": [
+    "wall jump force time",
+    "wall kick lock",
+    "forced move after wall jump",
+    "wall jump"
+  ],
+  "feels": [
+    "climbs one wall forever",
+    "wall jumps too easy",
+    "sticky walls"
+  ],
+  "summary": "Right after a wall jump, ignore the direction input for a moment so the jump actually carries the player away from the wall.",
+  "what_it_does": "A wall jump pushes the player away from the wall. If they are still holding toward the wall, normal air control pulls them straight back, and they can climb a single wall by tapping jump. A short lockout forces the horizontal direction away from the wall for a few frames, then hands control back.",
+  "use_when": "Any game with wall jumps, unless climbing a single wall is meant to work.",
+  "watch_out": "Too long a lockout feels like the game took the controller away. Keep it short.",
+  "starting_values": "Celeste's public player code forces the move direction for 0.16 seconds after a wall jump and pushes away at 130 (260 px/s at this demo's size). It accepts a wall up to 3 pixels away.",
+  "default_slider_values": {
+    "wallLockMs": 160.0,
+    "wallJumpH": 260.0
+  },
+  "prompt": "Add an input lockout after wall jumps.\n- A wall jump sets vertical speed to the normal jump speed and horizontal speed to 260 px/s away from the wall.\n- For 160 ms after the wall jump, ignore horizontal input and act as if the player is holding away from the wall.\n- After that, normal air control returns.\n- Allow the wall jump when a wall is within 3 px, not only when touching.\n\nAcceptance checks:\n1. Holding toward a single wall and tapping jump does not climb it.\n2. Wall jumping back and forth between two walls still works.\n3. Control returns 160 ms after the wall jump.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/wall-jump-lockout/index.html",
+  "json": "api/wall-jump-lockout.json",
+  "updated": "2026-10-21"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "camera-platform-snap",
+  "name": "Camera platform snapping",
+  "category": "camera",
+  "aliases": [
+    "platform snap",
+    "vertical camera snap",
+    "landing camera",
+    "ground-locked camera"
+  ],
+  "feels": [
+    "camera bobs when jumping",
+    "seasick",
+    "jittery camera"
+  ],
+  "summary": "The camera's height follows the player only when they land, so ordinary jumps don't bob the whole screen.",
+  "what_it_does": "A camera that follows the player vertically moves the whole world up and down on every jump. Platform snapping holds the vertical position while the player is in the air and eases to the new height after they land. Margins at the top and bottom still pull the camera if the player goes far enough. Itay Keren's camera talk credits Super Mario World with this.",
+  "use_when": "Platformers with a lot of jumping and vertical levels.",
+  "watch_out": "Long falls and very high jumps still need the top and bottom margins, or the player leaves the screen.",
+  "starting_values": "No checked source gives numbers. Ease to the landing height with a speed of about 4 to 8 (exponential smoothing), and keep margins of about 40 px at the top and bottom of the screen.",
+  "default_slider_values": {
+    "camSnapSpeed": 6.0
+  },
+  "prompt": "Make the camera snap vertically to platforms.\n- Keep a target camera height. Update it only while the player is on the ground: target = player's feet - 62% of the screen height.\n- In the air, keep the target, unless the player gets within 40 px of the top or bottom of the screen. Then push the target to keep them on screen.\n- Each frame: camera.y += (target - camera.y) * (1 - Math.exp(-6 * dt)).\n\nAcceptance checks:\n1. Jumping in place doesn't move the camera vertically.\n2. Landing on a higher platform eases the camera up within about half a second.\n3. A long fall still keeps the player on screen.",
+  "sources": [
+    {
+      "title": "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)",
+      "url": "https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers"
+    }
+  ],
+  "page": "e/camera-platform-snap/index.html",
+  "json": "api/camera-platform-snap.json",
+  "updated": "2026-10-21"
+}

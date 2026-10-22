@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One-way platforms with drop-through: How It Plays</title>
+<meta name="description" content="Platforms you can jump up through from below and land on from above, with down plus jump to drop back through.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="One-way platforms with drop-through: How It Plays">
+<meta property="og:description" content="Platforms you can jump up through from below and land on from above, with down plus jump to drop back through.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/one-way-platforms/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="One-way platforms with drop-through: How It Plays">
+<meta name="twitter:description" content="Platforms you can jump up through from below and land on from above, with down plus jump to drop back through.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-jumping">Jumping</a></p>
+  <h1>One-way platforms with drop-through</h1>
+  <p class="aka">Also called: jump-through platforms, pass-through platforms, semisolid platforms, drop through</p>
+  <p class="lead">Platforms you can jump up through from below and land on from above, with down plus jump to drop back through.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of one-way platforms with drop-through. Arrow keys or A and D to move, Space, W, Up or Z to jump, Down or S for down."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">One-way platforms with drop-through: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button><button type="button" data-touch="down">&darr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>&darr;</kbd> or <kbd>S</kbd> down (with jump: drop through)</p>
+    <p class="try"><strong>Try this:</strong> Jump up through the platforms from below. Stand on one and press down and jump together to drop.</p>
+  </section>
+  <section><h2>What it does</h2><p>Solid platforms stop the player&#x27;s head on the way up, so a stack of them becomes a maze. A one-way platform only blocks a body that was fully above its top edge before this frame&#x27;s move and is moving down. Checking the previous position matters: a player who jumps halfway into the platform and falls back should drop through, not snap onto it. Dropping through ignores one-way platforms for a moment.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Stacked platforms, multi-level arenas, anything the player should reach from below.</p></section>
+    <section><h2>Watch out</h2><p>Keep the drop input distinct so it never fires by accident, for example down plus jump rather than down alone.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Rodrigo Monteiro&#x27;s platformer guide gives the rule: the platform counts only if the player&#x27;s bottom was above its top before the move. Ignoring one-way platforms for about 200 ms on a drop is a starting point to tune. Celeste&#x27;s code has its own version, called JumpThru.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add one-way platforms.
+- They never block horizontal movement.
+- They block vertical movement only when the player's bottom edge was at or above the platform's top before this frame's move, and the player is moving down.
+- Drop-through: when the player stands on a one-way platform and presses down and jump together, ignore one-way platforms for {dropMs} ms and do not jump.
+
+Acceptance checks:
+1. Jumping from below passes through and lands on top.
+2. A jump that only reaches halfway through falls back down through it.
+3. Down plus jump on a one-way platform drops through. On solid ground it does a normal jump.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add one-way platforms.
+- They never block horizontal movement.
+- They block vertical movement only when the player&#x27;s bottom edge was at or above the platform&#x27;s top before this frame&#x27;s move, and the player is moving down.
+- Drop-through: when the player stands on a one-way platform and presses down and jump together, ignore one-way platforms for 200 ms and do not jump.
+
+Acceptance checks:
+1. Jumping from below passes through and lands on top.
+2. A jump that only reaches halfway through falls back down through it.
+3. Down plus jump on a one-way platform drops through. On solid ground it does a normal jump.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/">The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)</a></li><li><a href="https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs">Celeste player source (Player.cs), public on GitHub</a></li></ul></section>
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/one-way-platforms.json">api/one-way-platforms.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../landing-recovery/index.html">&larr; Landing recovery</a><a href="../attack-input-buffer/index.html">Input buffering for attacks &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("one-way-platforms");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

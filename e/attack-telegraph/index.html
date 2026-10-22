@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attack telegraph: How It Plays</title>
+<meta name="description" content="Enemies show a clear wind-up before an attack becomes dangerous, so the player can react.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Attack telegraph: How It Plays">
+<meta property="og:description" content="Enemies show a clear wind-up before an attack becomes dangerous, so the player can react.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/attack-telegraph/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Attack telegraph: How It Plays">
+<meta name="twitter:description" content="Enemies show a clear wind-up before an attack becomes dangerous, so the player can react.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-combat">Combat</a></p>
+  <h1>Attack telegraph</h1>
+  <p class="aka">Also called: wind-up tell, attack warning, anticipation, tell</p>
+  <p class="lead">Enemies show a clear wind-up before an attack becomes dangerous, so the player can react.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of attack telegraph. Arrow keys or A and D to move, Space, W, Up or Z to jump."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Attack telegraph: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump</p>
+    <p class="try"><strong>Try this:</strong> The block on the right slams and spikes cover the floor. Jump when you see it wind up. With the telegraph off, slams come with no warning.</p>
+  </section>
+  <section><h2>What it does</h2><p>An attack that is dangerous on the frame it starts can&#x27;t be avoided by reacting, only by luck. A telegraph adds a visible wind-up (a pose, a color change, a marked danger zone) for a fixed time before the attack turns on. The wind-up has to be longer than reaction time plus the time the dodge needs.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Every enemy attack the player is meant to dodge or block.</p></section>
+    <section><h2>Watch out</h2><p>Keep tells consistent: the same wind-up always means the same attack. Very long tells make fights slow.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>No checked source gives one number. 300 to 600 ms of wind-up is a starting range; it has to cover reaction time plus the dodge.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add telegraphs to enemy attacks.
+- Before an attack becomes active, play a {teleMs} ms wind-up: change the enemy's color or pose and mark the danger area.
+- The attack can't deal damage during the wind-up.
+- Use the same tell every time for the same attack.
+- Randomize when attacks start, not how long the tell lasts.
+
+Acceptance checks:
+1. Every attack comes after a visible {teleMs} ms wind-up.
+2. A player who reacts to the tell can always avoid the attack.
+3. No damage happens during the wind-up.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add telegraphs to enemy attacks.
+- Before an attack becomes active, play a 450 ms wind-up: change the enemy&#x27;s color or pose and mark the danger area.
+- The attack can&#x27;t deal damage during the wind-up.
+- Use the same tell every time for the same attack.
+- Randomize when attacks start, not how long the tell lasts.
+
+Acceptance checks:
+1. Every attack comes after a visible 450 ms wind-up.
+2. A player who reacts to the tell can always avoid the attack.
+3. No damage happens during the wind-up.</pre>
+  </section>
+  
+  <p class="meta">Updated 2026-10-21. JSON: <a href="../../api/attack-telegraph.json">api/attack-telegraph.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../projectile-leading/index.html">&larr; Projectile leading</a><a href="../forgiving-hitboxes/index.html">Forgiving hitboxes &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("attack-telegraph");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

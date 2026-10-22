@@ -1,0 +1,38 @@
+{
+  "id": "forgiving-hitboxes",
+  "name": "Forgiving hitboxes",
+  "category": "combat",
+  "aliases": [
+    "generous hitboxes",
+    "small hazard hitbox",
+    "hurtbox shrink",
+    "damage forgiveness"
+  ],
+  "feels": [
+    "unfair",
+    "I didn't touch it",
+    "cheap deaths"
+  ],
+  "summary": "Make hazard hitboxes a little smaller than their art, so grazing a spike tip doesn't count.",
+  "what_it_does": "When the hitbox matches the art exactly, players get hurt by hits they are sure missed, especially on pointy shapes like spikes. Shrinking the damage box a few pixels inside the art, and the player's hurtbox a little inside their sprite, removes those near misses. Players rarely notice the gap, but they always notice getting hurt by one pixel.",
+  "use_when": "Hazards, enemy bodies, bullets: anything that hurts the player.",
+  "watch_out": "Don't shrink the player's own attacks against enemies. There, a slightly larger hitbox is the forgiving choice.",
+  "starting_values": "Game Maker's Toolkit notes that Celeste's spikes have a small hitbox, so touching the very tip doesn't kill you. Rodrigo Monteiro's guide says it's better for the player to dodge a hit they should have taken than to take one they shouldn't. 3 to 6 px of shrink at this size is a starting point.",
+  "default_slider_values": {
+    "forgivePx": 5.0
+  },
+  "prompt": "Make damage hitboxes forgiving.\n- Shrink each hazard's damage box by 5 px on each side compared to its art, a little more on the pointy top edge of spikes.\n- Shrink the player's hurtbox about 2 px inside the sprite.\n- Leave solid collision boxes unchanged. This only changes what hurts.\n- Add a debug view that draws the damage boxes.\n\nAcceptance checks:\n1. Grazing a spike tip does no damage.\n2. Landing squarely on spikes still hurts.\n3. The player stands on solid ground exactly as before.",
+  "sources": [
+    {
+      "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+      "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+    },
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    }
+  ],
+  "page": "e/forgiving-hitboxes/index.html",
+  "json": "api/forgiving-hitboxes.json",
+  "updated": "2026-10-21"
+}

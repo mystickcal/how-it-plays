@@ -1,0 +1,29 @@
+{
+  "id": "ledge-grab",
+  "name": "Ledge grab",
+  "category": "movement",
+  "aliases": [
+    "ledge hang",
+    "ledge catch",
+    "mantle",
+    "ledge climb"
+  ],
+  "feels": [
+    "can't reach the ledge",
+    "just missed it",
+    "unfair"
+  ],
+  "summary": "When a jump ends with the player's head level with a ledge they are pushing into, they catch it and hang, then jump to climb up.",
+  "what_it_does": "Players judge height badly, and missing a ledge by a few pixels is a common frustration. A ledge grab checks, while falling and holding toward a wall, whether the top corner of that wall is near the player's head. If it is, the player snaps to hang there. Jump climbs up, down lets go. A near miss becomes a success without making every jump higher.",
+  "use_when": "Adventure and action platformers, especially with realistic jump heights.",
+  "watch_out": "Precision platformers where exact jump height is the challenge. Block a new grab for a moment after letting go, or the player grabs again at once.",
+  "starting_values": "No checked source gives numbers. A grab zone from about 10 px above to 8 px below the top of the head, and 300 ms before another grab after dropping, are starting points to tune.",
+  "default_slider_values": {
+    "ledgeReach": 10.0
+  },
+  "prompt": "Add a ledge grab.\n- While in the air, falling, and holding toward a wall the player touches: if the top of that wall is between 10 px above and 8 px below the top of the player's head, snap the player to hang with their head just above the ledge. Set speed to 0 and stop gravity.\n- While hanging: jump climbs up with a normal jump, down lets go.\n- After letting go, don't allow another grab for 300 ms.\n\nAcceptance checks:\n1. A jump that ends just below a ledge catches it.\n2. Pressing jump while hanging ends with the player standing on top.\n3. Pressing down drops the player, who does not grab again right away.",
+  "sources": [],
+  "page": "e/ledge-grab/index.html",
+  "json": "api/ledge-grab.json",
+  "updated": "2026-10-21"
+}

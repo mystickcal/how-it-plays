@@ -1,0 +1,38 @@
+{
+  "id": "moving-platforms",
+  "name": "Moving platforms that carry the player",
+  "category": "movement",
+  "aliases": [
+    "platform riding",
+    "carry momentum",
+    "lift boost",
+    "moving platform carry"
+  ],
+  "feels": [
+    "slides off platforms",
+    "platforms leave me behind",
+    "jumps lose momentum"
+  ],
+  "summary": "A player standing on a moving platform moves with it, and a jump off it keeps the platform's speed.",
+  "what_it_does": "If a moving platform is only a solid box, it slides out from under the player, who has to walk to keep up. The fix: before moving characters, find who stands on each platform, move the platform, then move those riders by the same amount. Celeste also adds the platform's speed to the player's when they jump off (its code calls this lift boost), so a jump from a fast platform carries.",
+  "use_when": "Any moving solid the player can stand on: lifts, carts, conveyor parts.",
+  "watch_out": "Cap the inherited speed so a fast platform can't fling the player across the level.",
+  "starting_values": "Rodrigo Monteiro's platformer guide gives the order: find riders, step platforms, shift riders by the platform's movement, then step characters. Celeste's public player code caps the inherited speed at 250 sideways and 130 upward (at 320 by 180).",
+  "default_slider_values": {
+    "moverSpeed": 4.0
+  },
+  "prompt": "Make moving platforms carry the player.\n- Each frame, before moving the player, check whether they stand on a moving platform (bottom edge within 0.5 px of its top, overlapping horizontally).\n- Move the platforms, then move each rider by the platform's change in position.\n- When the player jumps off, add the platform's velocity to theirs, capped to a sensible max.\n- In this demo the platform makes one round trip every 4 s.\n\nAcceptance checks:\n1. Standing still on a moving platform keeps the player on it.\n2. Jumping off a moving platform carries its speed for a moment.\n3. Walking on the platform works in both directions.",
+  "sources": [
+    {
+      "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+      "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+    },
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/moving-platforms/index.html",
+  "json": "api/moving-platforms.json",
+  "updated": "2026-10-21"
+}

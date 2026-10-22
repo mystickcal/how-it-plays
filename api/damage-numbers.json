@@ -1,0 +1,30 @@
+{
+  "id": "damage-numbers",
+  "name": "Damage numbers",
+  "category": "feedback",
+  "aliases": [
+    "floating damage text",
+    "damage popups",
+    "hit numbers",
+    "floating combat text"
+  ],
+  "feels": [
+    "did that hit",
+    "can't tell damage",
+    "no feedback"
+  ],
+  "summary": "Pop a number above the target on each hit showing the damage, then float it up and fade it out.",
+  "what_it_does": "Numbers tell the player how strong a hit was, which matters as soon as damage varies (critical hits, combos, upgrades). Spawn a small text at the hit point, move it up while slowing it down, and fade it near the end of its life. Offset each new number a little so quick hits don't stack on one spot, and make big hits bigger or a different color.",
+  "use_when": "RPGs, roguelikes, anything with damage that varies.",
+  "watch_out": "Games where a clean screen matters more, or where damage never changes. Too many numbers turn into noise.",
+  "starting_values": "No checked source gives timings. 500 to 900 ms of life with a quick rise that slows down is a starting point.",
+  "default_slider_values": {
+    "popLife": 700.0,
+    "popRise": 90.0
+  },
+  "prompt": "Add floating damage numbers.\n- On each hit, spawn a text with the damage at the top of the target, offset a few pixels sideways from the previous one.\n- It rises at 90 px/s, slowing as it ages, and lives 700 ms. Fade it out over the last 200 ms.\n- Bigger or critical hits use a larger font and a different color.\n- Draw a dark outline or shadow so it reads on any background.\n\nAcceptance checks:\n1. Every hit shows its number once.\n2. Quick hits don't stack numbers on the same pixel.\n3. Numbers disappear after 700 ms.",
+  "sources": [],
+  "page": "e/damage-numbers/index.html",
+  "json": "api/damage-numbers.json",
+  "updated": "2026-10-21"
+}

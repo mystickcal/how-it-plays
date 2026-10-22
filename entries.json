@@ -1,26 +1,103 @@
 {
   "name": "How It Plays",
   "updated": "2026-10-21",
-  "count": 10,
+  "count": 40,
+  "categories": [
+    {
+      "id": "movement",
+      "name": "Movement",
+      "ids": [
+        "acceleration-curves",
+        "air-control",
+        "turn-around-speed",
+        "wall-slide",
+        "wall-jump-lockout",
+        "dash-cooldown",
+        "ledge-grab",
+        "slope-snapping",
+        "moving-platforms",
+        "analog-deadzone"
+      ]
+    },
+    {
+      "id": "jumping",
+      "name": "Jumping",
+      "ids": [
+        "coyote-time",
+        "jump-buffering",
+        "variable-jump-height",
+        "apex-hang",
+        "fall-gravity",
+        "terminal-velocity",
+        "corner-correction",
+        "double-jump",
+        "landing-recovery",
+        "one-way-platforms"
+      ]
+    },
+    {
+      "id": "combat",
+      "name": "Combat",
+      "ids": [
+        "attack-input-buffer",
+        "i-frames",
+        "knockback",
+        "attack-frames",
+        "cancel-windows",
+        "dodge-roll",
+        "aim-assist",
+        "projectile-leading",
+        "attack-telegraph",
+        "forgiving-hitboxes"
+      ]
+    },
+    {
+      "id": "camera",
+      "name": "Camera",
+      "ids": [
+        "camera-lookahead",
+        "camera-deadzone",
+        "camera-platform-snap",
+        "camera-look-down"
+      ]
+    },
+    {
+      "id": "feedback",
+      "name": "Feedback",
+      "ids": [
+        "hitstop",
+        "screen-shake",
+        "hit-flash",
+        "damage-numbers",
+        "squash-stretch",
+        "delayed-health-bar"
+      ]
+    }
+  ],
   "feels": [
     {
       "feel": "floaty",
       "ids": [
         "variable-jump-height",
-        "acceleration-curves"
+        "fall-gravity",
+        "acceleration-curves",
+        "terminal-velocity"
       ]
     },
     {
       "feel": "stiff or robotic",
       "ids": [
         "acceleration-curves",
-        "jump-buffering"
+        "jump-buffering",
+        "squash-stretch",
+        "air-control"
       ]
     },
     {
       "feel": "slippery",
       "ids": [
-        "acceleration-curves"
+        "acceleration-curves",
+        "turn-around-speed"
       ]
     },
     {
@@ -28,7 +105,10 @@
       "ids": [
         "coyote-time",
         "i-frames",
-        "jump-buffering"
+        "jump-buffering",
+        "forgiving-hitboxes",
+        "attack-telegraph",
+        "corner-correction"
       ]
     },
     {
@@ -36,7 +116,8 @@
       "ids": [
         "jump-buffering",
         "attack-input-buffer",
-        "coyote-time"
+        "coyote-time",
+        "cancel-windows"
       ]
     },
     {
@@ -44,13 +125,83 @@
       "ids": [
         "hitstop",
         "screen-shake",
-        "knockback"
+        "knockback",
+        "hit-flash",
+        "damage-numbers"
       ]
     },
     {
       "feel": "can't see ahead",
       "ids": [
+        "camera-lookahead",
+        "camera-look-down"
+      ]
+    },
+    {
+      "feel": "jittery camera",
+      "ids": [
+        "camera-deadzone",
+        "camera-platform-snap",
         "camera-lookahead"
+      ]
+    },
+    {
+      "feel": "bonked my head",
+      "ids": [
+        "corner-correction",
+        "one-way-platforms"
+      ]
+    },
+    {
+      "feel": "can't reach the ledge",
+      "ids": [
+        "ledge-grab",
+        "double-jump",
+        "coyote-time",
+        "apex-hang"
+      ]
+    },
+    {
+      "feel": "no control in the air",
+      "ids": [
+        "air-control",
+        "double-jump",
+        "variable-jump-height"
+      ]
+    },
+    {
+      "feel": "sticky walls",
+      "ids": [
+        "wall-slide",
+        "wall-jump-lockout"
+      ]
+    },
+    {
+      "feel": "drifts on its own",
+      "ids": [
+        "analog-deadzone"
+      ]
+    },
+    {
+      "feel": "sluggish combat",
+      "ids": [
+        "cancel-windows",
+        "attack-input-buffer",
+        "attack-frames"
+      ]
+    },
+    {
+      "feel": "can't aim",
+      "ids": [
+        "aim-assist"
+      ]
+    },
+    {
+      "feel": "weightless",
+      "ids": [
+        "landing-recovery",
+        "squash-stretch",
+        "fall-gravity"
       ]
     }
   ],
@@ -58,6 +209,7 @@
     {
       "id": "coyote-time",
       "name": "Coyote time",
+      "category": "jumping",
       "aliases": [
         "jump grace time",
         "ledge forgiveness",
@@ -94,6 +246,7 @@
     {
       "id": "jump-buffering",
       "name": "Jump buffering",
+      "category": "jumping",
       "aliases": [
         "jump buffer",
         "early jump press",
@@ -126,6 +279,7 @@
     {
       "id": "variable-jump-height",
       "name": "Variable jump height",
+      "category": "jumping",
       "aliases": [
         "jump cut",
         "short hop",
@@ -159,6 +313,7 @@
     {
       "id": "camera-lookahead",
       "name": "Camera lookahead and smoothing",
+      "category": "camera",
       "aliases": [
         "camera lead",
         "camera lerp",
@@ -193,6 +348,7 @@
     {
       "id": "attack-input-buffer",
       "name": "Input buffering for attacks",
+      "category": "combat",
       "aliases": [
         "attack buffer",
         "combo buffer",
@@ -221,6 +377,7 @@
     {
       "id": "i-frames",
       "name": "Invincibility frames with flicker",
+      "category": "combat",
       "aliases": [
         "i-frames",
         "mercy invincibility",
@@ -251,6 +408,7 @@
     {
       "id": "hitstop",
       "name": "Hitstop",
+      "category": "feedback",
       "aliases": [
         "hit pause",
         "freeze frames",
@@ -288,6 +446,7 @@
     {
       "id": "screen-shake",
       "name": "Screen shake with falloff",
+      "category": "feedback",
       "aliases": [
         "camera shake",
         "trauma shake",
@@ -325,6 +484,7 @@
     {
       "id": "acceleration-curves",
       "name": "Acceleration and deceleration",
+      "category": "movement",
       "aliases": [
         "run acceleration",
         "friction",
@@ -361,6 +521,7 @@
     {
       "id": "knockback",
       "name": "Knockback",
+      "category": "combat",
       "aliases": [
         "hit push",
         "pushback",
@@ -390,6 +551,1081 @@
       ],
       "page": "e/knockback/index.html",
       "json": "api/knockback.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "apex-hang",
+      "name": "Apex hang",
+      "category": "jumping",
+      "aliases": [
+        "half gravity at apex",
+        "jump hang time",
+        "peak float",
+        "apex modifier"
+      ],
+      "feels": [
+        "stiff",
+        "hard to line up landings",
+        "jumps feel rushed"
+      ],
+      "summary": "Near the top of a jump, while jump is held, gravity is cut so the player hangs for a moment and can line up the landing.",
+      "what_it_does": "A plain jump spends very little time near its peak, and that is exactly where players aim. Apex hang checks how fast the character is moving vertically. When that speed is small (the character is near the top) and the jump button is still held, gravity is multiplied by a number under 1. The jump gets a short float at the top while the rise and the fall stay the same.",
+      "use_when": "Platformers with precise landings, especially on small platforms.",
+      "watch_out": "Too low a multiplier or too wide a band makes every jump float. Only apply it while the button is held, so a tap still drops fast.",
+      "starting_values": "Celeste's public player code halves gravity (0.5) when vertical speed is under 40 and jump is held. That is 40 px/s at Celeste's 320 by 180, about 80 px/s at this demo's 640 by 360.",
+      "default_slider_values": {
+        "apexThresh": 80.0,
+        "apexMul": 0.5
+      },
+      "prompt": "Add apex hang to the jump.\n- While the player is in the air, jump is held, and the absolute vertical speed is under 80 px/s, multiply gravity by 0.5.\n- Everywhere else, gravity is normal.\n- Keep the takeoff speed and the max fall speed unchanged.\n\nAcceptance checks:\n1. A held jump stays in the air longer than before. Log the air time both ways.\n2. A tapped jump (released early) gets no float.\n3. Outside the top band, the rise and the fall match the old jump.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/apex-hang/index.html",
+      "json": "api/apex-hang.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "fall-gravity",
+      "name": "Heavier fall",
+      "category": "jumping",
+      "aliases": [
+        "gravity multiplier on descent",
+        "fall multiplier",
+        "fast fall",
+        "fall gravity"
+      ],
+      "feels": [
+        "floaty",
+        "moon jump",
+        "slow to land"
+      ],
+      "summary": "Gravity gets stronger once the character starts falling, so jumps rise smoothly and come down fast.",
+      "what_it_does": "A real projectile arc is symmetric: the fall takes as long as the rise. In a game that often reads as floaty. Switching to a heavier gravity after the peak, when vertical speed turns downward, makes the fall quicker while the rise stays the same. The jump keeps its height but spends less time in the air. Kyle Pittman's GDC talk on jump math describes switching gravity at the peak.",
+      "use_when": "Any jump that feels floaty or slow to come down.",
+      "watch_out": "Raise the max fall speed with it, or the fall hits the cap quickly and the multiplier stops mattering. Very high values make drops hard to steer.",
+      "starting_values": "No checked source gives one number. 1.5 to 2.5 times normal gravity is a sensible starting range to tune.",
+      "default_slider_values": {
+        "fallMul": 1.8
+      },
+      "prompt": "Make the jump fall faster than it rises.\n- Keep normal gravity while vertical speed is upward.\n- Once vertical speed is downward (after the peak), multiply gravity by 1.8.\n- Keep the takeoff speed, so the peak height does not change.\n- Keep the max fall speed high enough that the multiplier still matters.\n\nAcceptance checks:\n1. The peak height is the same as before.\n2. Total air time is shorter than before. Log both.\n3. Gravity on the way up is unchanged.",
+      "sources": [
+        {
+          "title": "Math for Game Programmers: Building a Better Jump (Kyle Pittman, GDC)",
+          "url": "https://www.youtube.com/watch?v=hG9SzQxaCm8"
+        }
+      ],
+      "page": "e/fall-gravity/index.html",
+      "json": "api/fall-gravity.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "terminal-velocity",
+      "name": "Terminal velocity",
+      "category": "jumping",
+      "aliases": [
+        "max fall speed",
+        "fall speed cap",
+        "fall cap"
+      ],
+      "feels": [
+        "out of control",
+        "falls too fast",
+        "can't react when falling"
+      ],
+      "summary": "Cap how fast the character can fall, so long drops stay readable and steerable.",
+      "what_it_does": "Gravity adds speed every frame. Without a cap, a long fall gets faster and faster until the player can't react to anything on the way down, and fast bodies can skip through thin obstacles. A max fall speed clamps vertical speed after gravity is added. Some games also let the player hold down to fall faster, up to a second, higher cap.",
+      "use_when": "Any game with gravity and falls longer than one jump.",
+      "watch_out": "A cap that is too low makes falling feel like gliding. Check collisions at the capped speed so nothing tunnels.",
+      "starting_values": "Celeste's public player code caps falling at 160, or 240 while holding down, in pixels per second at 320 by 180. That is 320 and 480 px/s at this demo's size.",
+      "default_slider_values": {
+        "maxFall": 320.0
+      },
+      "prompt": "Cap the player's fall speed.\n- After adding gravity each frame, clamp vertical speed to at most 320 px/s downward.\n- Optional: while down is held, raise the cap gradually to about 1.5 times that.\n- Upward speed is not capped by this.\n\nAcceptance checks:\n1. A long fall never goes faster than 320 px/s. Log the speed.\n2. Short jumps feel the same as before.\n3. At the capped speed the player never passes through a thin platform.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        },
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        }
+      ],
+      "page": "e/terminal-velocity/index.html",
+      "json": "api/terminal-velocity.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "corner-correction",
+      "name": "Corner correction",
+      "category": "jumping",
+      "aliases": [
+        "ledge nudge",
+        "head bonk forgiveness",
+        "corner forgiveness",
+        "corner slide"
+      ],
+      "feels": [
+        "bonked my head",
+        "sticky corners",
+        "unfair"
+      ],
+      "summary": "When a jump clips the corner of a ceiling by a few pixels, slide the player sideways around it instead of stopping the jump.",
+      "what_it_does": "Players often jump up through a gap and catch its edge with the side of their head. Without help the jump stops dead and they fall. Corner correction checks, at the moment of the bump, whether moving the player a few pixels left or right would clear the ceiling. If it would, it moves them there and the jump continues.",
+      "use_when": "Platformers with narrow gaps, doorways or low ceilings.",
+      "watch_out": "Keep it to a few pixels. A large nudge visibly teleports the player and can carry them past walls you meant to block.",
+      "starting_values": "Celeste's public player code checks up to 4 pixels each way when moving up (at 320 by 180), about 8 px at this demo's size. Game Maker's Toolkit's Celeste video mentions the same kind of corner forgiveness for dashes.",
+      "default_slider_values": {
+        "cornerPx": 8.0
+      },
+      "prompt": "Add corner correction for upward movement.\n- When the player is moving up and hits a ceiling, test shifting them sideways by 1 to 8 px.\n- If a shifted position is free of solids, move the player there and keep the upward speed. Test toward the direction of horizontal movement, or both sides when not moving sideways.\n- If no shift clears it, stop the jump as usual.\n\nAcceptance checks:\n1. Jumping into a gap while clipping its edge by 4 px passes through.\n2. Jumping squarely into a ceiling still stops the jump.\n3. The nudge never moves the player into a wall.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        },
+        {
+          "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+          "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+        }
+      ],
+      "page": "e/corner-correction/index.html",
+      "json": "api/corner-correction.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "double-jump",
+      "name": "Double jump",
+      "category": "jumping",
+      "aliases": [
+        "air jump",
+        "extra jump",
+        "multi-jump"
+      ],
+      "feels": [
+        "can't reach the ledge",
+        "no control in the air",
+        "jumps feel limited"
+      ],
+      "summary": "Allow one extra jump in the air, refilled when the player lands.",
+      "what_it_does": "A second jump lets players fix a jump that went wrong and reach higher places. Keep a counter of air jumps left, refill it on landing, and spend one when jump is pressed in the air. A coyote jump off a ledge should count as the ground jump, not use up the air jump.",
+      "use_when": "Games about exploration or recovery, where reaching higher spots is the reward.",
+      "watch_out": "Every gap and ledge now has to account for the extra height, which makes levels harder to design. Precise platformers often leave it out.",
+      "starting_values": "Rodrigo Monteiro's platformer guide describes the counter approach and notes that the second jump is sometimes shorter. 0.8 to 1.0 times the first jump's speed is a sensible starting range.",
+      "default_slider_values": {
+        "airJumpMul": 0.85
+      },
+      "prompt": "Add a double jump.\n- Keep airJumpsLeft. Set it to 1 whenever the player is on the ground.\n- When jump is pressed in the air, a normal or coyote jump is not allowed, and airJumpsLeft > 0: set vertical speed to 0.85 times the normal jump speed (upward) and decrease airJumpsLeft.\n- Each press can do only one jump.\n\nAcceptance checks:\n1. Jump, then jump again in the air: the second jump works.\n2. A third press in the air does nothing.\n3. Landing refills the extra jump.",
+      "sources": [
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        }
+      ],
+      "page": "e/double-jump/index.html",
+      "json": "api/double-jump.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "landing-recovery",
+      "name": "Landing recovery",
+      "category": "jumping",
+      "aliases": [
+        "landing lag",
+        "hard landing",
+        "heavy landing",
+        "landing stun"
+      ],
+      "feels": [
+        "weightless",
+        "no impact on landing",
+        "too spammy"
+      ],
+      "summary": "After a hard landing, the character can't act for a few frames, which gives falls weight.",
+      "what_it_does": "A character who can run at full speed the instant they hit the ground after a long fall feels weightless. Landing recovery locks movement and jumping for a short time after any landing faster than a threshold. Small hops stay free, so normal play is not slowed down. A squash on the landing frame shows the player why they are stuck.",
+      "use_when": "Games that want weight: brawlers, fighting games, heavy characters.",
+      "watch_out": "Precise platformers, where any lost control feels unfair. Keep it short and only on hard landings.",
+      "starting_values": "SmashWiki's landing lag page lists light landings at 2 frames and heavy landings from 2 to 6 frames in later Smash games, about 33 to 100 ms at 60 fps.",
+      "default_slider_values": {
+        "landLagMs": 100.0,
+        "landLagVy": 600.0
+      },
+      "prompt": "Add landing recovery after hard landings.\n- On the frame the player lands, if their downward speed was at least 600 px/s, block movement and jumping for 100 ms (6 frames at 60 fps).\n- Lighter landings get no recovery.\n- Squash the sprite on the landing frame so the player sees why.\n\nAcceptance checks:\n1. Dropping from a high ledge stops the player for about 100 ms.\n2. A normal hop on flat ground never triggers it.\n3. The timing is the same at 30 and 144 fps.",
+      "sources": [
+        {
+          "title": "SmashWiki: Landing lag",
+          "url": "https://www.ssbwiki.com/Landing_lag"
+        }
+      ],
+      "page": "e/landing-recovery/index.html",
+      "json": "api/landing-recovery.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "one-way-platforms",
+      "name": "One-way platforms with drop-through",
+      "category": "jumping",
+      "aliases": [
+        "jump-through platforms",
+        "pass-through platforms",
+        "semisolid platforms",
+        "drop through"
+      ],
+      "feels": [
+        "bonked my head",
+        "stuck under platforms",
+        "can't get down"
+      ],
+      "summary": "Platforms you can jump up through from below and land on from above, with down plus jump to drop back through.",
+      "what_it_does": "Solid platforms stop the player's head on the way up, so a stack of them becomes a maze. A one-way platform only blocks a body that was fully above its top edge before this frame's move and is moving down. Checking the previous position matters: a player who jumps halfway into the platform and falls back should drop through, not snap onto it. Dropping through ignores one-way platforms for a moment.",
+      "use_when": "Stacked platforms, multi-level arenas, anything the player should reach from below.",
+      "watch_out": "Keep the drop input distinct so it never fires by accident, for example down plus jump rather than down alone.",
+      "starting_values": "Rodrigo Monteiro's platformer guide gives the rule: the platform counts only if the player's bottom was above its top before the move. Ignoring one-way platforms for about 200 ms on a drop is a starting point to tune. Celeste's code has its own version, called JumpThru.",
+      "default_slider_values": {
+        "dropMs": 200.0
+      },
+      "prompt": "Add one-way platforms.\n- They never block horizontal movement.\n- They block vertical movement only when the player's bottom edge was at or above the platform's top before this frame's move, and the player is moving down.\n- Drop-through: when the player stands on a one-way platform and presses down and jump together, ignore one-way platforms for 200 ms and do not jump.\n\nAcceptance checks:\n1. Jumping from below passes through and lands on top.\n2. A jump that only reaches halfway through falls back down through it.\n3. Down plus jump on a one-way platform drops through. On solid ground it does a normal jump.",
+      "sources": [
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        },
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/one-way-platforms/index.html",
+      "json": "api/one-way-platforms.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "air-control",
+      "name": "Air control",
+      "category": "movement",
+      "aliases": [
+        "aerial acceleration",
+        "air steering",
+        "air strafing",
+        "mid-air control"
+      ],
+      "feels": [
+        "no control in the air",
+        "committed jumps",
+        "stiff"
+      ],
+      "summary": "Let the player steer left and right during a jump, usually with weaker acceleration than on the ground.",
+      "what_it_does": "With no air control, the direction at takeoff decides the whole jump, which feels stiff and rules out small corrections. With air control, horizontal input keeps working in the air, using the ground acceleration times a multiplier. That multiplier sets how much the player can correct a jump once it has started.",
+      "use_when": "Nearly every platformer.",
+      "watch_out": "Games where committing to a jump is the point, like some cinematic platformers.",
+      "starting_values": "Celeste's public player code multiplies run acceleration by 0.65 in the air. Game Maker's Toolkit points out that Madeline has so much air friction that she falls almost straight down when you let go of the stick.",
+      "default_slider_values": {
+        "airMul": 0.65
+      },
+      "prompt": "Give the player air control.\n- In the air, use the ground horizontal acceleration and deceleration multiplied by 0.65.\n- Keep the same max speed in the air.\n- Use delta time.\n\nAcceptance checks:\n1. Reversing direction in mid-air visibly bends the jump.\n2. Letting go in the air slows horizontal speed at 0.65 times the ground rate.\n3. Ground movement is unchanged.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        },
+        {
+          "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+          "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+        },
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        }
+      ],
+      "page": "e/air-control/index.html",
+      "json": "api/air-control.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "turn-around-speed",
+      "name": "Turn-around speed",
+      "category": "movement",
+      "aliases": [
+        "turn acceleration",
+        "skid",
+        "quick turn",
+        "reverse acceleration"
+      ],
+      "feels": [
+        "slippery",
+        "slow to turn",
+        "skids"
+      ],
+      "summary": "Give turning around its own, stronger acceleration so reversing is quick even when stopping is gentle.",
+      "what_it_does": "Many controllers use the stopping deceleration when the player reverses, so a soft stop also means a slow, skidding turn. Splitting the turn out gives one more knob: when input points against the current speed, use a separate, larger turn acceleration. The character keeps its gentle stop and still changes direction quickly.",
+      "use_when": "Characters that should feel nimble but not stop on a dime.",
+      "watch_out": "A heavy character with a deliberate skid wants the slow turn.",
+      "starting_values": "No checked source gives a separate turn number. Game Maker's Toolkit notes that Madeline changes direction very quickly with no skidding, and Celeste's code uses its full run acceleration when turning. Try 2 to 3 times your normal acceleration.",
+      "default_slider_values": {
+        "turnAccel": 4000.0
+      },
+      "prompt": "Give turning its own acceleration.\n- When horizontal input points opposite to the current horizontal speed, move speed toward the target at 4000 px/s\u00b2 instead of the normal deceleration.\n- Stopping with no input still uses the normal deceleration.\n- Optional: spawn skid dust while turning.\n\nAcceptance checks:\n1. Reversing from full speed takes less time than before. Log both.\n2. Releasing input still slides to a stop as before.\n3. Same result at 30 and 144 fps.",
+      "sources": [
+        {
+          "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+          "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+        },
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/turn-around-speed/index.html",
+      "json": "api/turn-around-speed.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "wall-slide",
+      "name": "Wall slide",
+      "category": "movement",
+      "aliases": [
+        "wall cling",
+        "wall grip",
+        "slide down walls"
+      ],
+      "feels": [
+        "sticky walls",
+        "falls off walls",
+        "can't line up a wall jump"
+      ],
+      "summary": "Falling while pushing into a wall slows the fall, giving the player time to line up a wall jump.",
+      "what_it_does": "Without a slide, a player who reaches a wall falls past it at full speed and has a split second to react. A wall slide caps fall speed while the player is in the air, moving down, and holding toward a wall they touch. Celeste starts the cap very low and lets it rise back to normal fall speed over about a second, so nobody can hang forever.",
+      "use_when": "Games with wall jumps or vertical shafts.",
+      "watch_out": "Only slide while the player holds toward the wall, or they snag on every wall they brush past.",
+      "starting_values": "Celeste's public player code starts the slide cap at 20 (40 px/s at this demo's size) and blends it back to the normal max fall speed over 1.2 seconds of sliding.",
+      "default_slider_values": {
+        "wallSlideMax": 40.0,
+        "wallSlideMs": 1200.0
+      },
+      "prompt": "Add a wall slide.\n- While in the air, moving down, and holding toward a wall the player touches: cap fall speed.\n- The cap starts at 40 px/s and rises linearly to the normal max fall speed over 1200 ms of sliding.\n- Reset the slide timer on landing or jumping.\n- No slide when not holding toward the wall.\n\nAcceptance checks:\n1. Holding into a wall while falling slows the fall to about 40 px/s at first.\n2. After 1200 ms of sliding, fall speed is back to normal.\n3. Brushing past a wall without holding toward it does not slow the fall.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/wall-slide/index.html",
+      "json": "api/wall-slide.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "wall-jump-lockout",
+      "name": "Wall jump input lockout",
+      "category": "movement",
+      "aliases": [
+        "wall jump force time",
+        "wall kick lock",
+        "forced move after wall jump",
+        "wall jump"
+      ],
+      "feels": [
+        "climbs one wall forever",
+        "wall jumps too easy",
+        "sticky walls"
+      ],
+      "summary": "Right after a wall jump, ignore the direction input for a moment so the jump actually carries the player away from the wall.",
+      "what_it_does": "A wall jump pushes the player away from the wall. If they are still holding toward the wall, normal air control pulls them straight back, and they can climb a single wall by tapping jump. A short lockout forces the horizontal direction away from the wall for a few frames, then hands control back.",
+      "use_when": "Any game with wall jumps, unless climbing a single wall is meant to work.",
+      "watch_out": "Too long a lockout feels like the game took the controller away. Keep it short.",
+      "starting_values": "Celeste's public player code forces the move direction for 0.16 seconds after a wall jump and pushes away at 130 (260 px/s at this demo's size). It accepts a wall up to 3 pixels away.",
+      "default_slider_values": {
+        "wallLockMs": 160.0,
+        "wallJumpH": 260.0
+      },
+      "prompt": "Add an input lockout after wall jumps.\n- A wall jump sets vertical speed to the normal jump speed and horizontal speed to 260 px/s away from the wall.\n- For 160 ms after the wall jump, ignore horizontal input and act as if the player is holding away from the wall.\n- After that, normal air control returns.\n- Allow the wall jump when a wall is within 3 px, not only when touching.\n\nAcceptance checks:\n1. Holding toward a single wall and tapping jump does not climb it.\n2. Wall jumping back and forth between two walls still works.\n3. Control returns 160 ms after the wall jump.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/wall-jump-lockout/index.html",
+      "json": "api/wall-jump-lockout.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "dash-cooldown",
+      "name": "Dash with cooldown",
+      "category": "movement",
+      "aliases": [
+        "dash",
+        "air dash",
+        "dash timer",
+        "burst move"
+      ],
+      "feels": [
+        "spammy",
+        "dash feels cheap",
+        "too fast to control"
+      ],
+      "summary": "A short burst of fixed speed in the facing direction, with a cooldown so it can't be chained into flying.",
+      "what_it_does": "A dash sets speed to a fixed value for a short time and ignores gravity. Without a limit, players chain dashes and skip the level. A cooldown blocks the next dash for a moment. Celeste also allows only one air dash until you land, which is a separate rule you can add on top.",
+      "use_when": "Action games that want a burst of speed or an escape move.",
+      "watch_out": "Show the cooldown with a meter or a color change, or players will think the game dropped their input.",
+      "starting_values": "Celeste's public player code dashes at 240 (480 px/s at this demo's size) for 0.15 seconds, with a 0.2 second cooldown that starts when the dash begins. It also freezes the game for 0.05 seconds as a dash starts. This demo starts its cooldown when the dash ends.",
+      "default_slider_values": {
+        "dashCooldownMs": 200.0,
+        "dashSpeed": 480.0
+      },
+      "prompt": "Add a dash with a cooldown.\n- On the dash button, if the dash is ready: set horizontal speed to facing * 480 px/s and vertical speed to 0 for 150 ms, with no gravity.\n- When the dash ends, set horizontal speed to the normal max speed in the same direction.\n- The next dash is allowed 200 ms after the previous one ends.\n- Show readiness with a small meter or a color change.\n\nAcceptance checks:\n1. Mashing dash gives at most one dash per 150 + 200 ms.\n2. A press during the cooldown does nothing, and the meter shows why.\n3. Dash distance is the same at 30 and 144 fps.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/dash-cooldown/index.html",
+      "json": "api/dash-cooldown.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "ledge-grab",
+      "name": "Ledge grab",
+      "category": "movement",
+      "aliases": [
+        "ledge hang",
+        "ledge catch",
+        "mantle",
+        "ledge climb"
+      ],
+      "feels": [
+        "can't reach the ledge",
+        "just missed it",
+        "unfair"
+      ],
+      "summary": "When a jump ends with the player's head level with a ledge they are pushing into, they catch it and hang, then jump to climb up.",
+      "what_it_does": "Players judge height badly, and missing a ledge by a few pixels is a common frustration. A ledge grab checks, while falling and holding toward a wall, whether the top corner of that wall is near the player's head. If it is, the player snaps to hang there. Jump climbs up, down lets go. A near miss becomes a success without making every jump higher.",
+      "use_when": "Adventure and action platformers, especially with realistic jump heights.",
+      "watch_out": "Precision platformers where exact jump height is the challenge. Block a new grab for a moment after letting go, or the player grabs again at once.",
+      "starting_values": "No checked source gives numbers. A grab zone from about 10 px above to 8 px below the top of the head, and 300 ms before another grab after dropping, are starting points to tune.",
+      "default_slider_values": {
+        "ledgeReach": 10.0
+      },
+      "prompt": "Add a ledge grab.\n- While in the air, falling, and holding toward a wall the player touches: if the top of that wall is between 10 px above and 8 px below the top of the player's head, snap the player to hang with their head just above the ledge. Set speed to 0 and stop gravity.\n- While hanging: jump climbs up with a normal jump, down lets go.\n- After letting go, don't allow another grab for 300 ms.\n\nAcceptance checks:\n1. A jump that ends just below a ledge catches it.\n2. Pressing jump while hanging ends with the player standing on top.\n3. Pressing down drops the player, who does not grab again right away.",
+      "sources": [],
+      "page": "e/ledge-grab/index.html",
+      "json": "api/ledge-grab.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "slope-snapping",
+      "name": "Slope snapping",
+      "category": "movement",
+      "aliases": [
+        "ground snapping",
+        "stick to slopes",
+        "slope handling",
+        "snap to ground"
+      ],
+      "feels": [
+        "bumpy slopes",
+        "bounces down hills",
+        "can't jump on slopes"
+      ],
+      "summary": "When running downhill, keep the character on the slope instead of letting them skip down it in small hops.",
+      "what_it_does": "Running down a slope moves the character sideways faster than gravity pulls them down, so they leave the ground for a few frames, land, and leave again. They bounce, and jump presses fail while they are airborne. Slope snapping checks, after moving, whether the character was grounded last frame and the slope is only a few pixels below their feet. If so, it moves them down onto it.",
+      "use_when": "Any game with slopes or uneven ground.",
+      "watch_out": "Never snap right after a jump or over a real drop. Limit it to a few pixels, and only when the player was grounded last frame.",
+      "starting_values": "Rodrigo Monteiro's platformer guide explains the bouncing and two fixes: make gravity's minimum step match the slope, or keep the distance to the floor the same before and after moving. A snap distance of 8 to 16 px here is a starting point.",
+      "default_slider_values": {
+        "slopeSnap": 12.0
+      },
+      "prompt": "Keep the player attached to slopes when moving downhill.\n- After movement: if the player was on the ground last frame, is not moving up, and the floor under their feet is between 0 and 12 px below them, move them down onto the floor and keep them grounded.\n- Don't snap after a jump starts or when the gap is bigger than 12 px.\n\nAcceptance checks:\n1. Running down the slope at full speed keeps the player grounded every frame. Log airborne frames.\n2. Jumping works at any point on the slope.\n3. Running off a real ledge still falls normally.",
+      "sources": [
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        }
+      ],
+      "page": "e/slope-snapping/index.html",
+      "json": "api/slope-snapping.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "moving-platforms",
+      "name": "Moving platforms that carry the player",
+      "category": "movement",
+      "aliases": [
+        "platform riding",
+        "carry momentum",
+        "lift boost",
+        "moving platform carry"
+      ],
+      "feels": [
+        "slides off platforms",
+        "platforms leave me behind",
+        "jumps lose momentum"
+      ],
+      "summary": "A player standing on a moving platform moves with it, and a jump off it keeps the platform's speed.",
+      "what_it_does": "If a moving platform is only a solid box, it slides out from under the player, who has to walk to keep up. The fix: before moving characters, find who stands on each platform, move the platform, then move those riders by the same amount. Celeste also adds the platform's speed to the player's when they jump off (its code calls this lift boost), so a jump from a fast platform carries.",
+      "use_when": "Any moving solid the player can stand on: lifts, carts, conveyor parts.",
+      "watch_out": "Cap the inherited speed so a fast platform can't fling the player across the level.",
+      "starting_values": "Rodrigo Monteiro's platformer guide gives the order: find riders, step platforms, shift riders by the platform's movement, then step characters. Celeste's public player code caps the inherited speed at 250 sideways and 130 upward (at 320 by 180).",
+      "default_slider_values": {
+        "moverSpeed": 4.0
+      },
+      "prompt": "Make moving platforms carry the player.\n- Each frame, before moving the player, check whether they stand on a moving platform (bottom edge within 0.5 px of its top, overlapping horizontally).\n- Move the platforms, then move each rider by the platform's change in position.\n- When the player jumps off, add the platform's velocity to theirs, capped to a sensible max.\n- In this demo the platform makes one round trip every 4 s.\n\nAcceptance checks:\n1. Standing still on a moving platform keeps the player on it.\n2. Jumping off a moving platform carries its speed for a moment.\n3. Walking on the platform works in both directions.",
+      "sources": [
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        },
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        }
+      ],
+      "page": "e/moving-platforms/index.html",
+      "json": "api/moving-platforms.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "analog-deadzone",
+      "name": "Analog stick dead zone",
+      "category": "movement",
+      "aliases": [
+        "thumbstick dead zone",
+        "stick drift fix",
+        "scaled radial dead zone",
+        "input dead zone"
+      ],
+      "feels": [
+        "character drifts",
+        "moves on its own",
+        "twitchy stick"
+      ],
+      "summary": "Ignore tiny stick readings near the center, then rescale the rest so movement still starts smoothly from zero.",
+      "what_it_does": "Analog sticks rarely rest at exactly zero. Worn or loose sticks report a small value when nobody touches them, and the character creeps. A dead zone treats readings under a threshold as zero. Rescaling the rest of the range back to 0 to 1 avoids a jump in speed at the edge of the dead zone. This demo simulates a drifting stick with the keyboard: the arrow keys push a virtual stick that has some drift built in.",
+      "use_when": "Any game that reads analog sticks or triggers.",
+      "watch_out": "Too large a dead zone makes small, precise moves impossible. Test with a real controller.",
+      "starting_values": "Josh Sutphin's article on dead zones puts the usual threshold between 0.1 and 0.2 and recommends a scaled radial dead zone for 2D stick input.",
+      "default_slider_values": {
+        "deadzone": 0.2
+      },
+      "prompt": "Add a dead zone to analog stick input.\n- Read the stick as a 2D vector. If its length is under 0.2, treat it as zero.\n- Otherwise rescale: direction * (length - 0.2) / (1 - 0.2), so output starts at 0 at the dead zone edge and reaches 1 at full tilt.\n- Apply it to the vector, not to each axis separately, so diagonals stay smooth.\n- Make the threshold a setting.\n\nAcceptance checks:\n1. A resting stick with drift under the threshold moves nothing.\n2. Pushing just past the dead zone gives a small speed, not a jump.\n3. Full tilt still reaches full speed.",
+      "sources": [
+        {
+          "title": "Doing Thumbstick Dead Zones Right (Josh Sutphin, archived copy)",
+          "url": "https://web.archive.org/web/20191231001437/http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html"
+        }
+      ],
+      "page": "e/analog-deadzone/index.html",
+      "json": "api/analog-deadzone.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "attack-frames",
+      "name": "Attack startup, active and recovery",
+      "category": "combat",
+      "aliases": [
+        "frame data",
+        "startup frames",
+        "wind-up frames",
+        "recovery frames",
+        "attack phases"
+      ],
+      "feels": [
+        "attacks feel weightless",
+        "spammy attacks",
+        "no commitment"
+      ],
+      "summary": "Split each attack into a wind-up, a short window where it can hit, and a follow-through where the attacker is open.",
+      "what_it_does": "An attack that hits on the frame you press it and can be repeated at once has no weight and no risk. Fighting games split every move into startup (before it can hit), active (when the hitbox is out) and recovery (after, when the attacker can't act). Startup makes timing matter and recovery makes a miss costly. The active part is usually very short.",
+      "use_when": "Melee combat where timing and commitment should matter.",
+      "watch_out": "Long startup on a basic attack feels unresponsive. Keep light attacks quick, and buffer presses made during recovery.",
+      "starting_values": "Infil's fighting game glossary notes most moves have only about 1 to 4 active frames. This demo starts at 100 ms of startup (6 frames), 50 ms active (3 frames) and 250 ms of recovery (15 frames) as starting points to tune.",
+      "default_slider_values": {
+        "startupMs": 100.0,
+        "recoveryMs": 250.0
+      },
+      "prompt": "Give each attack three phases.\n- Startup: 100 ms (6 frames) after the press, with no hitbox. Show a wind-up.\n- Active: about 50 ms (3 frames) with the hitbox out. Each attack can hit a target once.\n- Recovery: 250 ms (15 frames) with no hitbox, and the attacker can't start another attack.\n- Store the phase timings per attack as data.\n\nAcceptance checks:\n1. A hit lands 6 frames after the press, not on the press.\n2. Pressing attack during recovery does not start a new attack, unless a buffer or cancel rule allows it.\n3. Phase lengths are the same at 30 and 144 fps.",
+      "sources": [
+        {
+          "title": "Infil's Fighting Game Glossary: Startup",
+          "url": "https://glossary.infil.net/?t=Startup"
+        },
+        {
+          "title": "Infil's Fighting Game Glossary: Active",
+          "url": "https://glossary.infil.net/?t=Active"
+        },
+        {
+          "title": "Infil's Fighting Game Glossary: Recovery",
+          "url": "https://glossary.infil.net/?t=Recovery"
+        }
+      ],
+      "page": "e/attack-frames/index.html",
+      "json": "api/attack-frames.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "cancel-windows",
+      "name": "Cancel windows",
+      "category": "combat",
+      "aliases": [
+        "combo window",
+        "attack cancel",
+        "hit confirm cancel",
+        "chain window"
+      ],
+      "feels": [
+        "sluggish combat",
+        "combos don't flow",
+        "stiff"
+      ],
+      "summary": "After an attack connects, a short window lets the next attack start right away, skipping the rest of the recovery.",
+      "what_it_does": "Long recovery makes a missed attack risky, which is good, but it also makes landed hits slow to follow up. A cancel window opens only when the attack hit something: a press inside it starts the next attack at once. Misses keep the full recovery, so landing hits is rewarded and swinging at nothing is not.",
+      "use_when": "Combo-based combat, fighting games, character action games.",
+      "watch_out": "Too wide a window lets mashing do everything. Keep it to the moment right after a hit.",
+      "starting_values": "Infil's fighting game glossary defines a cancel as removing an attack's recovery to go straight into another move, usually after it hits. This demo uses a 150 ms window inside 300 ms of recovery as a starting point.",
+      "default_slider_values": {
+        "cancelMs": 150.0
+      },
+      "prompt": "Add cancel windows to attacks.\n- When an attack hits, open a cancel window for the first 150 ms of its recovery.\n- Pressing attack inside the window starts the next attack immediately.\n- If the attack missed, there is no window and the full recovery plays.\n- Track a combo counter that resets after 600 ms without a hit.\n\nAcceptance checks:\n1. Hit, then press attack within 150 ms: the next attack starts on that frame.\n2. A missed attack can't be cancelled.\n3. A press outside the window does nothing until recovery ends.",
+      "sources": [
+        {
+          "title": "Infil's Fighting Game Glossary: Cancel",
+          "url": "https://glossary.infil.net/?t=Cancel"
+        },
+        {
+          "title": "Infil's Fighting Game Glossary: Hit Confirm",
+          "url": "https://glossary.infil.net/?t=Hit%20Confirm"
+        }
+      ],
+      "page": "e/cancel-windows/index.html",
+      "json": "api/cancel-windows.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "dodge-roll",
+      "name": "Dodge roll",
+      "category": "combat",
+      "aliases": [
+        "evade roll",
+        "roll i-frames",
+        "dodge invulnerability",
+        "evasive roll"
+      ],
+      "feels": [
+        "can't escape",
+        "cheap hits",
+        "trapped"
+      ],
+      "summary": "A quick roll that can't be hurt for its length, so a well-timed roll passes straight through an attack.",
+      "what_it_does": "A roll that only moves the player is just a slow dash. Making it immune to damage turns it into a defensive tool: time it right and the attack goes through you. The cost is commitment. The roll has a fixed length and a cooldown, and a badly timed roll leaves you open.",
+      "use_when": "Action games with attacks meant to be dodged.",
+      "watch_out": "Immunity for the whole roll with no cooldown makes it a permanent shield. Add a cooldown or a vulnerable tail at the end.",
+      "starting_values": "No checked source gives roll timings. 250 to 400 ms of roll with a cooldown of 200 to 400 ms are starting points. Infil's fighting game glossary describes invincible moves and notes that many games make backdashes briefly invincible.",
+      "default_slider_values": {
+        "dashMs": 300.0,
+        "dashCooldownMs": 250.0
+      },
+      "prompt": "Add a dodge roll with invincibility.\n- On the dodge button: roll in the held direction (or facing) at 380 px/s for 300 ms.\n- During the roll the player can't take damage.\n- Another roll is allowed 250 ms after the previous one ends.\n- Show the invincible part, for example by brightening the sprite.\n\nAcceptance checks:\n1. Rolling through a projectile takes no damage.\n2. Getting hit right after the roll ends does damage.\n3. Mashing can't chain rolls faster than one per 300 + 250 ms.",
+      "sources": [
+        {
+          "title": "Infil's Fighting Game Glossary: Invincible",
+          "url": "https://glossary.infil.net/?t=Invincible"
+        },
+        {
+          "title": "Infil's Fighting Game Glossary: Backdash",
+          "url": "https://glossary.infil.net/?t=Backdash"
+        }
+      ],
+      "page": "e/dodge-roll/index.html",
+      "json": "api/dodge-roll.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "aim-assist",
+      "name": "Aim assist",
+      "category": "combat",
+      "aliases": [
+        "auto-aim",
+        "bullet magnetism",
+        "aim correction",
+        "target snap"
+      ],
+      "feels": [
+        "can't aim",
+        "shots always miss",
+        "aiming is fiddly"
+      ],
+      "summary": "When the player fires roughly toward a target, send the shot at it if it is inside a small cone and in range.",
+      "what_it_does": "Aiming precisely with keys, a stick or a touch screen is hard, so many games quietly correct the shot. At fire time, look for targets inside a cone around the aim direction and within range, pick the one closest by angle, and fire at it. Halo calls this auto-aim or bullet magnetism. Doom's public source aims bullets this way: it looks for a target straight ahead, then a few degrees to each side, and sets the shot's vertical angle to hit it.",
+      "use_when": "Shooters with gamepad or touch input, and any game where the player can't aim freely, like this one, which only shoots left or right.",
+      "watch_out": "Too wide a cone feels like the game plays itself and can pick the wrong target when several are close. Competitive players notice it.",
+      "starting_values": "Doom checks about 5.6 degrees to each side (1<<26 in its angle units) before giving up. A cone of 5 to 15 degrees is a sensible starting range.",
+      "default_slider_values": {
+        "assistDeg": 10.0,
+        "assistRange": 420.0
+      },
+      "prompt": "Add aim assist to shooting.\n- When the player fires, find targets within 420 px whose direction is within 10 degrees of the aim direction.\n- If there are any, fire at the one with the smallest angle difference. Otherwise fire straight.\n- Only change the new shot's direction. Never move the player's aim or the camera.\n- Make the cone and range settings, with a way to turn it off.\n\nAcceptance checks:\n1. Firing at a target slightly above or below the aim line hits it.\n2. A target more than 10 degrees off is not hit unless aimed at.\n3. With assist off, shots go exactly where aimed.",
+      "sources": [
+        {
+          "title": "DOOM source code, p_pspr.c (P_BulletSlope), id Software on GitHub",
+          "url": "https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_pspr.c"
+        },
+        {
+          "title": "Halopedia: Aim assist",
+          "url": "https://www.halopedia.org/Aim_assist"
+        },
+        {
+          "title": "Using Aim Assistance to Balance First Person Shooters (Vicencio-Moreira, Mandryk, Gutwin, Bateman)",
+          "url": "https://rodrigov.ca/wp-content/uploads/2016/03/AimAssist_RNote_V7.pdf"
+        }
+      ],
+      "page": "e/aim-assist/index.html",
+      "json": "api/aim-assist.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "projectile-leading",
+      "name": "Projectile leading",
+      "category": "combat",
+      "aliases": [
+        "predictive aim",
+        "lead the target",
+        "intercept aim",
+        "target prediction"
+      ],
+      "feels": [
+        "enemies are dumb",
+        "too easy to dodge",
+        "just keep running"
+      ],
+      "summary": "Enemies aim where the player will be when the shot arrives, not where they are now, so running in a straight line stops working.",
+      "what_it_does": "A turret that fires at the player's current position misses anyone who keeps moving. Leading estimates the travel time (distance divided by shot speed), predicts where the player will be after that time, recomputes the time to that point, and repeats a few times. Kain Shin's article walks through this iteration. A lead amount under 1 makes enemies less exact, which is often fairer.",
+      "use_when": "Turrets, bosses, and enemies with slow projectiles that should punish predictable movement.",
+      "watch_out": "Perfect leading against a player who can't change speed quickly is unfair. Lower the lead amount or the fire rate, and telegraph the shots.",
+      "starting_values": "No checked source gives a fire rate or a lead amount. A few iterations are enough for straight shots, and a lead amount of 0.5 to 1 is a starting range.",
+      "default_slider_values": {
+        "shotSpeed": 320.0,
+        "leadAmt": 1.0
+      },
+      "prompt": "Make the turret lead its shots.\n- Shot speed 320 px/s.\n- t = distance(turret, player) / shot speed. Repeat 4 times: predicted = player position + player velocity * t * 1; t = distance(turret, predicted) / shot speed.\n- Fire toward the final predicted position.\n- Use the player's current velocity only. Never read their input.\n\nAcceptance checks:\n1. Running in a straight line at constant speed gets hit.\n2. Reversing right after a shot is fired dodges it.\n3. A player standing still is hit the same as without leading.",
+      "sources": [
+        {
+          "title": "Predictive Aim Mathematics for AI Targeting (Kain Shin)",
+          "url": "https://www.gamedeveloper.com/programming/predictive-aim-mathematics-for-ai-targeting"
+        }
+      ],
+      "page": "e/projectile-leading/index.html",
+      "json": "api/projectile-leading.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "attack-telegraph",
+      "name": "Attack telegraph",
+      "category": "combat",
+      "aliases": [
+        "wind-up tell",
+        "attack warning",
+        "anticipation",
+        "tell"
+      ],
+      "feels": [
+        "unfair",
+        "cheap hits",
+        "came out of nowhere"
+      ],
+      "summary": "Enemies show a clear wind-up before an attack becomes dangerous, so the player can react.",
+      "what_it_does": "An attack that is dangerous on the frame it starts can't be avoided by reacting, only by luck. A telegraph adds a visible wind-up (a pose, a color change, a marked danger zone) for a fixed time before the attack turns on. The wind-up has to be longer than reaction time plus the time the dodge needs.",
+      "use_when": "Every enemy attack the player is meant to dodge or block.",
+      "watch_out": "Keep tells consistent: the same wind-up always means the same attack. Very long tells make fights slow.",
+      "starting_values": "No checked source gives one number. 300 to 600 ms of wind-up is a starting range; it has to cover reaction time plus the dodge.",
+      "default_slider_values": {
+        "teleMs": 450.0
+      },
+      "prompt": "Add telegraphs to enemy attacks.\n- Before an attack becomes active, play a 450 ms wind-up: change the enemy's color or pose and mark the danger area.\n- The attack can't deal damage during the wind-up.\n- Use the same tell every time for the same attack.\n- Randomize when attacks start, not how long the tell lasts.\n\nAcceptance checks:\n1. Every attack comes after a visible 450 ms wind-up.\n2. A player who reacts to the tell can always avoid the attack.\n3. No damage happens during the wind-up.",
+      "sources": [],
+      "page": "e/attack-telegraph/index.html",
+      "json": "api/attack-telegraph.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "forgiving-hitboxes",
+      "name": "Forgiving hitboxes",
+      "category": "combat",
+      "aliases": [
+        "generous hitboxes",
+        "small hazard hitbox",
+        "hurtbox shrink",
+        "damage forgiveness"
+      ],
+      "feels": [
+        "unfair",
+        "I didn't touch it",
+        "cheap deaths"
+      ],
+      "summary": "Make hazard hitboxes a little smaller than their art, so grazing a spike tip doesn't count.",
+      "what_it_does": "When the hitbox matches the art exactly, players get hurt by hits they are sure missed, especially on pointy shapes like spikes. Shrinking the damage box a few pixels inside the art, and the player's hurtbox a little inside their sprite, removes those near misses. Players rarely notice the gap, but they always notice getting hurt by one pixel.",
+      "use_when": "Hazards, enemy bodies, bullets: anything that hurts the player.",
+      "watch_out": "Don't shrink the player's own attacks against enemies. There, a slightly larger hitbox is the forgiving choice.",
+      "starting_values": "Game Maker's Toolkit notes that Celeste's spikes have a small hitbox, so touching the very tip doesn't kill you. Rodrigo Monteiro's guide says it's better for the player to dodge a hit they should have taken than to take one they shouldn't. 3 to 6 px of shrink at this size is a starting point.",
+      "default_slider_values": {
+        "forgivePx": 5.0
+      },
+      "prompt": "Make damage hitboxes forgiving.\n- Shrink each hazard's damage box by 5 px on each side compared to its art, a little more on the pointy top edge of spikes.\n- Shrink the player's hurtbox about 2 px inside the sprite.\n- Leave solid collision boxes unchanged. This only changes what hurts.\n- Add a debug view that draws the damage boxes.\n\nAcceptance checks:\n1. Grazing a spike tip does no damage.\n2. Landing squarely on spikes still hurts.\n3. The player stands on solid ground exactly as before.",
+      "sources": [
+        {
+          "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+          "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+        },
+        {
+          "title": "The guide to implementing 2D platformers (Rodrigo Monteiro, Higher-Order Fun)",
+          "url": "http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/"
+        }
+      ],
+      "page": "e/forgiving-hitboxes/index.html",
+      "json": "api/forgiving-hitboxes.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "camera-deadzone",
+      "name": "Camera deadzone",
+      "category": "camera",
+      "aliases": [
+        "camera window",
+        "camera trap",
+        "dead zone camera",
+        "follow window"
+      ],
+      "feels": [
+        "jittery camera",
+        "seasick",
+        "camera moves too much"
+      ],
+      "summary": "The camera stays still while the player moves inside a window in the middle of the screen, and only scrolls when they push past its edge.",
+      "what_it_does": "A camera locked to the player moves every time they take a step, including small back-and-forth adjustments, and that constant motion is tiring to watch. A camera window lets the player move freely inside a box. When they push against an edge, the camera moves just enough to keep them inside. Itay Keren's camera talk traces this back to early arcade games and calls it a camera-window.",
+      "use_when": "Side-scrollers where the player makes lots of small moves.",
+      "watch_out": "A wide window shows less of what's ahead while running. Combine it with lookahead or keep it narrow.",
+      "starting_values": "No checked source gives a size. A half-width of 40 to 100 px at this 640 px view is a starting point.",
+      "default_slider_values": {
+        "camWin": 80.0
+      },
+      "prompt": "Add a camera window (deadzone) to horizontal follow.\n- The window spans 80 px to each side of the screen center.\n- If the player's center goes past the window's right edge, move the camera right by the overshoot. Same on the left.\n- Inside the window the camera doesn't move.\n- Clamp to the level bounds afterwards.\n\nAcceptance checks:\n1. Stepping back and forth within 80 px of center never moves the camera.\n2. Running pushes the camera so the player stays at the window edge.\n3. No jitter when the player stops at the edge.",
+      "sources": [
+        {
+          "title": "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)",
+          "url": "https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers"
+        }
+      ],
+      "page": "e/camera-deadzone/index.html",
+      "json": "api/camera-deadzone.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "camera-platform-snap",
+      "name": "Camera platform snapping",
+      "category": "camera",
+      "aliases": [
+        "platform snap",
+        "vertical camera snap",
+        "landing camera",
+        "ground-locked camera"
+      ],
+      "feels": [
+        "camera bobs when jumping",
+        "seasick",
+        "jittery camera"
+      ],
+      "summary": "The camera's height follows the player only when they land, so ordinary jumps don't bob the whole screen.",
+      "what_it_does": "A camera that follows the player vertically moves the whole world up and down on every jump. Platform snapping holds the vertical position while the player is in the air and eases to the new height after they land. Margins at the top and bottom still pull the camera if the player goes far enough. Itay Keren's camera talk credits Super Mario World with this.",
+      "use_when": "Platformers with a lot of jumping and vertical levels.",
+      "watch_out": "Long falls and very high jumps still need the top and bottom margins, or the player leaves the screen.",
+      "starting_values": "No checked source gives numbers. Ease to the landing height with a speed of about 4 to 8 (exponential smoothing), and keep margins of about 40 px at the top and bottom of the screen.",
+      "default_slider_values": {
+        "camSnapSpeed": 6.0
+      },
+      "prompt": "Make the camera snap vertically to platforms.\n- Keep a target camera height. Update it only while the player is on the ground: target = player's feet - 62% of the screen height.\n- In the air, keep the target, unless the player gets within 40 px of the top or bottom of the screen. Then push the target to keep them on screen.\n- Each frame: camera.y += (target - camera.y) * (1 - Math.exp(-6 * dt)).\n\nAcceptance checks:\n1. Jumping in place doesn't move the camera vertically.\n2. Landing on a higher platform eases the camera up within about half a second.\n3. A long fall still keeps the player on screen.",
+      "sources": [
+        {
+          "title": "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)",
+          "url": "https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers"
+        }
+      ],
+      "page": "e/camera-platform-snap/index.html",
+      "json": "api/camera-platform-snap.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "camera-look-down",
+      "name": "Camera look-down",
+      "category": "camera",
+      "aliases": [
+        "look down",
+        "peek camera",
+        "crouch to look",
+        "manual camera offset"
+      ],
+      "feels": [
+        "can't see below",
+        "blind drops",
+        "leap of faith"
+      ],
+      "summary": "Holding down while standing still pans the camera down after a short delay, so the player can check a drop before taking it.",
+      "what_it_does": "Players hate jumping into a pit they can't see. Letting them hold down to peek uses an input they already have. A short delay keeps a quick tap of down from moving the camera. Itay Keren's camera talk points to Spelunky, where crouching or looking up shifts the camera, as a good use of controls already in the game.",
+      "use_when": "Levels with drops that go below the screen.",
+      "watch_out": "Don't pan while the player is moving, or it fights the normal follow.",
+      "starting_values": "No checked source gives numbers. 100 to 150 px of pan after holding for about 300 ms is a starting point.",
+      "default_slider_values": {
+        "lookPx": 120.0,
+        "lookDelayMs": 300.0
+      },
+      "prompt": "Add a look-down camera.\n- While the player is on the ground, nearly still, and has held down for at least 300 ms, ease a camera offset to 120 px downward.\n- Otherwise ease it back to 0.\n- Ease with offset += (target - offset) * (1 - Math.exp(-6 * dt)).\n- Clamp the camera to the level bounds.\n\nAcceptance checks:\n1. Holding down for 300 ms pans the view down by 120 px.\n2. A quick tap of down doesn't move the camera.\n3. Walking cancels the pan.",
+      "sources": [
+        {
+          "title": "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)",
+          "url": "https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers"
+        }
+      ],
+      "page": "e/camera-look-down/index.html",
+      "json": "api/camera-look-down.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "hit-flash",
+      "name": "Hit flash",
+      "category": "feedback",
+      "aliases": [
+        "white flash",
+        "damage flash",
+        "flash on hit",
+        "impact flash"
+      ],
+      "feels": [
+        "weak hits",
+        "did that hit",
+        "no feedback"
+      ],
+      "summary": "Turn the target fully white for a few frames when it gets hit, so the player sees the hit land.",
+      "what_it_does": "In a busy scene it's hard to tell whether an attack connected. A short, solid white flash on the target is one of the clearest signals there is, and it reads even out of the corner of the eye. In the Juice it or lose it talk, the ball turns white every time it hits something.",
+      "use_when": "Any damage to enemies, and often to the player.",
+      "watch_out": "Long or repeated flashes can be a problem for photosensitive players. Keep them short and never flash the whole screen.",
+      "starting_values": "No checked source gives a duration. 1 to 6 frames (about 17 to 100 ms) is a common starting range.",
+      "default_slider_values": {
+        "flashMs": 70.0
+      },
+      "prompt": "Add a hit flash.\n- When an enemy takes damage, draw it solid white (a fill or a white shader, not a tint) for 70 ms (about 4 frames).\n- Restart the timer on each new hit.\n- Use real time.\n\nAcceptance checks:\n1. Each hit shows a solid white target.\n2. The flash lasts about 70 ms at 30 and 144 fps.\n3. Only the hit target flashes, never the full screen.",
+      "sources": [
+        {
+          "title": "Juice it or lose it (Jonasson and Purho talk)",
+          "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+        }
+      ],
+      "page": "e/hit-flash/index.html",
+      "json": "api/hit-flash.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "damage-numbers",
+      "name": "Damage numbers",
+      "category": "feedback",
+      "aliases": [
+        "floating damage text",
+        "damage popups",
+        "hit numbers",
+        "floating combat text"
+      ],
+      "feels": [
+        "did that hit",
+        "can't tell damage",
+        "no feedback"
+      ],
+      "summary": "Pop a number above the target on each hit showing the damage, then float it up and fade it out.",
+      "what_it_does": "Numbers tell the player how strong a hit was, which matters as soon as damage varies (critical hits, combos, upgrades). Spawn a small text at the hit point, move it up while slowing it down, and fade it near the end of its life. Offset each new number a little so quick hits don't stack on one spot, and make big hits bigger or a different color.",
+      "use_when": "RPGs, roguelikes, anything with damage that varies.",
+      "watch_out": "Games where a clean screen matters more, or where damage never changes. Too many numbers turn into noise.",
+      "starting_values": "No checked source gives timings. 500 to 900 ms of life with a quick rise that slows down is a starting point.",
+      "default_slider_values": {
+        "popLife": 700.0,
+        "popRise": 90.0
+      },
+      "prompt": "Add floating damage numbers.\n- On each hit, spawn a text with the damage at the top of the target, offset a few pixels sideways from the previous one.\n- It rises at 90 px/s, slowing as it ages, and lives 700 ms. Fade it out over the last 200 ms.\n- Bigger or critical hits use a larger font and a different color.\n- Draw a dark outline or shadow so it reads on any background.\n\nAcceptance checks:\n1. Every hit shows its number once.\n2. Quick hits don't stack numbers on the same pixel.\n3. Numbers disappear after 700 ms.",
+      "sources": [],
+      "page": "e/damage-numbers/index.html",
+      "json": "api/damage-numbers.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "squash-stretch",
+      "name": "Jump squash and stretch",
+      "category": "feedback",
+      "aliases": [
+        "squash and stretch",
+        "jump stretch",
+        "landing squash",
+        "squish"
+      ],
+      "feels": [
+        "stiff",
+        "lifeless",
+        "robotic"
+      ],
+      "summary": "Stretch the character tall on takeoff and squash them wide on landing, scaled by how hard they land, then ease back.",
+      "what_it_does": "A rigid sprite that changes speed instantly looks stiff. A quick stretch on the jump frame and a squash on landing make the body read as moving with force. Scale from the feet so the character stays on the ground, ease back quickly, and leave the hitbox alone. Here it is driven by your own jumps and landing speed, not by a looping animation.",
+      "use_when": "Almost any character that jumps.",
+      "watch_out": "Never resize the collision box with the art, or the character snags on things.",
+      "starting_values": "Celeste's public player code sets the sprite scale to 0.6 by 1.4 on a jump, squashes up to 1.6 by 0.4 on landing depending on fall speed, and eases back toward 1 at 1.75 per second.",
+      "default_slider_values": {
+        "squashAmt": 0.4,
+        "squashBack": 1.75
+      },
+      "prompt": "Add squash and stretch to the player sprite.\n- On jump: scaleX = 1 - 0.4 * 0.75, scaleY = 1 + 0.4.\n- On landing: s = min(fall speed / max fall speed, 1) * 0.4 * 1.5; scaleX = 1 + s, scaleY = 1 - s * 0.75.\n- Every frame, move both scales toward 1 by 1.75 per second.\n- Scale around the bottom center. Hitboxes stay unchanged.\n\nAcceptance checks:\n1. Jumping stretches the sprite and landing squashes it.\n2. A big fall squashes more than a small hop.\n3. The collision box never changes size.",
+      "sources": [
+        {
+          "title": "Celeste player source (Player.cs), public on GitHub",
+          "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+        },
+        {
+          "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+          "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+        },
+        {
+          "title": "Juice it or lose it (Jonasson and Purho talk)",
+          "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+        }
+      ],
+      "page": "e/squash-stretch/index.html",
+      "json": "api/squash-stretch.json",
+      "updated": "2026-10-21"
+    },
+    {
+      "id": "delayed-health-bar",
+      "name": "Delayed damage bar",
+      "category": "feedback",
+      "aliases": [
+        "ghost health bar",
+        "trailing health bar",
+        "damage chip bar",
+        "health bar lag"
+      ],
+      "feels": [
+        "how much did that hurt",
+        "can't tell damage",
+        "lost track of health"
+      ],
+      "summary": "When health drops, a pale bar stays where the health was for a moment and then drains, showing how big the hit was.",
+      "what_it_does": "An instant drop in a health bar is easy to miss, and it doesn't show how much one hit took. Keeping a second, lighter bar at the old value for a short time and then draining it makes the size of the loss visible after the fact.",
+      "use_when": "Health bars, boss bars, shields.",
+      "watch_out": "Game logic and low-health warnings should read the real value, never the pale one.",
+      "starting_values": "No checked source gives timings. Hold for 300 to 700 ms, then drain over a similar time, as a starting point.",
+      "default_slider_values": {
+        "ghostDelayMs": 500.0,
+        "ghostRate": 2.0
+      },
+      "prompt": "Add a delayed damage bar behind the health bar.\n- Keep ghostHealth. When health drops, leave ghostHealth where it was.\n- 500 ms after the last hit, move ghostHealth toward health at 2 health points per second.\n- When health goes up, set ghostHealth to it right away.\n- Draw ghostHealth as a pale bar behind the real one.\n\nAcceptance checks:\n1. After a hit, the pale part shows the size of the loss for 500 ms.\n2. Several quick hits extend the pale part instead of resetting it.\n3. Healing never shows a pale part.",
+      "sources": [],
+      "page": "e/delayed-health-bar/index.html",
+      "json": "api/delayed-health-bar.json",
       "updated": "2026-10-21"
     }
   ]

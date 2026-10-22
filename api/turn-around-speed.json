@@ -1,0 +1,38 @@
+{
+  "id": "turn-around-speed",
+  "name": "Turn-around speed",
+  "category": "movement",
+  "aliases": [
+    "turn acceleration",
+    "skid",
+    "quick turn",
+    "reverse acceleration"
+  ],
+  "feels": [
+    "slippery",
+    "slow to turn",
+    "skids"
+  ],
+  "summary": "Give turning around its own, stronger acceleration so reversing is quick even when stopping is gentle.",
+  "what_it_does": "Many controllers use the stopping deceleration when the player reverses, so a soft stop also means a slow, skidding turn. Splitting the turn out gives one more knob: when input points against the current speed, use a separate, larger turn acceleration. The character keeps its gentle stop and still changes direction quickly.",
+  "use_when": "Characters that should feel nimble but not stop on a dime.",
+  "watch_out": "A heavy character with a deliberate skid wants the slow turn.",
+  "starting_values": "No checked source gives a separate turn number. Game Maker's Toolkit notes that Madeline changes direction very quickly with no skidding, and Celeste's code uses its full run acceleration when turning. Try 2 to 3 times your normal acceleration.",
+  "default_slider_values": {
+    "turnAccel": 4000.0
+  },
+  "prompt": "Give turning its own acceleration.\n- When horizontal input points opposite to the current horizontal speed, move speed toward the target at 4000 px/s\u00b2 instead of the normal deceleration.\n- Stopping with no input still uses the normal deceleration.\n- Optional: spawn skid dust while turning.\n\nAcceptance checks:\n1. Reversing from full speed takes less time than before. Log both.\n2. Releasing input still slides to a stop as before.\n3. Same result at 30 and 144 fps.",
+  "sources": [
+    {
+      "title": "Why Does Celeste Feel So Good to Play? (Game Maker's Toolkit)",
+      "url": "https://www.youtube.com/watch?v=yorTG9at90g"
+    },
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/turn-around-speed/index.html",
+  "json": "api/turn-around-speed.json",
+  "updated": "2026-10-21"
+}

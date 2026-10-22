@@ -1,6 +1,7 @@
 {
   "id": "screen-shake",
   "name": "Screen shake with falloff",
+  "category": "feedback",
   "aliases": [
     "camera shake",
     "trauma shake",

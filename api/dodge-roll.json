@@ -1,0 +1,39 @@
+{
+  "id": "dodge-roll",
+  "name": "Dodge roll",
+  "category": "combat",
+  "aliases": [
+    "evade roll",
+    "roll i-frames",
+    "dodge invulnerability",
+    "evasive roll"
+  ],
+  "feels": [
+    "can't escape",
+    "cheap hits",
+    "trapped"
+  ],
+  "summary": "A quick roll that can't be hurt for its length, so a well-timed roll passes straight through an attack.",
+  "what_it_does": "A roll that only moves the player is just a slow dash. Making it immune to damage turns it into a defensive tool: time it right and the attack goes through you. The cost is commitment. The roll has a fixed length and a cooldown, and a badly timed roll leaves you open.",
+  "use_when": "Action games with attacks meant to be dodged.",
+  "watch_out": "Immunity for the whole roll with no cooldown makes it a permanent shield. Add a cooldown or a vulnerable tail at the end.",
+  "starting_values": "No checked source gives roll timings. 250 to 400 ms of roll with a cooldown of 200 to 400 ms are starting points. Infil's fighting game glossary describes invincible moves and notes that many games make backdashes briefly invincible.",
+  "default_slider_values": {
+    "dashMs": 300.0,
+    "dashCooldownMs": 250.0
+  },
+  "prompt": "Add a dodge roll with invincibility.\n- On the dodge button: roll in the held direction (or facing) at 380 px/s for 300 ms.\n- During the roll the player can't take damage.\n- Another roll is allowed 250 ms after the previous one ends.\n- Show the invincible part, for example by brightening the sprite.\n\nAcceptance checks:\n1. Rolling through a projectile takes no damage.\n2. Getting hit right after the roll ends does damage.\n3. Mashing can't chain rolls faster than one per 300 + 250 ms.",
+  "sources": [
+    {
+      "title": "Infil's Fighting Game Glossary: Invincible",
+      "url": "https://glossary.infil.net/?t=Invincible"
+    },
+    {
+      "title": "Infil's Fighting Game Glossary: Backdash",
+      "url": "https://glossary.infil.net/?t=Backdash"
+    }
+  ],
+  "page": "e/dodge-roll/index.html",
+  "json": "api/dodge-roll.json",
+  "updated": "2026-10-21"
+}

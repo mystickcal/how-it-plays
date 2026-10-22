@@ -1,0 +1,34 @@
+{
+  "id": "wall-slide",
+  "name": "Wall slide",
+  "category": "movement",
+  "aliases": [
+    "wall cling",
+    "wall grip",
+    "slide down walls"
+  ],
+  "feels": [
+    "sticky walls",
+    "falls off walls",
+    "can't line up a wall jump"
+  ],
+  "summary": "Falling while pushing into a wall slows the fall, giving the player time to line up a wall jump.",
+  "what_it_does": "Without a slide, a player who reaches a wall falls past it at full speed and has a split second to react. A wall slide caps fall speed while the player is in the air, moving down, and holding toward a wall they touch. Celeste starts the cap very low and lets it rise back to normal fall speed over about a second, so nobody can hang forever.",
+  "use_when": "Games with wall jumps or vertical shafts.",
+  "watch_out": "Only slide while the player holds toward the wall, or they snag on every wall they brush past.",
+  "starting_values": "Celeste's public player code starts the slide cap at 20 (40 px/s at this demo's size) and blends it back to the normal max fall speed over 1.2 seconds of sliding.",
+  "default_slider_values": {
+    "wallSlideMax": 40.0,
+    "wallSlideMs": 1200.0
+  },
+  "prompt": "Add a wall slide.\n- While in the air, moving down, and holding toward a wall the player touches: cap fall speed.\n- The cap starts at 40 px/s and rises linearly to the normal max fall speed over 1200 ms of sliding.\n- Reset the slide timer on landing or jumping.\n- No slide when not holding toward the wall.\n\nAcceptance checks:\n1. Holding into a wall while falling slows the fall to about 40 px/s at first.\n2. After 1200 ms of sliding, fall speed is back to normal.\n3. Brushing past a wall without holding toward it does not slow the fall.",
+  "sources": [
+    {
+      "title": "Celeste player source (Player.cs), public on GitHub",
+      "url": "https://github.com/NoelFB/Celeste/blob/master/Source/Player/Player.cs"
+    }
+  ],
+  "page": "e/wall-slide/index.html",
+  "json": "api/wall-slide.json",
+  "updated": "2026-10-21"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "camera-deadzone",
+  "name": "Camera deadzone",
+  "category": "camera",
+  "aliases": [
+    "camera window",
+    "camera trap",
+    "dead zone camera",
+    "follow window"
+  ],
+  "feels": [
+    "jittery camera",
+    "seasick",
+    "camera moves too much"
+  ],
+  "summary": "The camera stays still while the player moves inside a window in the middle of the screen, and only scrolls when they push past its edge.",
+  "what_it_does": "A camera locked to the player moves every time they take a step, including small back-and-forth adjustments, and that constant motion is tiring to watch. A camera window lets the player move freely inside a box. When they push against an edge, the camera moves just enough to keep them inside. Itay Keren's camera talk traces this back to early arcade games and calls it a camera-window.",
+  "use_when": "Side-scrollers where the player makes lots of small moves.",
+  "watch_out": "A wide window shows less of what's ahead while running. Combine it with lookahead or keep it narrow.",
+  "starting_values": "No checked source gives a size. A half-width of 40 to 100 px at this 640 px view is a starting point.",
+  "default_slider_values": {
+    "camWin": 80.0
+  },
+  "prompt": "Add a camera window (deadzone) to horizontal follow.\n- The window spans 80 px to each side of the screen center.\n- If the player's center goes past the window's right edge, move the camera right by the overshoot. Same on the left.\n- Inside the window the camera doesn't move.\n- Clamp to the level bounds afterwards.\n\nAcceptance checks:\n1. Stepping back and forth within 80 px of center never moves the camera.\n2. Running pushes the camera so the player stays at the window edge.\n3. No jitter when the player stops at the edge.",
+  "sources": [
+    {
+      "title": "Scroll Back: The Theory and Practice of Cameras in Side-Scrollers (Itay Keren, GDC 2015 talk write-up)",
+      "url": "https://www.gamedeveloper.com/design/scroll-back-the-theory-and-practice-of-cameras-in-side-scrollers"
+    }
+  ],
+  "page": "e/camera-deadzone/index.html",
+  "json": "api/camera-deadzone.json",
+  "updated": "2026-10-21"
+}

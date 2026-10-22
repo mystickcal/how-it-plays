@@ -1,6 +1,7 @@
 {
   "id": "coyote-time",
   "name": "Coyote time",
+  "category": "jumping",
   "aliases": [
     "jump grace time",
     "ledge forgiveness",

@@ -1,6 +1,7 @@
 {
   "id": "hitstop",
   "name": "Hitstop",
+  "category": "feedback",
   "aliases": [
     "hit pause",
     "freeze frames",
