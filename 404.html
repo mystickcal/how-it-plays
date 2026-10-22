@@ -7,6 +7,7 @@
 <meta name="description" content="Page not found">
 <link rel="stylesheet" href="/how-it-plays/style.css">
 <link rel="alternate" type="text/plain" href="/how-it-plays/llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -15,14 +16,16 @@
 <h1>Page not found</h1><p><a href="/how-it-plays/index.html">Back to all techniques</a></p>
 </main>
 <footer class="foot">
-  <form class="signup" id="signup" novalidate>
-    <!-- TODO(Derek): wire to the self-hosted Listmonk gateway (POST /v1/subscriptions with this brand's slug) after this site has an allowed origin. Not connected on purpose. -->
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
     <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
     <div class="signup-row">
-      <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
       <button type="submit">Sign up</button>
     </div>
-    <p class="signup-note" id="signup-note" role="status">Not connected yet. Nothing you type here is sent anywhere.</p>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
   </form>
   <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="/how-it-plays/llms.txt">llms.txt</a> &middot; <a href="/how-it-plays/entries.json">entries.json</a></p>
 </footer>
