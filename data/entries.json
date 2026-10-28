@@ -1660,5 +1660,135 @@
       "try": "Walk into the red ball and watch the bar at the top left. Turn the delay off and the loss is gone in a frame.",
       "prompt_template": "Add a delayed damage bar behind the health bar.\n- Keep ghostHealth. When health drops, leave ghostHealth where it was.\n- {ghostDelayMs} ms after the last hit, move ghostHealth toward health at {ghostRate} health points per second.\n- When health goes up, set ghostHealth to it right away.\n- Draw ghostHealth as a pale bar behind the real one.\n\nAcceptance checks:\n1. After a hit, the pale part shows the size of the loss for {ghostDelayMs} ms.\n2. Several quick hits extend the pale part instead of resetting it.\n3. Healing never shows a pale part."
     }
+  },
+  {
+    "id": "frame-rate-independence",
+    "name": "Frame rate independence",
+    "category": "movement",
+    "aliases": [
+      "fixed timestep",
+      "delta time",
+      "fix your timestep",
+      "game speed tied to frame rate",
+      "high refresh rate bug"
+    ],
+    "feels": [
+      "runs faster on some screens",
+      "too fast on a 144 Hz monitor",
+      "plays differently on another PC"
+    ],
+    "summary": "Run the game's physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor.",
+    "what_it_does": "Browsers and engines call your update once per screen refresh. If each call moves things a set amount, a 144 Hz screen runs the game 2.4 times faster than a 60 Hz one, and a slow frame makes it run slow. Multiplying by each frame's elapsed time fixes the speed, but the physics still comes out a little different at each frame rate, and a long frame can make it misbehave. The usual answer is a fixed timestep: add up the real elapsed time, run as many fixed-size updates as fit, and carry the remainder to the next frame. Glenn Fiedler's article \"Fix Your Timestep!\" walks through each approach. The demos on this site run this way, at 60 updates a second.",
+    "use_when": "Any game with physics, jumps or timing. Web games most of all, since players' screens run anywhere from 60 Hz to 240 Hz.",
+    "watch_out": "If an update takes longer than the time it covers, the game falls further behind every frame, so cap the elapsed time per frame. Drawing only the latest fixed step can look a little uneven on fast screens. Blend between the last two states to smooth it.",
+    "starting_values": "60 updates a second is a common choice. Fiedler's example caps a frame's elapsed time at 0.25 seconds. The engine on this site runs 60 updates a second and caps a frame at 100 ms.",
+    "default_slider_values": {
+      "hz": 144.0
+    },
+    "prompt": "Make the game run at the same speed at any frame rate.\n- Run game logic in fixed steps of 1/60 second, separate from drawing.\n- Each frame, add the real elapsed time to an accumulator, run as many fixed steps as fit, and keep the remainder for the next frame.\n- Cap the elapsed time per frame at 0.25 seconds so a stall doesn't trigger a burst of catch-up steps.\n- Express every speed, gravity and timer per second and use the fixed step, never a per-frame amount.\n- Draw once per screen frame. Optionally blend between the last two states for smooth motion.\n\nAcceptance checks:\n1. At 60 Hz and at 144 Hz, a 3 second run covers the same distance within 1 px.\n2. Jump height and air time match at both rates.\n3. With the CPU throttled 4x in dev tools, the frame rate drops but the game speed does not.",
+    "sources": [
+      {
+        "title": "Fix Your Timestep! (Glenn Fiedler, Gaffer On Games)",
+        "url": "https://gafferongames.com/post/fix_your_timestep/"
+      },
+      {
+        "title": "MDN: Window.requestAnimationFrame()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame"
+      }
+    ],
+    "updated": "2026-10-28",
+    "demo": {
+      "label": "frame rate independence",
+      "input": "jump",
+      "touch_grid": "64px 64px 1fr 84px",
+      "toggle": "Fixed timestep",
+      "try": "Run and jump with the switch on, then turn it off. Off, the demo acts like a game that moves everything a set amount per screen frame, on a screen at the refresh rate you pick, so the whole game speeds up. Set the slider to 60 and the two match.",
+      "prompt_template": "Make the game run at the same speed at any frame rate.\n- Run game logic in fixed steps of 1/60 second, separate from drawing.\n- Each frame, add the real elapsed time to an accumulator, run as many fixed steps as fit, and keep the remainder for the next frame.\n- Cap the elapsed time per frame at 0.25 seconds so a stall doesn't trigger a burst of catch-up steps.\n- Express every speed, gravity and timer per second and use the fixed step, never a per-frame amount.\n- Draw once per screen frame. Optionally blend between the last two states for smooth motion.\n\nAcceptance checks:\n1. At 60 Hz and at {hz} Hz, a 3 second run covers the same distance within 1 px.\n2. Jump height and air time match at both rates.\n3. With the CPU throttled 4x in dev tools, the frame rate drops but the game speed does not."
+    }
+  },
+  {
+    "id": "recoil",
+    "name": "Recoil",
+    "category": "combat",
+    "aliases": [
+      "player knockback when shooting",
+      "gun kick",
+      "shot push back",
+      "weapon recoil"
+    ],
+    "feels": [
+      "shooting feels weak",
+      "guns have no punch",
+      "no weight to firing"
+    ],
+    "summary": "Push the player back a little every time they fire, so each shot has some force behind it.",
+    "what_it_does": "A shot that leaves the gun while nothing happens to the shooter feels like a toy. A short push opposite the aim direction on each shot makes the weapon feel strong, and with rapid fire the pushes add up, so firing nonstop has a cost. In his talk \"The art of screenshake\", Jan Willem Nijman of Vlambeer adds player knockback while shooting as one of the steps that turn a flat shooter into a punchy one, alongside screen shake and camera kick.",
+    "use_when": "Shooters, and any weapon that should feel heavy. Make it bigger for big guns and tiny or zero for fast, light ones.",
+    "watch_out": "Too much push throws off aim and can shove players into hazards or off ledges. Apply it as a velocity that wears off, not a jump in position, and keep it small where the platforming needs precision.",
+    "starting_values": "No checked source gives a number. Start with a push of 50 to 150 px/s per shot that wears off within about a tenth of a second, then tune it per weapon.",
+    "default_slider_values": {
+      "kick": 120.0,
+      "kickFriction": 1500.0
+    },
+    "prompt": "Add recoil to shooting.\n- When the player fires, add 120 px/s of horizontal velocity opposite the aim direction.\n- Let that extra velocity wear off at 1500 px/s\u00b2 until it reaches zero, separate from normal movement.\n- Stack the pushes from rapid fire, but cap the total so the player can't be launched.\n- Run the push through normal collision so it never moves the player into a wall or hazard.\n- Make the push size a per-weapon setting, with a way to turn it off.\n\nAcceptance checks:\n1. One shot moves the player back a few pixels, then they stop.\n2. Firing five times quickly moves them back further, up to the cap.\n3. Recoil never pushes the player through a wall.\n4. With recoil off, shooting does not move the player.",
+    "sources": [
+      {
+        "title": "Jan Willem Nijman (Vlambeer), \"The art of screenshake\", INDIGO Classes 2013 (YouTube)",
+        "url": "https://www.youtube.com/watch?v=AJdEqssNZ-U"
+      },
+      {
+        "title": "Roman Luk\u0161: How can I implement game feel in my game? (notes on the talk)",
+        "url": "https://romanluks.eu/blog/how-can-i-implement-game-feel-in-my-game/"
+      }
+    ],
+    "updated": "2026-10-28",
+    "demo": {
+      "label": "recoil",
+      "input": "shoot",
+      "touch_grid": "64px 64px 1fr 64px 84px",
+      "toggle": "Recoil",
+      "try": "Tap X to shoot and watch the player slide back. Tap it fast and the pushes add up. Turn recoil off and the same shots feel lighter.",
+      "prompt_template": "Add recoil to shooting.\n- When the player fires, add {kick} px/s of horizontal velocity opposite the aim direction.\n- Let that extra velocity wear off at {kickFriction} px/s\u00b2 until it reaches zero, separate from normal movement.\n- Stack the pushes from rapid fire, but cap the total so the player can't be launched.\n- Run the push through normal collision so it never moves the player into a wall or hazard.\n- Make the push size a per-weapon setting, with a way to turn it off.\n\nAcceptance checks:\n1. One shot moves the player back a few pixels, then they stop.\n2. Firing five times quickly moves them back further, up to the cap.\n3. Recoil never pushes the player through a wall.\n4. With recoil off, shooting does not move the player."
+    }
+  },
+  {
+    "id": "fast-fall",
+    "name": "Fast fall",
+    "category": "jumping",
+    "aliases": [
+      "fastfall",
+      "fast falling",
+      "press down to fall faster",
+      "nosedive"
+    ],
+    "feels": [
+      "can't get down fast",
+      "floaty",
+      "stuck in the air"
+    ],
+    "summary": "Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast.",
+    "what_it_does": "Heavier fall gravity makes every jump come down faster. Fast fall leaves the jump alone and gives the player a button for it instead. In Super Smash Bros., tapping down on the stick while falling starts a fast fall: gravity is ignored and downward speed is set straight to the character's fast fall speed until they land, get hit or jump. Players use it to get back to the ground sooner and to vary their timing.",
+    "use_when": "Platformers and fighting games where players want control over their air time, especially with high or slow jumps.",
+    "watch_out": "Only start it while falling, not while rising, or it cuts jumps short by accident. Down may already mean drop through a platform or crouch, so decide which wins. Give it a sound or a visual cue so players know it happened.",
+    "starting_values": "SmashWiki's tables put most characters' fast fall speed at 1.4 times their normal fall speed in Brawl and 1.6 times in Smash 4.",
+    "default_slider_values": {
+      "ffMul": 1.6
+    },
+    "prompt": "Add fast fall.\n- While the character is in the air and moving down, pressing down starts a fast fall.\n- During a fast fall, ignore gravity and set the downward speed to 1.6 times the normal max fall speed.\n- End the fast fall on landing, on a new jump, or when the character gets hit.\n- Do nothing while the character is still rising.\n- Play a short sound or flash when it starts.\n\nAcceptance checks:\n1. Pressing down after the peak makes the character land sooner. Log the air time both ways.\n2. Pressing down while rising does not change the jump.\n3. Fall speed during a fast fall is exactly 1.6 times the normal max fall speed.",
+    "sources": [
+      {
+        "title": "SmashWiki: Fast fall",
+        "url": "https://www.ssbwiki.com/Fast_fall"
+      }
+    ],
+    "updated": "2026-10-28",
+    "demo": {
+      "label": "fast fall",
+      "input": "down",
+      "touch_grid": "64px 64px 64px 1fr 84px",
+      "toggle": "Fast fall",
+      "try": "Jump off the high ledge and hold Down once you start falling. The yellow spark means a fast fall. Compare the air time with it on and off.",
+      "prompt_template": "Add fast fall.\n- While the character is in the air and moving down, pressing down starts a fast fall.\n- During a fast fall, ignore gravity and set the downward speed to {ffMul} times the normal max fall speed.\n- End the fast fall on landing, on a new jump, or when the character gets hit.\n- Do nothing while the character is still rising.\n- Play a short sound or flash when it starts.\n\nAcceptance checks:\n1. Pressing down after the peak makes the character land sooner. Log the air time both ways.\n2. Pressing down while rising does not change the jump.\n3. Fall speed during a fast fall is exactly {ffMul} times the normal max fall speed."
+    }
   }
 ]

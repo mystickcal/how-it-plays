@@ -27,7 +27,7 @@ git clone -b main https://github.com/mystickcal/how-it-plays.git site
 python3 build.py --out site
 python3 checks/sitecheck.py how-it-plays --local site --expect N
 python3 checks/browsercheck.py how-it-plays --local site
-git -C site commit -am "..." && git -C site push
+git -C site add -A && git -C site commit -m "..." && git -C site push
 python3 checks/sitecheck.py how-it-plays --live --expect N --compare-dir site
 python3 checks/browsercheck.py how-it-plays --live
 ```

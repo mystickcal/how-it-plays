@@ -1,6 +1,6 @@
 {
   "name": "How It Plays",
-  "updated": "2026-10-21",
+  "updated": "2026-10-28",
   "categories": [
     {
       "id": "movement",
@@ -15,7 +15,8 @@
         "ledge-grab",
         "slope-snapping",
         "moving-platforms",
-        "analog-deadzone"
+        "analog-deadzone",
+        "frame-rate-independence"
       ]
     },
     {
@@ -31,7 +32,8 @@
         "corner-correction",
         "double-jump",
         "landing-recovery",
-        "one-way-platforms"
+        "one-way-platforms",
+        "fast-fall"
       ]
     },
     {
@@ -47,7 +49,8 @@
         "aim-assist",
         "projectile-leading",
         "attack-telegraph",
-        "forgiving-hitboxes"
+        "forgiving-hitboxes",
+        "recoil"
       ]
     },
     {
@@ -80,7 +83,8 @@
         "variable-jump-height",
         "fall-gravity",
         "acceleration-curves",
-        "terminal-velocity"
+        "terminal-velocity",
+        "fast-fall"
       ]
     },
     {
@@ -202,6 +206,29 @@
         "squash-stretch",
         "fall-gravity"
       ]
+    },
+    {
+      "feel": "runs faster on some screens",
+      "ids": [
+        "frame-rate-independence"
+      ]
+    },
+    {
+      "feel": "shooting feels weak",
+      "ids": [
+        "recoil",
+        "screen-shake",
+        "hitstop"
+      ]
+    },
+    {
+      "feel": "can't get down fast",
+      "ids": [
+        "fast-fall",
+        "fall-gravity",
+        "terminal-velocity"
+      ]
     }
-  ]
+  ],
+  "sitemap": true
 }
