@@ -1,0 +1,207 @@
+{
+  "name": "How It Plays",
+  "updated": "2026-10-21",
+  "categories": [
+    {
+      "id": "movement",
+      "name": "Movement",
+      "ids": [
+        "acceleration-curves",
+        "air-control",
+        "turn-around-speed",
+        "wall-slide",
+        "wall-jump-lockout",
+        "dash-cooldown",
+        "ledge-grab",
+        "slope-snapping",
+        "moving-platforms",
+        "analog-deadzone"
+      ]
+    },
+    {
+      "id": "jumping",
+      "name": "Jumping",
+      "ids": [
+        "coyote-time",
+        "jump-buffering",
+        "variable-jump-height",
+        "apex-hang",
+        "fall-gravity",
+        "terminal-velocity",
+        "corner-correction",
+        "double-jump",
+        "landing-recovery",
+        "one-way-platforms"
+      ]
+    },
+    {
+      "id": "combat",
+      "name": "Combat",
+      "ids": [
+        "attack-input-buffer",
+        "i-frames",
+        "knockback",
+        "attack-frames",
+        "cancel-windows",
+        "dodge-roll",
+        "aim-assist",
+        "projectile-leading",
+        "attack-telegraph",
+        "forgiving-hitboxes"
+      ]
+    },
+    {
+      "id": "camera",
+      "name": "Camera",
+      "ids": [
+        "camera-lookahead",
+        "camera-deadzone",
+        "camera-platform-snap",
+        "camera-look-down"
+      ]
+    },
+    {
+      "id": "feedback",
+      "name": "Feedback",
+      "ids": [
+        "hitstop",
+        "screen-shake",
+        "hit-flash",
+        "damage-numbers",
+        "squash-stretch",
+        "delayed-health-bar"
+      ]
+    }
+  ],
+  "feels": [
+    {
+      "feel": "floaty",
+      "ids": [
+        "variable-jump-height",
+        "fall-gravity",
+        "acceleration-curves",
+        "terminal-velocity"
+      ]
+    },
+    {
+      "feel": "stiff or robotic",
+      "ids": [
+        "acceleration-curves",
+        "jump-buffering",
+        "squash-stretch",
+        "air-control"
+      ]
+    },
+    {
+      "feel": "slippery",
+      "ids": [
+        "acceleration-curves",
+        "turn-around-speed"
+      ]
+    },
+    {
+      "feel": "unfair",
+      "ids": [
+        "coyote-time",
+        "i-frames",
+        "jump-buffering",
+        "forgiving-hitboxes",
+        "attack-telegraph",
+        "corner-correction"
+      ]
+    },
+    {
+      "feel": "unresponsive",
+      "ids": [
+        "jump-buffering",
+        "attack-input-buffer",
+        "coyote-time",
+        "cancel-windows"
+      ]
+    },
+    {
+      "feel": "weak hits",
+      "ids": [
+        "hitstop",
+        "screen-shake",
+        "knockback",
+        "hit-flash",
+        "damage-numbers"
+      ]
+    },
+    {
+      "feel": "can't see ahead",
+      "ids": [
+        "camera-lookahead",
+        "camera-look-down"
+      ]
+    },
+    {
+      "feel": "jittery camera",
+      "ids": [
+        "camera-deadzone",
+        "camera-platform-snap",
+        "camera-lookahead"
+      ]
+    },
+    {
+      "feel": "bonked my head",
+      "ids": [
+        "corner-correction",
+        "one-way-platforms"
+      ]
+    },
+    {
+      "feel": "can't reach the ledge",
+      "ids": [
+        "ledge-grab",
+        "double-jump",
+        "coyote-time",
+        "apex-hang"
+      ]
+    },
+    {
+      "feel": "no control in the air",
+      "ids": [
+        "air-control",
+        "double-jump",
+        "variable-jump-height"
+      ]
+    },
+    {
+      "feel": "sticky walls",
+      "ids": [
+        "wall-slide",
+        "wall-jump-lockout"
+      ]
+    },
+    {
+      "feel": "drifts on its own",
+      "ids": [
+        "analog-deadzone"
+      ]
+    },
+    {
+      "feel": "sluggish combat",
+      "ids": [
+        "cancel-windows",
+        "attack-input-buffer",
+        "attack-frames"
+      ]
+    },
+    {
+      "feel": "can't aim",
+      "ids": [
+        "aim-assist"
+      ]
+    },
+    {
+      "feel": "weightless",
+      "ids": [
+        "landing-recovery",
+        "squash-stretch",
+        "fall-gravity"
+      ]
+    }
+  ]
+}
