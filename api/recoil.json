@@ -1,0 +1,39 @@
+{
+  "id": "recoil",
+  "name": "Recoil",
+  "category": "combat",
+  "aliases": [
+    "player knockback when shooting",
+    "gun kick",
+    "shot push back",
+    "weapon recoil"
+  ],
+  "feels": [
+    "shooting feels weak",
+    "guns have no punch",
+    "no weight to firing"
+  ],
+  "summary": "Push the player back a little every time they fire, so each shot has some force behind it.",
+  "what_it_does": "A shot that leaves the gun while nothing happens to the shooter feels like a toy. A short push opposite the aim direction on each shot makes the weapon feel strong, and with rapid fire the pushes add up, so firing nonstop has a cost. In his talk \"The art of screenshake\", Jan Willem Nijman of Vlambeer adds player knockback while shooting as one of the steps that turn a flat shooter into a punchy one, alongside screen shake and camera kick.",
+  "use_when": "Shooters, and any weapon that should feel heavy. Make it bigger for big guns and tiny or zero for fast, light ones.",
+  "watch_out": "Too much push throws off aim and can shove players into hazards or off ledges. Apply it as a velocity that wears off, not a jump in position, and keep it small where the platforming needs precision.",
+  "starting_values": "No checked source gives a number. Start with a push of 50 to 150 px/s per shot that wears off within about a tenth of a second, then tune it per weapon.",
+  "default_slider_values": {
+    "kick": 120.0,
+    "kickFriction": 1500.0
+  },
+  "prompt": "Add recoil to shooting.\n- When the player fires, add 120 px/s of horizontal velocity opposite the aim direction.\n- Let that extra velocity wear off at 1500 px/s\u00b2 until it reaches zero, separate from normal movement.\n- Stack the pushes from rapid fire, but cap the total so the player can't be launched.\n- Run the push through normal collision so it never moves the player into a wall or hazard.\n- Make the push size a per-weapon setting, with a way to turn it off.\n\nAcceptance checks:\n1. One shot moves the player back a few pixels, then they stop.\n2. Firing five times quickly moves them back further, up to the cap.\n3. Recoil never pushes the player through a wall.\n4. With recoil off, shooting does not move the player.",
+  "sources": [
+    {
+      "title": "Jan Willem Nijman (Vlambeer), \"The art of screenshake\", INDIGO Classes 2013 (YouTube)",
+      "url": "https://www.youtube.com/watch?v=AJdEqssNZ-U"
+    },
+    {
+      "title": "Roman Luk\u0161: How can I implement game feel in my game? (notes on the talk)",
+      "url": "https://romanluks.eu/blog/how-can-i-implement-game-feel-in-my-game/"
+    }
+  ],
+  "page": "e/recoil/index.html",
+  "json": "api/recoil.json",
+  "updated": "2026-10-28"
+}

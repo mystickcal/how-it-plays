@@ -1,0 +1,39 @@
+{
+  "id": "frame-rate-independence",
+  "name": "Frame rate independence",
+  "category": "movement",
+  "aliases": [
+    "fixed timestep",
+    "delta time",
+    "fix your timestep",
+    "game speed tied to frame rate",
+    "high refresh rate bug"
+  ],
+  "feels": [
+    "runs faster on some screens",
+    "too fast on a 144 Hz monitor",
+    "plays differently on another PC"
+  ],
+  "summary": "Run the game's physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor.",
+  "what_it_does": "Browsers and engines call your update once per screen refresh. If each call moves things a set amount, a 144 Hz screen runs the game 2.4 times faster than a 60 Hz one, and a slow frame makes it run slow. Multiplying by each frame's elapsed time fixes the speed, but the physics still comes out a little different at each frame rate, and a long frame can make it misbehave. The usual answer is a fixed timestep: add up the real elapsed time, run as many fixed-size updates as fit, and carry the remainder to the next frame. Glenn Fiedler's article \"Fix Your Timestep!\" walks through each approach. The demos on this site run this way, at 60 updates a second.",
+  "use_when": "Any game with physics, jumps or timing. Web games most of all, since players' screens run anywhere from 60 Hz to 240 Hz.",
+  "watch_out": "If an update takes longer than the time it covers, the game falls further behind every frame, so cap the elapsed time per frame. Drawing only the latest fixed step can look a little uneven on fast screens. Blend between the last two states to smooth it.",
+  "starting_values": "60 updates a second is a common choice. Fiedler's example caps a frame's elapsed time at 0.25 seconds. The engine on this site runs 60 updates a second and caps a frame at 100 ms.",
+  "default_slider_values": {
+    "hz": 144.0
+  },
+  "prompt": "Make the game run at the same speed at any frame rate.\n- Run game logic in fixed steps of 1/60 second, separate from drawing.\n- Each frame, add the real elapsed time to an accumulator, run as many fixed steps as fit, and keep the remainder for the next frame.\n- Cap the elapsed time per frame at 0.25 seconds so a stall doesn't trigger a burst of catch-up steps.\n- Express every speed, gravity and timer per second and use the fixed step, never a per-frame amount.\n- Draw once per screen frame. Optionally blend between the last two states for smooth motion.\n\nAcceptance checks:\n1. At 60 Hz and at 144 Hz, a 3 second run covers the same distance within 1 px.\n2. Jump height and air time match at both rates.\n3. With the CPU throttled 4x in dev tools, the frame rate drops but the game speed does not.",
+  "sources": [
+    {
+      "title": "Fix Your Timestep! (Glenn Fiedler, Gaffer On Games)",
+      "url": "https://gafferongames.com/post/fix_your_timestep/"
+    },
+    {
+      "title": "MDN: Window.requestAnimationFrame()",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame"
+    }
+  ],
+  "page": "e/frame-rate-independence/index.html",
+  "json": "api/frame-rate-independence.json",
+  "updated": "2026-10-28"
+}

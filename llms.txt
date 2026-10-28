@@ -18,6 +18,7 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - [Slope snapping](e/slope-snapping/index.html): When running downhill, keep the character on the slope instead of letting them skip down it in small hops. Feels it fixes: bumpy slopes, bounces down hills, can't jump on slopes. JSON: api/slope-snapping.json
 - [Moving platforms that carry the player](e/moving-platforms/index.html): A player standing on a moving platform moves with it, and a jump off it keeps the platform's speed. Feels it fixes: slides off platforms, platforms leave me behind, jumps lose momentum. JSON: api/moving-platforms.json
 - [Analog stick dead zone](e/analog-deadzone/index.html): Ignore tiny stick readings near the center, then rescale the rest so movement still starts smoothly from zero. Feels it fixes: character drifts, moves on its own, twitchy stick. JSON: api/analog-deadzone.json
+- [Frame rate independence](e/frame-rate-independence/index.html): Run the game's physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor. Feels it fixes: runs faster on some screens, too fast on a 144 Hz monitor, plays differently on another PC. JSON: api/frame-rate-independence.json
 
 ### Jumping
 
@@ -31,6 +32,7 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - [Double jump](e/double-jump/index.html): Allow one extra jump in the air, refilled when the player lands. Feels it fixes: can't reach the ledge, no control in the air, jumps feel limited. JSON: api/double-jump.json
 - [Landing recovery](e/landing-recovery/index.html): After a hard landing, the character can't act for a few frames, which gives falls weight. Feels it fixes: weightless, no impact on landing, too spammy. JSON: api/landing-recovery.json
 - [One-way platforms with drop-through](e/one-way-platforms/index.html): Platforms you can jump up through from below and land on from above, with down plus jump to drop back through. Feels it fixes: bonked my head, stuck under platforms, can't get down. JSON: api/one-way-platforms.json
+- [Fast fall](e/fast-fall/index.html): Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast. Feels it fixes: can't get down fast, floaty, stuck in the air. JSON: api/fast-fall.json
 
 ### Combat
 
@@ -44,6 +46,7 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - [Projectile leading](e/projectile-leading/index.html): Enemies aim where the player will be when the shot arrives, not where they are now, so running in a straight line stops working. Feels it fixes: enemies are dumb, too easy to dodge, just keep running. JSON: api/projectile-leading.json
 - [Attack telegraph](e/attack-telegraph/index.html): Enemies show a clear wind-up before an attack becomes dangerous, so the player can react. Feels it fixes: unfair, cheap hits, came out of nowhere. JSON: api/attack-telegraph.json
 - [Forgiving hitboxes](e/forgiving-hitboxes/index.html): Make hazard hitboxes a little smaller than their art, so grazing a spike tip doesn't count. Feels it fixes: unfair, I didn't touch it, cheap deaths. JSON: api/forgiving-hitboxes.json
+- [Recoil](e/recoil/index.html): Push the player back a little every time they fire, so each shot has some force behind it. Feels it fixes: shooting feels weak, guns have no punch, no weight to firing. JSON: api/recoil.json
 
 ### Camera
 
@@ -64,7 +67,7 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 
 ## Feel lookup
 
-- floaty: variable-jump-height, fall-gravity, acceleration-curves, terminal-velocity
+- floaty: variable-jump-height, fall-gravity, acceleration-curves, terminal-velocity, fast-fall
 - stiff or robotic: acceleration-curves, jump-buffering, squash-stretch, air-control
 - slippery: acceleration-curves, turn-around-speed
 - unfair: coyote-time, i-frames, jump-buffering, forgiving-hitboxes, attack-telegraph, corner-correction
@@ -80,5 +83,8 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - sluggish combat: cancel-windows, attack-input-buffer, attack-frames
 - can't aim: aim-assist
 - weightless: landing-recovery, squash-stretch, fall-gravity
+- runs faster on some screens: frame-rate-independence
+- shooting feels weak: recoil, screen-shake, hitstop
+- can't get down fast: fast-fall, fall-gravity, terminal-velocity
 
-Updated 2026-10-21. Built by Derek Salyers (https://x.com/omgitsderek).
+Updated 2026-10-28. Built by Derek Salyers (https://x.com/omgitsderek).

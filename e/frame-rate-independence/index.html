@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frame rate independence: How It Plays</title>
+<meta name="description" content="Run the game&#x27;s physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Frame rate independence: How It Plays">
+<meta property="og:description" content="Run the game&#x27;s physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/frame-rate-independence/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Frame rate independence: How It Plays">
+<meta name="twitter:description" content="Run the game&#x27;s physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-movement">Movement</a></p>
+  <h1>Frame rate independence</h1>
+  <p class="aka">Also called: fixed timestep, delta time, fix your timestep, game speed tied to frame rate, high refresh rate bug</p>
+  <p class="lead">Run the game&#x27;s physics in fixed steps of real time, so it plays at the same speed on a 60 Hz laptop and a 144 Hz monitor.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of frame rate independence. Arrow keys or A and D to move, Space, W, Up or Z to jump."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Fixed timestep: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump</p>
+    <p class="try"><strong>Try this:</strong> Run and jump with the switch on, then turn it off. Off, the demo acts like a game that moves everything a set amount per screen frame, on a screen at the refresh rate you pick, so the whole game speeds up. Set the slider to 60 and the two match.</p>
+  </section>
+  <section><h2>What it does</h2><p>Browsers and engines call your update once per screen refresh. If each call moves things a set amount, a 144 Hz screen runs the game 2.4 times faster than a 60 Hz one, and a slow frame makes it run slow. Multiplying by each frame&#x27;s elapsed time fixes the speed, but the physics still comes out a little different at each frame rate, and a long frame can make it misbehave. The usual answer is a fixed timestep: add up the real elapsed time, run as many fixed-size updates as fit, and carry the remainder to the next frame. Glenn Fiedler&#x27;s article &quot;Fix Your Timestep!&quot; walks through each approach. The demos on this site run this way, at 60 updates a second.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Any game with physics, jumps or timing. Web games most of all, since players&#x27; screens run anywhere from 60 Hz to 240 Hz.</p></section>
+    <section><h2>Watch out</h2><p>If an update takes longer than the time it covers, the game falls further behind every frame, so cap the elapsed time per frame. Drawing only the latest fixed step can look a little uneven on fast screens. Blend between the last two states to smooth it.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>60 updates a second is a common choice. Fiedler&#x27;s example caps a frame&#x27;s elapsed time at 0.25 seconds. The engine on this site runs 60 updates a second and caps a frame at 100 ms.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Make the game run at the same speed at any frame rate.
+- Run game logic in fixed steps of 1/60 second, separate from drawing.
+- Each frame, add the real elapsed time to an accumulator, run as many fixed steps as fit, and keep the remainder for the next frame.
+- Cap the elapsed time per frame at 0.25 seconds so a stall doesn't trigger a burst of catch-up steps.
+- Express every speed, gravity and timer per second and use the fixed step, never a per-frame amount.
+- Draw once per screen frame. Optionally blend between the last two states for smooth motion.
+
+Acceptance checks:
+1. At 60 Hz and at {hz} Hz, a 3 second run covers the same distance within 1 px.
+2. Jump height and air time match at both rates.
+3. With the CPU throttled 4x in dev tools, the frame rate drops but the game speed does not.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Make the game run at the same speed at any frame rate.
+- Run game logic in fixed steps of 1/60 second, separate from drawing.
+- Each frame, add the real elapsed time to an accumulator, run as many fixed steps as fit, and keep the remainder for the next frame.
+- Cap the elapsed time per frame at 0.25 seconds so a stall doesn&#x27;t trigger a burst of catch-up steps.
+- Express every speed, gravity and timer per second and use the fixed step, never a per-frame amount.
+- Draw once per screen frame. Optionally blend between the last two states for smooth motion.
+
+Acceptance checks:
+1. At 60 Hz and at 144 Hz, a 3 second run covers the same distance within 1 px.
+2. Jump height and air time match at both rates.
+3. With the CPU throttled 4x in dev tools, the frame rate drops but the game speed does not.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://gafferongames.com/post/fix_your_timestep/">Fix Your Timestep! (Glenn Fiedler, Gaffer On Games)</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame">MDN: Window.requestAnimationFrame()</a></li></ul></section>
+  <p class="meta">Updated 2026-10-28. JSON: <a href="../../api/frame-rate-independence.json">api/frame-rate-independence.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../analog-deadzone/index.html">&larr; Analog stick dead zone</a><a href="../coyote-time/index.html">Coyote time &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("frame-rate-independence");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

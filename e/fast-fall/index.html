@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fast fall: How It Plays</title>
+<meta name="description" content="Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Fast fall: How It Plays">
+<meta property="og:description" content="Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/fast-fall/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fast fall: How It Plays">
+<meta name="twitter:description" content="Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-jumping">Jumping</a></p>
+  <h1>Fast fall</h1>
+  <p class="aka">Also called: fastfall, fast falling, press down to fall faster, nosedive</p>
+  <p class="lead">Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of fast fall. Arrow keys or A and D to move, Space, W, Up or Z to jump, Down or S for down."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Fast fall: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button><button type="button" data-touch="down">&darr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>&darr;</kbd> or <kbd>S</kbd> down</p>
+    <p class="try"><strong>Try this:</strong> Jump off the high ledge and hold Down once you start falling. The yellow spark means a fast fall. Compare the air time with it on and off.</p>
+  </section>
+  <section><h2>What it does</h2><p>Heavier fall gravity makes every jump come down faster. Fast fall leaves the jump alone and gives the player a button for it instead. In Super Smash Bros., tapping down on the stick while falling starts a fast fall: gravity is ignored and downward speed is set straight to the character&#x27;s fast fall speed until they land, get hit or jump. Players use it to get back to the ground sooner and to vary their timing.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Platformers and fighting games where players want control over their air time, especially with high or slow jumps.</p></section>
+    <section><h2>Watch out</h2><p>Only start it while falling, not while rising, or it cuts jumps short by accident. Down may already mean drop through a platform or crouch, so decide which wins. Give it a sound or a visual cue so players know it happened.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>SmashWiki&#x27;s tables put most characters&#x27; fast fall speed at 1.4 times their normal fall speed in Brawl and 1.6 times in Smash 4.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add fast fall.
+- While the character is in the air and moving down, pressing down starts a fast fall.
+- During a fast fall, ignore gravity and set the downward speed to {ffMul} times the normal max fall speed.
+- End the fast fall on landing, on a new jump, or when the character gets hit.
+- Do nothing while the character is still rising.
+- Play a short sound or flash when it starts.
+
+Acceptance checks:
+1. Pressing down after the peak makes the character land sooner. Log the air time both ways.
+2. Pressing down while rising does not change the jump.
+3. Fall speed during a fast fall is exactly {ffMul} times the normal max fall speed.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add fast fall.
+- While the character is in the air and moving down, pressing down starts a fast fall.
+- During a fast fall, ignore gravity and set the downward speed to 1.6 times the normal max fall speed.
+- End the fast fall on landing, on a new jump, or when the character gets hit.
+- Do nothing while the character is still rising.
+- Play a short sound or flash when it starts.
+
+Acceptance checks:
+1. Pressing down after the peak makes the character land sooner. Log the air time both ways.
+2. Pressing down while rising does not change the jump.
+3. Fall speed during a fast fall is exactly 1.6 times the normal max fall speed.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://www.ssbwiki.com/Fast_fall">SmashWiki: Fast fall</a></li></ul></section>
+  <p class="meta">Updated 2026-10-28. JSON: <a href="../../api/fast-fall.json">api/fast-fall.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../one-way-platforms/index.html">&larr; One-way platforms with drop-through</a><a href="../attack-input-buffer/index.html">Input buffering for attacks &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("fast-fall");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "id": "fast-fall",
+  "name": "Fast fall",
+  "category": "jumping",
+  "aliases": [
+    "fastfall",
+    "fast falling",
+    "press down to fall faster",
+    "nosedive"
+  ],
+  "feels": [
+    "can't get down fast",
+    "floaty",
+    "stuck in the air"
+  ],
+  "summary": "Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast.",
+  "what_it_does": "Heavier fall gravity makes every jump come down faster. Fast fall leaves the jump alone and gives the player a button for it instead. In Super Smash Bros., tapping down on the stick while falling starts a fast fall: gravity is ignored and downward speed is set straight to the character's fast fall speed until they land, get hit or jump. Players use it to get back to the ground sooner and to vary their timing.",
+  "use_when": "Platformers and fighting games where players want control over their air time, especially with high or slow jumps.",
+  "watch_out": "Only start it while falling, not while rising, or it cuts jumps short by accident. Down may already mean drop through a platform or crouch, so decide which wins. Give it a sound or a visual cue so players know it happened.",
+  "starting_values": "SmashWiki's tables put most characters' fast fall speed at 1.4 times their normal fall speed in Brawl and 1.6 times in Smash 4.",
+  "default_slider_values": {
+    "ffMul": 1.6
+  },
+  "prompt": "Add fast fall.\n- While the character is in the air and moving down, pressing down starts a fast fall.\n- During a fast fall, ignore gravity and set the downward speed to 1.6 times the normal max fall speed.\n- End the fast fall on landing, on a new jump, or when the character gets hit.\n- Do nothing while the character is still rising.\n- Play a short sound or flash when it starts.\n\nAcceptance checks:\n1. Pressing down after the peak makes the character land sooner. Log the air time both ways.\n2. Pressing down while rising does not change the jump.\n3. Fall speed during a fast fall is exactly 1.6 times the normal max fall speed.",
+  "sources": [
+    {
+      "title": "SmashWiki: Fast fall",
+      "url": "https://www.ssbwiki.com/Fast_fall"
+    }
+  ],
+  "page": "e/fast-fall/index.html",
+  "json": "api/fast-fall.json",
+  "updated": "2026-10-28"
+}

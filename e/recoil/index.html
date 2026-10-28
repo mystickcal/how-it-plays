@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recoil: How It Plays</title>
+<meta name="description" content="Push the player back a little every time they fire, so each shot has some force behind it.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Recoil: How It Plays">
+<meta property="og:description" content="Push the player back a little every time they fire, so each shot has some force behind it.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/recoil/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Recoil: How It Plays">
+<meta name="twitter:description" content="Push the player back a little every time they fire, so each shot has some force behind it.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-combat">Combat</a></p>
+  <h1>Recoil</h1>
+  <p class="aka">Also called: player knockback when shooting, gun kick, shot push back, weapon recoil</p>
+  <p class="lead">Push the player back a little every time they fire, so each shot has some force behind it.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of recoil. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to shoot."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Recoil: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 64px 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> shoot</p>
+    <p class="try"><strong>Try this:</strong> Tap X to shoot and watch the player slide back. Tap it fast and the pushes add up. Turn recoil off and the same shots feel lighter.</p>
+  </section>
+  <section><h2>What it does</h2><p>A shot that leaves the gun while nothing happens to the shooter feels like a toy. A short push opposite the aim direction on each shot makes the weapon feel strong, and with rapid fire the pushes add up, so firing nonstop has a cost. In his talk &quot;The art of screenshake&quot;, Jan Willem Nijman of Vlambeer adds player knockback while shooting as one of the steps that turn a flat shooter into a punchy one, alongside screen shake and camera kick.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Shooters, and any weapon that should feel heavy. Make it bigger for big guns and tiny or zero for fast, light ones.</p></section>
+    <section><h2>Watch out</h2><p>Too much push throws off aim and can shove players into hazards or off ledges. Apply it as a velocity that wears off, not a jump in position, and keep it small where the platforming needs precision.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>No checked source gives a number. Start with a push of 50 to 150 px/s per shot that wears off within about a tenth of a second, then tune it per weapon.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add recoil to shooting.
+- When the player fires, add {kick} px/s of horizontal velocity opposite the aim direction.
+- Let that extra velocity wear off at {kickFriction} px/s² until it reaches zero, separate from normal movement.
+- Stack the pushes from rapid fire, but cap the total so the player can't be launched.
+- Run the push through normal collision so it never moves the player into a wall or hazard.
+- Make the push size a per-weapon setting, with a way to turn it off.
+
+Acceptance checks:
+1. One shot moves the player back a few pixels, then they stop.
+2. Firing five times quickly moves them back further, up to the cap.
+3. Recoil never pushes the player through a wall.
+4. With recoil off, shooting does not move the player.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add recoil to shooting.
+- When the player fires, add 120 px/s of horizontal velocity opposite the aim direction.
+- Let that extra velocity wear off at 1500 px/s² until it reaches zero, separate from normal movement.
+- Stack the pushes from rapid fire, but cap the total so the player can&#x27;t be launched.
+- Run the push through normal collision so it never moves the player into a wall or hazard.
+- Make the push size a per-weapon setting, with a way to turn it off.
+
+Acceptance checks:
+1. One shot moves the player back a few pixels, then they stop.
+2. Firing five times quickly moves them back further, up to the cap.
+3. Recoil never pushes the player through a wall.
+4. With recoil off, shooting does not move the player.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://www.youtube.com/watch?v=AJdEqssNZ-U">Jan Willem Nijman (Vlambeer), &quot;The art of screenshake&quot;, INDIGO Classes 2013 (YouTube)</a></li><li><a href="https://romanluks.eu/blog/how-can-i-implement-game-feel-in-my-game/">Roman Lukš: How can I implement game feel in my game? (notes on the talk)</a></li></ul></section>
+  <p class="meta">Updated 2026-10-28. JSON: <a href="../../api/recoil.json">api/recoil.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../forgiving-hitboxes/index.html">&larr; Forgiving hitboxes</a><a href="../camera-lookahead/index.html">Camera lookahead and smoothing &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("recoil");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>
