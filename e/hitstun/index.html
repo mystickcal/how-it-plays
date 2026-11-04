@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hitstun: How It Plays</title>
+<meta name="description" content="After getting hit, a character can&#x27;t act for a short time, so a hit stops whatever they were doing.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Hitstun: How It Plays">
+<meta property="og:description" content="After getting hit, a character can&#x27;t act for a short time, so a hit stops whatever they were doing.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/hitstun/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hitstun: How It Plays">
+<meta name="twitter:description" content="After getting hit, a character can&#x27;t act for a short time, so a hit stops whatever they were doing.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-combat">Combat</a></p>
+  <h1>Hitstun</h1>
+  <p class="aka">Also called: hit stun, stagger, flinch, hit reaction, interrupt on hit</p>
+  <p class="lead">After getting hit, a character can&#x27;t act for a short time, so a hit stops whatever they were doing.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of hitstun. Arrow keys or A and D to move, Space, W, Up or Z to jump, X or J to attack."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Hitstun: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 1fr 64px 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button>
+      <span></span>
+      <button type="button" data-touch="attack">X</button><button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>X</kbd> or <kbd>J</kbd> attack</p>
+    <p class="try"><strong>Try this:</strong> Stand next to the enemy and hit it with X. A red bar over it means a swing is coming. With hitstun on, your hits cancel the swing and the stars show it&#x27;s stunned. Turn it off and it swings right through your hits.</p>
+  </section>
+  <section><h2>What it does</h2><p>Without hitstun, an enemy you hit keeps swinging as if nothing happened, and every fight turns into trading hits. With it, a hit freezes the target for a set time. An attack it was winding up gets cancelled, and you get a moment to follow up or back off. Infil&#x27;s fighting game glossary describes hit stun as the time a character can&#x27;t do anything after getting hit, and combos come from landing the next hit before it ends. SmashWiki says hitstun in Super Smash Bros. grows with knockback. In Melee it is 0.4 frames per unit of knockback, so a hit with 100 knockback stuns for 40 frames. It isn&#x27;t the same as hitstop, where the whole game pauses for a few frames.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Melee and action games where hits should interrupt enemies, and any game with combos. Use less on bosses and heavy enemies, or give them armor that ignores small hits.</p></section>
+    <section><h2>Watch out</h2><p>If the stun lasts longer than your attack takes to recover, a player can lock an enemy in place forever by mashing. Cap the hits in a row, add a short window where it can&#x27;t be stunned, or let big enemies shrug it off. Use the same rules on the player, or make it clear why they&#x27;re different.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>In Smash Melee it&#x27;s 0.4 frames of hitstun per unit of knockback, 40 frames for 100. No checked source gives one number for action games. This demo uses 400 ms, a little longer than the player&#x27;s attack takes to come back around, so mashing keeps the enemy stuck. That&#x27;s the lock the warning above is about. At 200 ms the enemy starts winding up between your hits and each hit cancels it.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add hitstun to [enemies / the player].
+- When an attack lands, put the target in hitstun for {stunMs} ms.
+- During hitstun the target can't move, attack or start anything new. Cancel any attack it was winding up.
+- A new hit during hitstun restarts the timer, up to [3] hits in a row. After that the target can't be stunned for [500] ms.
+- Heavy enemies and bosses take less hitstun or none.
+- Play a hit reaction (a flinch pose or stars) for the whole stun.
+
+Acceptance checks:
+1. Hitting an enemy while it winds up cancels the attack. Log the interrupt.
+2. The enemy acts again {stunMs} ms after the last hit, within one frame.
+3. Mashing attack can't keep an enemy stunned forever.
+4. Hitstun and hitstop are separate settings.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add hitstun to [enemies / the player].
+- When an attack lands, put the target in hitstun for 400 ms.
+- During hitstun the target can&#x27;t move, attack or start anything new. Cancel any attack it was winding up.
+- A new hit during hitstun restarts the timer, up to [3] hits in a row. After that the target can&#x27;t be stunned for [500] ms.
+- Heavy enemies and bosses take less hitstun or none.
+- Play a hit reaction (a flinch pose or stars) for the whole stun.
+
+Acceptance checks:
+1. Hitting an enemy while it winds up cancels the attack. Log the interrupt.
+2. The enemy acts again 400 ms after the last hit, within one frame.
+3. Mashing attack can&#x27;t keep an enemy stunned forever.
+4. Hitstun and hitstop are separate settings.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://glossary.infil.net/?t=Hit%20Stun">Infil&#x27;s Fighting Game Glossary: Hit Stun</a></li><li><a href="https://www.ssbwiki.com/Hitstun">SmashWiki: Hitstun</a></li></ul></section>
+  <p class="meta">Updated 2026-11-04. JSON: <a href="../../api/hitstun.json">api/hitstun.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../charge-shot/index.html">&larr; Charge shot</a><a href="../camera-lookahead/index.html">Camera lookahead and smoothing &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("hitstun");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

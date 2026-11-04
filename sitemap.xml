@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mystickcal.github.io/how-it-plays/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://mystickcal.github.io/how-it-plays/</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/acceleration-curves/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/air-control/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/turn-around-speed/</loc><lastmod>2026-10-21</lastmod></url>
@@ -23,6 +23,7 @@
   <url><loc>https://mystickcal.github.io/how-it-plays/e/landing-recovery/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/one-way-platforms/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/fast-fall/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://mystickcal.github.io/how-it-plays/e/running-jump/</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/attack-input-buffer/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/i-frames/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/knockback/</loc><lastmod>2026-10-21</lastmod></url>
@@ -34,6 +35,8 @@
   <url><loc>https://mystickcal.github.io/how-it-plays/e/attack-telegraph/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/forgiving-hitboxes/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/recoil/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://mystickcal.github.io/how-it-plays/e/charge-shot/</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://mystickcal.github.io/how-it-plays/e/hitstun/</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/camera-lookahead/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/camera-deadzone/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://mystickcal.github.io/how-it-plays/e/camera-platform-snap/</loc><lastmod>2026-10-21</lastmod></url>

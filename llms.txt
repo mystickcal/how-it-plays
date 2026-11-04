@@ -33,6 +33,7 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - [Landing recovery](e/landing-recovery/index.html): After a hard landing, the character can't act for a few frames, which gives falls weight. Feels it fixes: weightless, no impact on landing, too spammy. JSON: api/landing-recovery.json
 - [One-way platforms with drop-through](e/one-way-platforms/index.html): Platforms you can jump up through from below and land on from above, with down plus jump to drop back through. Feels it fixes: bonked my head, stuck under platforms, can't get down. JSON: api/one-way-platforms.json
 - [Fast fall](e/fast-fall/index.html): Let the player press down while falling to drop at a higher, fixed speed, so they decide when to come down fast. Feels it fixes: can't get down fast, floaty, stuck in the air. JSON: api/fast-fall.json
+- [Running jump](e/running-jump/index.html): Make a jump a little stronger the faster the player is moving when they leave the ground, so a running start pays off. Feels it fixes: every jump is the same height, can't reach the ledge, running doesn't matter. JSON: api/running-jump.json
 
 ### Combat
 
@@ -47,6 +48,8 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - [Attack telegraph](e/attack-telegraph/index.html): Enemies show a clear wind-up before an attack becomes dangerous, so the player can react. Feels it fixes: unfair, cheap hits, came out of nowhere. JSON: api/attack-telegraph.json
 - [Forgiving hitboxes](e/forgiving-hitboxes/index.html): Make hazard hitboxes a little smaller than their art, so grazing a spike tip doesn't count. Feels it fixes: unfair, I didn't touch it, cheap deaths. JSON: api/forgiving-hitboxes.json
 - [Recoil](e/recoil/index.html): Push the player back a little every time they fire, so each shot has some force behind it. Feels it fixes: shooting feels weak, guns have no punch, no weight to firing. JSON: api/recoil.json
+- [Charge shot](e/charge-shot/index.html): Holding the fire button builds up a stronger shot that fires when you let go, so players choose between quick small shots and a slow big one. Feels it fixes: every shot is the same, shooting feels weak, nothing to do but mash. JSON: api/charge-shot.json
+- [Hitstun](e/hitstun/index.html): After getting hit, a character can't act for a short time, so a hit stops whatever they were doing. Feels it fixes: enemies ignore my hits, weak hits, fights are just trading hits. JSON: api/hitstun.json
 
 ### Camera
 
@@ -72,11 +75,11 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - slippery: acceleration-curves, turn-around-speed
 - unfair: coyote-time, i-frames, jump-buffering, forgiving-hitboxes, attack-telegraph, corner-correction
 - unresponsive: jump-buffering, attack-input-buffer, coyote-time, cancel-windows
-- weak hits: hitstop, screen-shake, knockback, hit-flash, damage-numbers
+- weak hits: hitstop, screen-shake, knockback, hit-flash, damage-numbers, hitstun
 - can't see ahead: camera-lookahead, camera-look-down
 - jittery camera: camera-deadzone, camera-platform-snap, camera-lookahead
 - bonked my head: corner-correction, one-way-platforms
-- can't reach the ledge: ledge-grab, double-jump, coyote-time, apex-hang
+- can't reach the ledge: ledge-grab, double-jump, coyote-time, apex-hang, running-jump
 - no control in the air: air-control, double-jump, variable-jump-height
 - sticky walls: wall-slide, wall-jump-lockout
 - drifts on its own: analog-deadzone
@@ -84,7 +87,10 @@ Agents: fetch /entries.json for all techniques (search the name, aliases and fee
 - can't aim: aim-assist
 - weightless: landing-recovery, squash-stretch, fall-gravity
 - runs faster on some screens: frame-rate-independence
-- shooting feels weak: recoil, screen-shake, hitstop
+- shooting feels weak: recoil, screen-shake, hitstop, charge-shot
 - can't get down fast: fast-fall, fall-gravity, terminal-velocity
+- every jump is the same height: running-jump, variable-jump-height
+- enemies ignore my hits: hitstun, knockback
+- every shot is the same: charge-shot
 
-Updated 2026-10-28. Built by Derek Salyers (https://x.com/omgitsderek).
+Updated 2026-11-04. Built by Derek Salyers (https://x.com/omgitsderek).

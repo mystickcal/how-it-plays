@@ -1,0 +1,39 @@
+{
+  "id": "hitstun",
+  "name": "Hitstun",
+  "category": "combat",
+  "aliases": [
+    "hit stun",
+    "stagger",
+    "flinch",
+    "hit reaction",
+    "interrupt on hit"
+  ],
+  "feels": [
+    "enemies ignore my hits",
+    "weak hits",
+    "fights are just trading hits"
+  ],
+  "summary": "After getting hit, a character can't act for a short time, so a hit stops whatever they were doing.",
+  "what_it_does": "Without hitstun, an enemy you hit keeps swinging as if nothing happened, and every fight turns into trading hits. With it, a hit freezes the target for a set time. An attack it was winding up gets cancelled, and you get a moment to follow up or back off. Infil's fighting game glossary describes hit stun as the time a character can't do anything after getting hit, and combos come from landing the next hit before it ends. SmashWiki says hitstun in Super Smash Bros. grows with knockback. In Melee it is 0.4 frames per unit of knockback, so a hit with 100 knockback stuns for 40 frames. It isn't the same as hitstop, where the whole game pauses for a few frames.",
+  "use_when": "Melee and action games where hits should interrupt enemies, and any game with combos. Use less on bosses and heavy enemies, or give them armor that ignores small hits.",
+  "watch_out": "If the stun lasts longer than your attack takes to recover, a player can lock an enemy in place forever by mashing. Cap the hits in a row, add a short window where it can't be stunned, or let big enemies shrug it off. Use the same rules on the player, or make it clear why they're different.",
+  "starting_values": "In Smash Melee it's 0.4 frames of hitstun per unit of knockback, 40 frames for 100. No checked source gives one number for action games. This demo uses 400 ms, a little longer than the player's attack takes to come back around, so mashing keeps the enemy stuck. That's the lock the warning above is about. At 200 ms the enemy starts winding up between your hits and each hit cancels it.",
+  "default_slider_values": {
+    "stunMs": 400.0
+  },
+  "prompt": "Add hitstun to [enemies / the player].\n- When an attack lands, put the target in hitstun for 400 ms.\n- During hitstun the target can't move, attack or start anything new. Cancel any attack it was winding up.\n- A new hit during hitstun restarts the timer, up to [3] hits in a row. After that the target can't be stunned for [500] ms.\n- Heavy enemies and bosses take less hitstun or none.\n- Play a hit reaction (a flinch pose or stars) for the whole stun.\n\nAcceptance checks:\n1. Hitting an enemy while it winds up cancels the attack. Log the interrupt.\n2. The enemy acts again 400 ms after the last hit, within one frame.\n3. Mashing attack can't keep an enemy stunned forever.\n4. Hitstun and hitstop are separate settings.",
+  "sources": [
+    {
+      "title": "Infil's Fighting Game Glossary: Hit Stun",
+      "url": "https://glossary.infil.net/?t=Hit%20Stun"
+    },
+    {
+      "title": "SmashWiki: Hitstun",
+      "url": "https://www.ssbwiki.com/Hitstun"
+    }
+  ],
+  "page": "e/hitstun/index.html",
+  "json": "api/hitstun.json",
+  "updated": "2026-11-04"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "charge-shot",
+  "name": "Charge shot",
+  "category": "combat",
+  "aliases": [
+    "charged attack",
+    "hold to charge",
+    "charge attack",
+    "buster charge"
+  ],
+  "feels": [
+    "every shot is the same",
+    "shooting feels weak",
+    "nothing to do but mash"
+  ],
+  "summary": "Holding the fire button builds up a stronger shot that fires when you let go, so players choose between quick small shots and a slow big one.",
+  "what_it_does": "If firing only does one thing, the best play is to mash the button. A charge shot adds a choice: tap for quick weak shots, or hold, stop firing for a moment, and let go of a big one. Mega Man Wiki describes X's buster in Mega Man X as having two charge levels on top of the normal shot. TASVideos' memory notes for Mega Man X2 and X3 list the charge counter changing color at 20 frames and again at 80, about a third of a second and 1.3 seconds at 60 frames a second. The color change is what makes it readable. Players need to see when the big shot is ready without counting.",
+  "use_when": "Shooters and action games where you want a rhythm of risk and reward, especially with tough enemies or blocks that the charged shot is meant for.",
+  "watch_out": "Holding a button for long stretches tires hands, so keep the full charge short or offer an option to toggle it instead. Decide what cancels a charge and make that obvious. If the charged shot is always the better choice, nobody taps, so give quick shots a reason to exist.",
+  "starting_values": "Mega Man X2 and X3 change the charge color at 20 and 80 frames, about 0.33 and 1.3 seconds. No checked source gives a damage number. This demo charges fully in 1 second and the charged shot does 4 times the damage of a normal one.",
+  "default_slider_values": {
+    "chargeMs": 1000.0
+  },
+  "prompt": "Add a charge shot.\n- Pressing fire shoots a normal shot right away.\n- While fire is held, count up a charge timer. The charge is full at 1000 ms.\n- Letting go with a full charge fires a charged shot that does [4] times the damage. Letting go early fires nothing extra.\n- Show the charge building on the player (a ring, glow or color change) and a clear cue the moment it's full.\n- Getting hit or switching weapons resets the charge.\n\nAcceptance checks:\n1. Tapping fire 5 times fires 5 normal shots and no charged shots.\n2. Holding fire for 1000 ms and letting go fires one charged shot. Log the hold time.\n3. Letting go at half the charge time fires no charged shot.\n4. The full charge cue shows on the same frame the charge is ready.",
+  "sources": [
+    {
+      "title": "TASVideos: Mega Man X series RAM data",
+      "url": "https://tasvideos.org/GameResources/SNES/MegamanX/Data"
+    },
+    {
+      "title": "Mega Man Wiki: Charge Shot",
+      "url": "https://megamanwiki.com/wiki/Charge_Shot"
+    }
+  ],
+  "page": "e/charge-shot/index.html",
+  "json": "api/charge-shot.json",
+  "updated": "2026-11-04"
+}

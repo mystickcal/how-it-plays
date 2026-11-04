@@ -541,6 +541,114 @@
       draw: function (d, c) { if (!d.ff) return; var pl = d.player; c.fillStyle = "#f2b134"; c.beginPath(); c.arc(pl.x + pl.w + 6, pl.y + 8, 3, 0, Math.PI * 2); c.fill(); },
       snapshot: function (d) { return { fastFalls: d.ffCount }; },
       hud: function (d) { return "fast falls: " + d.ffCount + "   last air time: " + Math.round(d.stats.lastAirTime * STEP) + " ms   fall speed: " + Math.round(Math.max(0, d.player.vy)) + " px/s"; }
+    },
+    "running-jump": {
+      trail: true,
+      level: { width: 960, spawn: [60, 272], platforms: [[0, 300, 960, 60], [600, 196, 180, 14]] },
+      params: { coyoteMs: 100, bufferMs: 100, baseJump: 480 },
+      toggle: "Run boost", sliders: [{ key: "rjBonus", label: "Extra at full speed", min: 5, max: 50, step: 5, value: 25, unit: "%" }],
+      apply: function (p, on, v) { p.rjOn = on; p.rjBonus = v.rjBonus; },
+      reset: function (d) { d.rjTake = 0; d.rjNext = 0; d.rjBest = 0; d.p.jumpVel = d.p.baseJump; d.rjJumps = 0; },
+      update: function (d) {
+        var pl = d.player, p = d.p;
+        // a jump that started this step: remember its take-off speed
+        if (d.stats.jumps !== d.rjJumps) { d.rjJumps = d.stats.jumps; d.rjTake = d.rjNext || 0; }
+        if (!pl.grounded) d.rjBest = Math.max(d.rjBest, Math.round(pl.jumpStartY ? pl.jumpStartY - pl.minY : 0));
+        // the next jump's strength comes from the current horizontal speed
+        var frac = Math.min(1, Math.abs(pl.vx) / p.maxSpeed);
+        d.rjNext = Math.round(Math.abs(pl.vx));
+        p.jumpVel = p.baseJump * (p.rjOn ? 1 + p.rjBonus / 100 * frac : 1);
+      },
+      draw: function (d, c) { c.fillStyle = "#7ee2a8"; c.fillRect(600, 196, 180, 3); },
+      snapshot: function (d) { return { best: d.rjBest, lastHeight: d.stats.lastJumpHeight }; },
+      hud: function (d) { return "last jump height: " + d.stats.lastJumpHeight + " px   take-off speed: " + d.rjTake + " px/s   highest: " + d.rjBest + " px"; }
+    },
+    "charge-shot": {
+      level: { width: 640, spawn: [120, 272], platforms: [G] },
+      params: { coyoteMs: 100, bufferMs: 100 },
+      toggle: "Charge shot", sliders: [{ key: "chargeMs", label: "Full charge after", min: 300, max: 2000, step: 50, value: 1000, unit: "ms" }],
+      apply: function (p, on, v) { p.chargeOn = on; p.chargeMs = v.chargeMs; },
+      reset: function (d) {
+        d.shots = []; d.chargeT = 0; d.held = false; d.fired = 0; d.charged = 0; d.dmg = 0; d.breaks = 0; d.flash = 0;
+        d.target = { x: 560, y: 268, hp: 8, max: 8, down: 0 };
+      },
+      onAttack: function (d) {
+        var pl = d.player, f = pl.facing;
+        d.shots.push({ x: pl.x + pl.w / 2 + f * 12, y: pl.y + 12, vx: f * 700, vy: 0, big: false });
+        d.fired++; d.flash = 3; d.chargeT = 0;
+      },
+      update: function (d) {
+        var pl = d.player, p = d.p, held = !!d.keys.attack;
+        if (held && p.chargeOn) d.chargeT += STEP;
+        if (!held && d.held) {
+          // release: a full charge fires the big shot
+          if (p.chargeOn && d.chargeT >= p.chargeMs) {
+            var f = pl.facing;
+            d.shots.push({ x: pl.x + pl.w / 2 + f * 14, y: pl.y + 12, vx: f * 700, vy: 0, big: true });
+            d.charged++; d.flash = 6;
+          }
+          d.chargeT = 0;
+        }
+        d.held = held;
+        if (d.flash > 0) d.flash--;
+        var g = d.target;
+        if (g.down > 0) { g.down -= STEP; if (g.down <= 0) g.hp = g.max; }
+        moveShots(d, d.shots);
+        for (var i = d.shots.length - 1; i >= 0; i--) {
+          var b = d.shots[i];
+          if (g.down <= 0 && Math.abs(b.x - g.x) < 22 && Math.abs(b.y - g.y) < 28) {
+            var dm = b.big ? 4 : 1; g.hp -= dm; d.dmg += dm; d.shots.splice(i, 1);
+            if (g.hp <= 0) { g.hp = 0; g.down = 600; d.breaks++; }
+          }
+        }
+      },
+      draw: function (d, c) {
+        var pl = d.player, g = d.target;
+        if (g.down <= 0) { c.fillStyle = "#8fa1b3"; c.fillRect(g.x - 18, g.y - 28, 36, 60); bar(c, g.x - 18, g.y - 40, 36, g.hp / g.max, "#7ee2a8"); }
+        d.shots.forEach(function (b) { c.fillStyle = b.big ? "#7ee2a8" : "#ffffff"; c.beginPath(); c.arc(b.x, b.y, b.big ? 9 : 3, 0, Math.PI * 2); c.fill(); });
+        if (d.p.chargeOn && d.chargeT > 0) {
+          var k = Math.min(1, d.chargeT / d.p.chargeMs);
+          c.strokeStyle = k >= 1 ? "#7ee2a8" : "rgba(242,177,52," + (0.3 + 0.5 * k) + ")"; c.lineWidth = 2;
+          c.beginPath(); c.arc(pl.x + pl.w / 2, pl.y + pl.h / 2, 18 + 4 * k, 0, Math.PI * 2 * k); c.stroke(); c.lineWidth = 1;
+        }
+        if (d.flash > 0) { c.fillStyle = "#f2b134"; c.beginPath(); c.arc(pl.x + pl.w / 2 + pl.facing * 14, pl.y + 12, 6, 0, Math.PI * 2); c.fill(); }
+      },
+      snapshot: function (d) { return { fired: d.fired, charged: d.charged, damage: d.dmg, breaks: d.breaks }; },
+      hud: function (d) { return "shots: " + d.fired + "   charged shots: " + d.charged + "   damage: " + d.dmg + "   targets broken: " + d.breaks; }
+    },
+    "hitstun": {
+      attack: true,
+      level: { width: 640, spawn: [290, 272], dummy: [326, 260], platforms: [G] },
+      params: { coyoteMs: 100, bufferMs: 100, attackBufferMs: 120 },
+      toggle: "Hitstun", sliders: [{ key: "stunMs", label: "Stunned for", min: 100, max: 800, step: 50, value: 400, unit: "ms" }],
+      apply: function (p, on, v) { p.stunOn = on; p.stunMs = v.stunMs; },
+      reset: function (d) { d.phase = "idle"; d.until = 600; d.stun = 0; d.swings = 0; d.interrupts = 0; },
+      onHit: function (d) {
+        if (!d.p.stunOn) return;
+        // a hit stops whatever the enemy was doing and holds it for stunMs
+        if (d.phase === "windup" || d.phase === "strike") d.interrupts++;
+        d.stun = d.p.stunMs; d.phase = "idle"; d.until = d.t + d.p.stunMs;
+      },
+      update: function (d) {
+        var pl = d.player, e = d.dummy;
+        if (d.stun > 0) { d.stun -= STEP; return; }
+        if (d.t < d.until) return;
+        if (d.phase === "idle") { d.phase = "windup"; d.until = d.t + 450; }
+        else if (d.phase === "windup") {
+          d.phase = "strike"; d.until = d.t + 120; d.swings++;
+          var dx = Math.abs((pl.x + pl.w / 2) - (e.x + e.w / 2));
+          if (dx < 70 && pl.y + pl.h > e.y) d.onHurt(e);
+        } else if (d.phase === "strike") { d.phase = "rest"; d.until = d.t + 500; }
+        else { d.phase = "idle"; d.until = d.t + 300; }
+      },
+      draw: function (d, c) {
+        var e = d.dummy;
+        if (d.phase === "windup") { c.fillStyle = "rgba(229,83,75,.35)"; c.fillRect(e.x - 44, e.y - 6, e.w + 88, 6); }
+        if (d.phase === "strike") { c.fillStyle = "#e5534b"; c.fillRect(e.x - 44, e.y + 12, 44, 14); }
+        if (d.stun > 0) { c.fillStyle = "#f2b134"; for (var i = 0; i < 3; i++) { var a = d.t / 150 + i * 2.1; c.beginPath(); c.arc(e.x + e.w / 2 + Math.cos(a) * 14, e.y - 10 + Math.sin(a) * 4, 3, 0, Math.PI * 2); c.fill(); } }
+      },
+      snapshot: function (d) { return { swings: d.swings, interrupts: d.interrupts }; },
+      hud: function (d) { return "health: " + d.player.hp + "/5   enemy swings: " + d.swings + "   interrupted: " + d.interrupts + "   hits taken: " + d.stats.hitsTaken; }
     }
   };
 
