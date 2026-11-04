@@ -20,6 +20,7 @@ live site matched that build byte-for-byte.
 - `build.py`, `extract_from_site.py`, `checks/` as in the What To Ask For tooling.
 - `checks/browsercheck.py` runs every demo through `demo.simulate` with scripted inputs, toggle on and off,
   and fails if a toggle makes no measurable difference or a run is not deterministic.
+  For demos listed in its `EXPECT` table it also checks the direction (for example, hitstun on means fewer hits taken).
 
 ## Release
 ```

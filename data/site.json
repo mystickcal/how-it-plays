@@ -1,6 +1,6 @@
 {
   "name": "How It Plays",
-  "updated": "2026-10-28",
+  "updated": "2026-11-04",
   "categories": [
     {
       "id": "movement",
@@ -33,7 +33,8 @@
         "double-jump",
         "landing-recovery",
         "one-way-platforms",
-        "fast-fall"
+        "fast-fall",
+        "running-jump"
       ]
     },
     {
@@ -50,7 +51,9 @@
         "projectile-leading",
         "attack-telegraph",
         "forgiving-hitboxes",
-        "recoil"
+        "recoil",
+        "charge-shot",
+        "hitstun"
       ]
     },
     {
@@ -130,7 +133,8 @@
         "screen-shake",
         "knockback",
         "hit-flash",
-        "damage-numbers"
+        "damage-numbers",
+        "hitstun"
       ]
     },
     {
@@ -161,7 +165,8 @@
         "ledge-grab",
         "double-jump",
         "coyote-time",
-        "apex-hang"
+        "apex-hang",
+        "running-jump"
       ]
     },
     {
@@ -218,7 +223,8 @@
       "ids": [
         "recoil",
         "screen-shake",
-        "hitstop"
+        "hitstop",
+        "charge-shot"
       ]
     },
     {
@@ -227,6 +233,26 @@
         "fast-fall",
         "fall-gravity",
         "terminal-velocity"
+      ]
+    },
+    {
+      "feel": "every jump is the same height",
+      "ids": [
+        "running-jump",
+        "variable-jump-height"
+      ]
+    },
+    {
+      "feel": "enemies ignore my hits",
+      "ids": [
+        "hitstun",
+        "knockback"
+      ]
+    },
+    {
+      "feel": "every shot is the same",
+      "ids": [
+        "charge-shot"
       ]
     }
   ],
