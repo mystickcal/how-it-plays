@@ -1,6 +1,6 @@
 {
   "name": "How It Plays",
-  "updated": "2026-11-04",
+  "updated": "2026-11-11",
   "categories": [
     {
       "id": "movement",
@@ -34,7 +34,9 @@
         "landing-recovery",
         "one-way-platforms",
         "fast-fall",
-        "running-jump"
+        "running-jump",
+        "ground-pound",
+        "springboard"
       ]
     },
     {
@@ -53,7 +55,8 @@
         "forgiving-hitboxes",
         "recoil",
         "charge-shot",
-        "hitstun"
+        "hitstun",
+        "parry"
       ]
     },
     {
@@ -166,7 +169,8 @@
         "double-jump",
         "coyote-time",
         "apex-hang",
-        "running-jump"
+        "running-jump",
+        "springboard"
       ]
     },
     {
@@ -232,7 +236,8 @@
       "ids": [
         "fast-fall",
         "fall-gravity",
-        "terminal-velocity"
+        "terminal-velocity",
+        "ground-pound"
       ]
     },
     {
@@ -253,6 +258,25 @@
       "feel": "every shot is the same",
       "ids": [
         "charge-shot"
+      ]
+    },
+    {
+      "feel": "defense is boring",
+      "ids": [
+        "parry",
+        "dodge-roll"
+      ]
+    },
+    {
+      "feel": "attacks from above feel weak",
+      "ids": [
+        "ground-pound"
+      ]
+    },
+    {
+      "feel": "bouncing has no skill to it",
+      "ids": [
+        "springboard"
       ]
     }
   ],
