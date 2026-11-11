@@ -1,0 +1,34 @@
+{
+  "id": "ground-pound",
+  "name": "Ground pound",
+  "category": "jumping",
+  "aliases": [
+    "butt stomp",
+    "hip drop",
+    "slam",
+    "dive bomb",
+    "stomp attack"
+  ],
+  "feels": [
+    "attacks from above feel weak",
+    "can't get down fast"
+  ],
+  "summary": "A button in the air that stops the player dead, holds them for a moment, then drops them straight down fast to break or hit what's below.",
+  "what_it_does": "Fast fall just speeds up a fall that's already happening. A ground pound is a move you commit to. Frame Advance's reading of the Super Mario 64 code says pressing Z in the air stops Mario dead, lifts him up to 110 units over 10 frames, holds him until his spin ends, then drops him starting at 50 units a frame. Banjo-Kazooie's Beak Buster hangs too, then pops up a little before it falls. The pause shows a big hit is coming, and the straight drop makes it easy to aim at a block or an enemy below.",
+  "use_when": "Platformers with breakable floors, switches to press or enemies to hit from above. It also gives players a quick way out of a jump they don't like.",
+  "watch_out": "Once it starts the player can't steer, so a pound that misses should still feel fair. Make the hang easy to see and keep it short. Down in the air may already mean fast fall or drop through a platform, so pick one meaning.",
+  "starting_values": "Super Mario 64 rises over 10 frames, then holds until the spin animation ends plus 4 frames. No checked source gives the spin's length. This demo hangs for 200 ms, then drops at 1100 px/s, about 1.5 times its normal 720 px/s max fall.",
+  "default_slider_values": {
+    "hangMs": 200.0
+  },
+  "prompt": "Add a ground pound.\n- Pressing [down / the pound button] in the air starts it. Stop all movement right away.\n- Hold the player in place for 200 ms. Show it with a spin, a pose or a sound.\n- Then drop straight down at [1.5] times the normal max fall speed. No steering during the drop.\n- On landing, hit or break whatever is right below and play a landing effect like dust or a small shake.\n- It can't start on the ground or during another pound.\n\nAcceptance checks:\n1. Starting a pound stops horizontal movement on the same frame.\n2. The drop starts 200 ms after the press. Log it.\n3. A pound that lands on a breakable block breaks it. A normal landing doesn't.\n4. Pressing the button on the ground does nothing.",
+  "sources": [
+    {
+      "title": "Frame Advance: Ground pound",
+      "url": "https://frameadvance.net/mechanics/ground-pound/"
+    }
+  ],
+  "page": "e/ground-pound/index.html",
+  "json": "api/ground-pound.json",
+  "updated": "2026-11-11"
+}

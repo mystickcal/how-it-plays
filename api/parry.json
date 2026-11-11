@@ -1,0 +1,39 @@
+{
+  "id": "parry",
+  "name": "Parry",
+  "category": "combat",
+  "aliases": [
+    "parrying",
+    "deflect",
+    "perfect block",
+    "perfect guard",
+    "timed block",
+    "just guard"
+  ],
+  "feels": [
+    "defense is boring",
+    "nothing to do but take hits"
+  ],
+  "summary": "A press timed just before an enemy's hit lands turns the hit aside and leaves the attacker open for a moment.",
+  "what_it_does": "With only a held block, defense means holding a button down. A parry asks for timing instead. Press just before the hit and it does no damage, and the attacker is left open for a moment. Frame Advance's reading of Street Fighter III: 3rd Strike says a fresh tap of the stick keeps a ground parry live for 10 passes of the game's input check, or 7 in the air. The game won't take another parry until a second counter, set 10 higher, runs out, so tapping again right away doesn't open a new window. Its notes on Super Mario RPG describe a timed guard there too, with a 5 frame window that blocks all the damage inside a wider span that blocks half.",
+  "use_when": "Action and fighting games with attacks the player can read, where you want defense to take skill. It works best with clear telegraphs, since players can only time what they see coming.",
+  "watch_out": "If presses can be mashed, players will just mash. Ignore a press that comes right after another one. Every attack that can be parried needs a clear wind up, and a missed parry should cost something, or pressing all the time becomes the safe play. Online lag eats into small windows.",
+  "starting_values": "3rd Strike keeps a ground parry open for 10 passes of its input check after the tap. Super Mario RPG's full block is 5 frames wide, about 83 ms at 60 frames a second. This demo opens a 150 ms window, wider than both because it's played on a keyboard in a browser, and it ignores a press that comes within 250 ms of the last one.",
+  "default_slider_values": {
+    "parryMs": 150.0
+  },
+  "prompt": "Add a parry to [the player].\n- Pressing [the parry button] opens a parry window of 150 ms (9 frames at 60 fps).\n- If an enemy attack would hit the player while the window is open, cancel the damage, stagger the attacker for [600] ms and play a clear parry effect.\n- Ignore a parry press that comes within [250] ms of the last press, so mashing can't keep the window open.\n- Only attacks marked as parryable can be parried. Give each one a wind up the player can see.\n- A missed parry costs something: the player can't attack or block until the window ends.\n\nAcceptance checks:\n1. Pressing parry 150 ms or less before a hit lands cancels the damage. Log the gap between the press and the hit.\n2. Pressing it earlier than that takes the hit.\n3. Pressing parry every 150 ms for a whole fight parries nothing after the first press.\n4. The attacker is staggered on the same frame as the parry.",
+  "sources": [
+    {
+      "title": "Frame Advance: Parry",
+      "url": "https://frameadvance.net/mechanics/parry/"
+    },
+    {
+      "title": "Frame Advance: Timed guard",
+      "url": "https://frameadvance.net/mechanics/timed-guard/"
+    }
+  ],
+  "page": "e/parry/index.html",
+  "json": "api/parry.json",
+  "updated": "2026-11-11"
+}

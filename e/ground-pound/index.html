@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ground pound: How It Plays</title>
+<meta name="description" content="A button in the air that stops the player dead, holds them for a moment, then drops them straight down fast to break or hit what&#x27;s below.">
+<meta property="og:site_name" content="How It Plays">
+<meta property="og:title" content="Ground pound: How It Plays">
+<meta property="og:description" content="A button in the air that stops the player dead, holds them for a moment, then drops them straight down fast to break or hit what&#x27;s below.">
+<meta property="og:url" content="https://mystickcal.github.io/how-it-plays/e/ground-pound/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ground pound: How It Plays">
+<meta name="twitter:description" content="A button in the air that stops the player dead, holds them for a moment, then drops them straight down fast to break or hit what&#x27;s below.">
+<meta name="twitter:image" content="https://mystickcal.github.io/how-it-plays/og.png">
+<meta name="twitter:image:alt" content="How It Plays: game feel you can play. Learn the name, feel it on and off, copy the prompt. By @omgitsderek.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt">
+<script defer src="https://newsletter.clickconsultants.com/u/script.js" data-website-id="6ec24210-90f9-4e61-8b5c-74d3c45555bc" data-domains="mystickcal.github.io"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../index.html">How It Plays</a></header>
+<main id="main">
+
+<article class="entry">
+  <p class="crumb"><a href="../../index.html">All techniques</a> &middot; <a href="../../index.html#cat-jumping">Jumping</a></p>
+  <h1>Ground pound</h1>
+  <p class="aka">Also called: butt stomp, hip drop, slam, dive bomb, stomp attack</p>
+  <p class="lead">A button in the air that stops the player dead, holds them for a moment, then drops them straight down fast to break or hit what&#x27;s below.</p>
+  <section class="demo" aria-label="Playable demo">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Playable demo of ground pound. Arrow keys or A and D to move, Space, W, Up or Z to jump, Down or S for down."></canvas>
+    <p class="stats" id="stats" aria-live="off"></p>
+    <div class="controls">
+      <button type="button" id="toggle" class="toggle" aria-pressed="true">Ground pound: on</button>
+      <button type="button" id="reset" class="ghost">Reset</button>
+      <div id="sliders" class="sliders"></div>
+    </div>
+    <div class="touch" aria-hidden="true" style="grid-template-columns:64px 64px 64px 1fr 84px">
+      <button type="button" data-touch="left">&larr;</button><button type="button" data-touch="right">&rarr;</button><button type="button" data-touch="down">&darr;</button>
+      <span></span>
+      <button type="button" data-touch="jump">Jump</button>
+    </div>
+    <p class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>A</kbd><kbd>D</kbd> move &middot; <kbd>Space</kbd> <kbd>W</kbd> <kbd>&uarr;</kbd> or <kbd>Z</kbd> jump &middot; <kbd>&darr;</kbd> or <kbd>S</kbd> down</p>
+    <p class="try"><strong>Try this:</strong> You start on a stack of crates. Jump, then press Down in the air. You stop, hang for a moment, then slam down and break the crate you land on. Turn it off and Down in the air does nothing, so the crates stay put.</p>
+  </section>
+  <section><h2>What it does</h2><p>Fast fall just speeds up a fall that&#x27;s already happening. A ground pound is a move you commit to. Frame Advance&#x27;s reading of the Super Mario 64 code says pressing Z in the air stops Mario dead, lifts him up to 110 units over 10 frames, holds him until his spin ends, then drops him starting at 50 units a frame. Banjo-Kazooie&#x27;s Beak Buster hangs too, then pops up a little before it falls. The pause shows a big hit is coming, and the straight drop makes it easy to aim at a block or an enemy below.</p></section>
+  <div class="when">
+    <section><h2>Use it when</h2><p>Platformers with breakable floors, switches to press or enemies to hit from above. It also gives players a quick way out of a jump they don&#x27;t like.</p></section>
+    <section><h2>Watch out</h2><p>Once it starts the player can&#x27;t steer, so a pound that misses should still feel fair. Make the hang easy to see and keep it short. Down in the air may already mean fast fall or drop through a platform, so pick one meaning.</p></section>
+  </div>
+  <section><h2>Starting values</h2><p>Super Mario 64 rises over 10 frames, then holds until the spin animation ends plus 4 frames. No checked source gives the spin&#x27;s length. This demo hangs for 200 ms, then drops at 1100 px/s, about 1.5 times its normal 720 px/s max fall.</p></section>
+  <section class="prompt-box">
+    <div class="prompt-head"><h2 id="prompt-h">Prompt for your coding agent</h2><button type="button" class="copy" data-copy="prompt">Copy prompt</button></div>
+    <p class="hint">The numbers follow the sliders above. Works with plain canvas, Phaser, Three.js or Godot.</p>
+    <script type="text/plain" id="prompt-template">Add a ground pound.
+- Pressing [down / the pound button] in the air starts it. Stop all movement right away.
+- Hold the player in place for {hangMs} ms. Show it with a spin, a pose or a sound.
+- Then drop straight down at [1.5] times the normal max fall speed. No steering during the drop.
+- On landing, hit or break whatever is right below and play a landing effect like dust or a small shake.
+- It can't start on the ground or during another pound.
+
+Acceptance checks:
+1. Starting a pound stops horizontal movement on the same frame.
+2. The drop starts {hangMs} ms after the press. Log it.
+3. A pound that lands on a breakable block breaks it. A normal landing doesn't.
+4. Pressing the button on the ground does nothing.</script>
+    <pre id="prompt" tabindex="0" aria-labelledby="prompt-h">Add a ground pound.
+- Pressing [down / the pound button] in the air starts it. Stop all movement right away.
+- Hold the player in place for 200 ms. Show it with a spin, a pose or a sound.
+- Then drop straight down at [1.5] times the normal max fall speed. No steering during the drop.
+- On landing, hit or break whatever is right below and play a landing effect like dust or a small shake.
+- It can&#x27;t start on the ground or during another pound.
+
+Acceptance checks:
+1. Starting a pound stops horizontal movement on the same frame.
+2. The drop starts 200 ms after the press. Log it.
+3. A pound that lands on a breakable block breaks it. A normal landing doesn&#x27;t.
+4. Pressing the button on the ground does nothing.</pre>
+  </section>
+  <section><h2>Sources</h2><ul class="links"><li><a href="https://frameadvance.net/mechanics/ground-pound/">Frame Advance: Ground pound</a></li></ul></section>
+  <p class="meta">Updated 2026-11-11. JSON: <a href="../../api/ground-pound.json">api/ground-pound.json</a></p>
+  <nav class="pn" aria-label="More techniques"><a href="../running-jump/index.html">&larr; Running jump</a><a href="../springboard/index.html">Springboard boost &rarr;</a></nav>
+</article>
+<script>document.addEventListener("DOMContentLoaded",function(){HIP_MOUNT("ground-pound");});</script>
+
+</main>
+<footer class="foot">
+  <form class="signup" id="signup" method="post" action="https://newsletter.clickconsultants.com/v1/subscriptions" data-brand="how-it-plays" data-source="how-it-plays-web" novalidate>
+    <label for="signup-email">One technique a week, by email</label>
+    <label class="hp" aria-hidden="true">Leave this blank <input name="company" type="text" tabindex="-1" autocomplete="off" maxlength="200"></label>
+    <div class="signup-row">
+      <input id="signup-email" type="email" name="email" maxlength="254" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit">Sign up</button>
+    </div>
+    <label class="signup-check"><input name="consent" type="checkbox" value="true" required> <span>Weekly email about one new game-feel technique. Unsubscribe any time.</span></label>
+    <p class="signup-note" id="signup-note" role="status" aria-live="polite"></p>
+    <noscript><p class="signup-note">JavaScript is required to sign up on this page. <a href="https://newsletter.clickconsultants.com/subscription/form">Open the hosted form</a> and choose How It Plays.</p></noscript>
+  </form>
+  <p class="made">Built by Derek Salyers &middot; <a href="https://x.com/omgitsderek">@omgitsderek on X</a> &middot; <a href="../../llms.txt">llms.txt</a> &middot; <a href="../../entries.json">entries.json</a></p>
+</footer>
+<script src="../../site.js" defer></script>
+<script src="../../demo.js" defer></script>
+<script src="../../entries.js" defer></script>
+</body>
+</html>

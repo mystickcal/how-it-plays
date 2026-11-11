@@ -1,0 +1,35 @@
+{
+  "id": "springboard",
+  "name": "Springboard boost",
+  "category": "jumping",
+  "aliases": [
+    "spring",
+    "bounce pad",
+    "jump pad",
+    "trampoline",
+    "timed spring jump",
+    "jumpspring"
+  ],
+  "feels": [
+    "bouncing has no skill to it",
+    "can't reach the ledge"
+  ],
+  "summary": "A spring launches the player when they land on it, and a jump press timed while it's squashed sends them much higher.",
+  "what_it_does": "A spring that always launches the same height is just a taller jump. A timed press turns it into a small test of skill. Frame Advance's reading of Super Mario Bros.: The Lost Levels shows a spring that squashes over four steps and launches at 7 px a frame. A new press of A from the second step on raises that to 12 px a frame, and to 32 on the green springs. Players who time it reach places the plain bounce can't, and players who don't still get a bounce.",
+  "use_when": "Platformers with springs, bounce pads or trampolines, when you want an optional higher route or a secret above the main path.",
+  "watch_out": "Show when the press counts, with the spring squashing and a color or a sound, or the big bounce feels random. A press held from before the landing shouldn't count, or players just hold jump. Keep required jumps reachable with the plain bounce.",
+  "starting_values": "In The Lost Levels the timed launch is 12 px a frame against 7, about 1.7 times. This demo launches at 560 px/s, holds the player on the spring for 150 ms, takes a new press from 40 ms in, and launches 1.5 times harder when it gets one. Only the boosted bounce reaches the high ledge.",
+  "default_slider_values": {
+    "boostMul": 1.5
+  },
+  "prompt": "Make springboards reward a timed jump press.\n- Landing on a spring holds the player on it for [150] ms while it squashes, then launches them.\n- A normal launch goes [the plain bounce height]. A fresh jump press while the spring is squashed launches 1.5 times harder.\n- Only a new press counts. Holding jump from before the landing does nothing extra.\n- Show when the press counts: squash the spring and flash a color or play a sound when the boost is set.\n- Anything the player must reach is reachable with the plain bounce. Put optional routes and secrets up high.\n\nAcceptance checks:\n1. Bouncing without pressing jump gives the same height every time. Log it.\n2. A press while the spring is squashed launches 1.5 times harder than the plain bounce.\n3. Holding jump the whole time gives the plain bounce, not the boosted one.\n4. The boost cue shows on the same frame the press is accepted.",
+  "sources": [
+    {
+      "title": "Frame Advance: Springboard",
+      "url": "https://frameadvance.net/mechanics/springboard/"
+    }
+  ],
+  "page": "e/springboard/index.html",
+  "json": "api/springboard.json",
+  "updated": "2026-11-11"
+}
